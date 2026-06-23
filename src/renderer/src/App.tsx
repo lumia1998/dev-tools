@@ -1,34 +1,75 @@
-import Versions from './components/Versions'
-import electronLogo from './assets/electron.svg'
+import { useState, useCallback } from 'react'
+import Sidebar from '@renderer/components/Sidebar'
+import Home from '@renderer/pages/Home'
+import Converter from '@renderer/pages/Converter'
 
 function App(): React.JSX.Element {
-  const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
+  const [currentPage, setCurrentPage] = useState('home')
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    try {
+      return (localStorage.getItem('theme') as 'light' | 'dark') || 'dark'
+    } catch {
+      return 'dark'
+    }
+  })
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
+    try {
+      return localStorage.getItem('sidebar-collapsed') === 'true'
+    } catch {
+      return false
+    }
+  })
+
+  // 同步主题到 document
+  document.documentElement.setAttribute('data-theme', theme)
+
+  const toggleTheme = useCallback(() => {
+    setTheme((prev) => {
+      const next = prev === 'dark' ? 'light' : 'dark'
+      try {
+        localStorage.setItem('theme', next)
+      } catch {
+        // ignore
+      }
+      return next
+    })
+  }, [])
+
+  const handleToggleCollapse = useCallback(() => {
+    setSidebarCollapsed((prev) => {
+      const next = !prev
+      try {
+        localStorage.setItem('sidebar-collapsed', String(next))
+      } catch {
+        // ignore
+      }
+      return next
+    })
+  }, [])
+
+  const renderPage = (): React.JSX.Element => {
+    switch (currentPage) {
+      case 'home':
+        return <Home onSelectTool={setCurrentPage} />
+      case 'data-size-converter':
+        return <Converter />
+      default:
+        return <Home onSelectTool={setCurrentPage} />
+    }
+  }
 
   return (
-    <>
-      <img alt="logo" className="logo" src={electronLogo} />
-      <div className="creator">Powered by electron-vite</div>
-      <div className="text">
-        Build an Electron app with <span className="react">React</span>
-        &nbsp;and <span className="ts">TypeScript</span>
-      </div>
-      <p className="tip">
-        Please try pressing <code>F12</code> to open the devTool
-      </p>
-      <div className="actions">
-        <div className="action">
-          <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">
-            Documentation
-          </a>
-        </div>
-        <div className="action">
-          <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-            Send IPC
-          </a>
-        </div>
-      </div>
-      <Versions></Versions>
-    </>
+    <div className="app-layout">
+      <Sidebar
+        currentPage={currentPage}
+        onNavigate={setCurrentPage}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+        collapsed={sidebarCollapsed}
+        onToggleCollapse={handleToggleCollapse}
+      />
+      <main className="main-content">{renderPage()}</main>
+    </div>
   )
 }
 
