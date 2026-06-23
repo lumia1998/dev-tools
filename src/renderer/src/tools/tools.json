@@ -1,0 +1,20 @@
+[
+  {
+    "id": "data-size-converter",
+    "name": "Data Size Converter",
+    "desc": "数据大小单位转换，支持 Binary/Decimal 模式",
+    "icon": "HardDrive",
+    "category": "换算工具",
+    "categoryIcon": "Code",
+    "isNew": true
+  },
+  {
+    "id": "my-ip",
+    "name": "我的 IP",
+    "desc": "查看本机内网 IP 地址",
+    "icon": "Globe",
+    "category": "网络工具",
+    "categoryIcon": "Globe",
+    "isNew": true
+  }
+]

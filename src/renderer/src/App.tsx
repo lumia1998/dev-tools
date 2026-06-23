@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import Sidebar from '@renderer/components/Sidebar'
 import Home from '@renderer/pages/Home'
 import Converter from '@renderer/pages/Converter'
+import MyIp from '@renderer/pages/MyIp'
 
 function App(): React.JSX.Element {
   const [currentPage, setCurrentPage] = useState('home')
@@ -53,6 +54,8 @@ function App(): React.JSX.Element {
         return <Home onSelectTool={setCurrentPage} />
       case 'data-size-converter':
         return <Converter />
+      case 'my-ip':
+        return <MyIp />
       default:
         return <Home onSelectTool={setCurrentPage} />
     }

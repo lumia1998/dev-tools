@@ -1,3 +1,4 @@
+import { useState, useMemo } from 'react'
 import {
   Home,
   Settings,
@@ -5,9 +6,15 @@ import {
   Sun,
   Moon,
   ChevronsLeft,
-  ChevronsRight
+  ChevronsRight,
+  ChevronDown,
+  Calculator,
+  Code,
+  Globe,
+  Wrench
 } from 'lucide-react'
 import { tools } from '@renderer/tools/registry'
+import { cn } from '@renderer/lib/utils'
 
 interface SidebarProps {
   currentPage: string
@@ -18,13 +25,18 @@ interface SidebarProps {
   onToggleCollapse: () => void
 }
 
-const navItems = [{ id: 'home', label: '首页', icon: Home }]
+// 分类图标映射
+const categoryIcons: Record<string, React.ComponentType<{ size?: number }>> = {
+  '换算工具': Calculator,
+  'JSON工具': Code,
+  '网络工具': Globe,
+  __default: Wrench
+}
 
-const toolItems = tools.map((t) => ({
-  id: t.id,
-  label: t.name,
-  icon: t.icon
-}))
+// 分类默认折叠状态
+const defaultCollapsedCategories: Record<string, boolean> = {}
+
+const navItems = [{ id: 'home', label: '首页', icon: Home }]
 
 const bottomItems = [
   { id: 'settings', label: '设置', icon: Settings },
@@ -45,12 +57,13 @@ function NavButton({
   const Icon = item.icon
   return (
     <button
-      className={`nav-icon-btn ${active ? 'active' : ''} ${collapsed ? 'collapsed' : ''}`}
+      className={cn('nav-icon-btn', active && 'active', collapsed && 'collapsed')}
       onClick={onClick}
+      title={collapsed ? item.label : undefined}
     >
-      <Icon size={18} />
+      <Icon size={18} className="nav-icon" />
       {!collapsed && <span className="nav-label">{item.label}</span>}
-      {collapsed && <span className="tooltip">{item.label}</span>}
+      {collapsed && <span className="nav-tooltip">{item.label}</span>}
     </button>
   )
 }
@@ -63,9 +76,35 @@ export default function Sidebar({
   collapsed,
   onToggleCollapse
 }: SidebarProps): React.JSX.Element {
+  // 按分类组织工具
+  const toolsByCategory = useMemo(() => {
+    const grouped: Map<string, typeof tools> = new Map()
+    for (const tool of tools) {
+      const category = tool.category || '其他'
+      if (!grouped.has(category)) {
+        grouped.set(category, [])
+      }
+      grouped.get(category)!.push(tool)
+    }
+    return grouped
+  }, [])
+
+  // 分类折叠状态
+  const [collapsedCategories, setCollapsedCategories] = useState<Record<string, boolean>>(
+    defaultCollapsedCategories
+  )
+
+  const toggleCategory = (category: string) => {
+    setCollapsedCategories((prev) => ({
+      ...prev,
+      [category]: !prev[category]
+    }))
+  }
+
   return (
-    <aside className={`sidebar ${collapsed ? 'sidebar-collapsed' : ''}`}>
+    <aside className={cn('sidebar', collapsed && 'sidebar-collapsed')}>
       <div className="sidebar-scroll">
+        {/* 首页 */}
         <div className="nav-group">
           {navItems.map((item) => (
             <NavButton
@@ -78,27 +117,69 @@ export default function Sidebar({
           ))}
         </div>
 
-        <div className="nav-group">
-          {toolItems.map((item) => (
-            <NavButton
-              key={item.id}
-              item={item}
-              active={currentPage === item.id}
-              collapsed={collapsed}
-              onClick={() => onNavigate(item.id)}
-            />
-          ))}
-        </div>
+        {/* 工具分类 */}
+        {[...toolsByCategory.entries()].map(([category, categoryTools]) => {
+          const CategoryIcon = categoryIcons[category] || categoryIcons.__default
+          const isCategoryCollapsed = collapsedCategories[category] ?? false
+
+          return (
+            <div key={category} className="nav-group">
+              {/* 分类标题（仅展开时显示） */}
+              {!collapsed && (
+                <button
+                  className="nav-category-header"
+                  onClick={() => toggleCategory(category)}
+                >
+                  <CategoryIcon size={14} className="nav-category-icon" />
+                  <span className="nav-category-label">{category}</span>
+                  <ChevronDown
+                    size={12}
+                    className={`nav-category-arrow ${isCategoryCollapsed ? 'collapsed' : ''}`}
+                  />
+                </button>
+              )}
+
+              {/* 收起时显示分类图标 */}
+              {collapsed && (
+                <div className="nav-category-collapsed" title={category}>
+                  <CategoryIcon size={14} />
+                </div>
+              )}
+
+              {/* 工具列表 */}
+              {(!isCategoryCollapsed || collapsed) &&
+                categoryTools.map((tool) => {
+                  const Icon = tool.icon
+                  return (
+                    <button
+                      key={tool.id}
+                      className={cn('nav-icon-btn', currentPage === tool.id && 'active', collapsed && 'collapsed')}
+                      onClick={() => onNavigate(tool.id)}
+                      title={collapsed ? tool.name : undefined}
+                    >
+                      <Icon size={18} className="nav-icon" />
+                      {!collapsed && <span className="nav-label">{tool.name}</span>}
+                      {collapsed && <span className="nav-tooltip">{tool.name}</span>}
+                    </button>
+                  )
+                })}
+            </div>
+          )
+        })}
       </div>
 
       <div className="sidebar-bottom">
-        <button className={`nav-icon-btn ${collapsed ? 'collapsed' : ''}`} onClick={onToggleTheme}>
-          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+        <button
+          className={cn('nav-icon-btn', collapsed && 'collapsed')}
+          onClick={onToggleTheme}
+          title={collapsed ? (theme === 'dark' ? '浅色模式' : '深色模式') : undefined}
+        >
+          {theme === 'dark' ? <Sun size={18} className="nav-icon" /> : <Moon size={18} className="nav-icon" />}
           {!collapsed && (
             <span className="nav-label">{theme === 'dark' ? '浅色模式' : '深色模式'}</span>
           )}
           {collapsed && (
-            <span className="tooltip">{theme === 'dark' ? '浅色模式' : '深色模式'}</span>
+            <span className="nav-tooltip">{theme === 'dark' ? '浅色模式' : '深色模式'}</span>
           )}
         </button>
         {bottomItems.map((item) => (
@@ -111,12 +192,13 @@ export default function Sidebar({
           />
         ))}
         <button
-          className={`nav-icon-btn ${collapsed ? 'collapsed' : ''}`}
+          className={cn('nav-icon-btn', collapsed && 'collapsed')}
           onClick={onToggleCollapse}
+          title={collapsed ? '展开' : '收起'}
         >
-          {collapsed ? <ChevronsRight size={18} /> : <ChevronsLeft size={18} />}
+          {collapsed ? <ChevronsRight size={18} className="nav-icon" /> : <ChevronsLeft size={18} className="nav-icon" />}
           {!collapsed && <span className="nav-label">收起</span>}
-          {collapsed && <span className="tooltip">展开</span>}
+          {collapsed && <span className="nav-tooltip">展开</span>}
         </button>
       </div>
     </aside>

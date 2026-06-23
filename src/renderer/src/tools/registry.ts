@@ -1,14 +1,23 @@
-import { HardDrive, Code } from 'lucide-react'
 import type { ToolItem } from '@renderer/types/tool'
+import { getIcon } from './icons'
+import toolsData from './tools.json'
 
-export const tools: ToolItem[] = [
-  {
-    id: 'data-size-converter',
-    name: 'Data Size Converter',
-    desc: '数据大小单位转换，支持 Binary/Decimal 模式',
-    icon: HardDrive,
-    category: '换算工具',
-    categoryIcon: Code,
-    isNew: true
-  }
-]
+interface ToolConfig {
+  id: string
+  name: string
+  desc: string
+  icon: string
+  category: string
+  categoryIcon: string
+  isNew?: boolean
+}
+
+export const tools: ToolItem[] = (toolsData as ToolConfig[]).map((tool) => ({
+  id: tool.id,
+  name: tool.name,
+  desc: tool.desc,
+  icon: getIcon(tool.icon),
+  category: tool.category,
+  categoryIcon: getIcon(tool.categoryIcon),
+  isNew: tool.isNew
+}))
