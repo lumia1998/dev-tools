@@ -7,6 +7,7 @@ import {
   FileJson,
   Network,
   Settings,
+  Monitor,
   type LucideIcon
 } from 'lucide-react'
 
@@ -18,7 +19,8 @@ const iconMap: Record<string, LucideIcon> = {
   Wrench,
   FileJson,
   Network,
-  Settings
+  Settings,
+  Monitor
 }
 
 export function getIcon(name: string): LucideIcon {

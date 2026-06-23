@@ -16,5 +16,14 @@
     "category": "网络工具",
     "categoryIcon": "Globe",
     "isNew": true
+  },
+  {
+    "id": "device-info",
+    "name": "设备信息",
+    "desc": "查看当前设备和浏览器运行环境",
+    "icon": "Monitor",
+    "category": "系统工具",
+    "categoryIcon": "Monitor",
+    "isNew": true
   }
 ]

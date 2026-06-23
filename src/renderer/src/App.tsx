@@ -3,6 +3,7 @@ import Sidebar from '@renderer/components/Sidebar'
 import Home from '@renderer/pages/Home'
 import Converter from '@renderer/pages/Converter'
 import MyIp from '@renderer/pages/MyIp'
+import DeviceInfo from '@renderer/pages/DeviceInfo'
 
 function App(): React.JSX.Element {
   const [currentPage, setCurrentPage] = useState('home')
@@ -56,6 +57,8 @@ function App(): React.JSX.Element {
         return <Converter />
       case 'my-ip':
         return <MyIp />
+      case 'device-info':
+        return <DeviceInfo />
       default:
         return <Home onSelectTool={setCurrentPage} />
     }

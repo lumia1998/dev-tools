@@ -4,6 +4,7 @@
 @import '../styles/home.css';
 @import '../styles/converter.css';
 @import '../styles/myip.css';
+@import '../styles/device-info.css';
 
 @tailwind base;
 @tailwind components;
