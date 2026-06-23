@@ -26,7 +26,7 @@
 }
 
 /* ========================================
-   侧边栏
+   侧边栏 - 代码编辑器风格
    ======================================== */
 
 .sidebar {
@@ -114,7 +114,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
   color: var(--color-text-muted);
   transition: all 0.15s ease;
@@ -203,15 +203,15 @@
 }
 
 .btn-primary {
-  background: var(--color-text);
+  background: var(--color-accent);
   color: var(--color-text-inverse);
-  border-color: var(--color-text);
+  border-color: var(--color-accent);
   font-weight: 600;
 }
 
 .btn-primary:hover {
-  background: var(--color-text-secondary);
-  border-color: var(--color-text-secondary);
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
 }
 
 .btn-secondary {
@@ -238,7 +238,7 @@
 }
 
 /* ========================================
-   首页
+   首页 - 代码编辑器风格
    ======================================== */
 
 .home-page {
@@ -261,6 +261,7 @@
   margin: 0 0 8px;
   color: var(--color-text);
   letter-spacing: -0.5px;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .home-subtitle {
@@ -269,9 +270,10 @@
   font-size: 15px;
 }
 
+/* 命令面板风格的搜索框 */
 .home-search {
   position: relative;
-  max-width: 400px;
+  max-width: 480px;
   margin: 0 auto;
 }
 
@@ -286,23 +288,26 @@
 
 .home-search-input {
   width: 100%;
-  padding: 10px 16px 10px 40px;
+  padding: 12px 16px 12px 40px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 10px;
   color: var(--color-text);
   font-size: 14px;
+  font-family: 'JetBrains Mono', monospace;
   outline: none;
-  transition: border-color 0.15s;
+  transition: all 0.2s ease;
   box-sizing: border-box;
 }
 
 .home-search-input:focus {
-  border-color: var(--color-border-hover);
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-glow);
 }
 
 .home-search-input::placeholder {
   color: var(--color-text-muted);
+  font-family: 'Inter', sans-serif;
 }
 
 .home-content {
@@ -324,13 +329,16 @@
 }
 
 .category-title {
-  font-size: 13px;
-  color: var(--color-text-secondary);
+  font-size: 12px;
+  color: var(--color-text-muted);
   margin: 0 0 16px;
   font-weight: 600;
   display: flex;
   align-items: center;
   gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .tool-grid {
@@ -339,51 +347,149 @@
   gap: 12px;
 }
 
+/* ========================================
+   代码片段卡片 - 签名元素
+   ======================================== */
+
 .tool-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 12px;
-  padding: 20px 16px;
+  border-radius: 10px;
+  padding: 0;
   cursor: pointer;
   transition: all 0.2s ease;
+  overflow: hidden;
+  position: relative;
 }
 
 .tool-card:hover {
-  border-color: var(--color-border-hover);
-  background: var(--color-surface-hover);
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-glow);
   transform: translateY(-2px);
 }
 
+/* 代码编辑器顶部标签栏 */
 .tool-card-header {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 14px;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--color-surface-hover);
+  border-bottom: 1px solid var(--color-border);
+  gap: 8px;
+}
+
+/* 文件名标签 */
+.tool-card-filename {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tool-card-filename-icon {
+  color: var(--color-accent);
+}
+
+/* 卡片内容区域 */
+.tool-card-body {
+  padding: 16px;
+}
+
+/* 工具图标和名称 */
+.tool-card-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
 .tool-icon {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: 8px;
   background: var(--color-accent-subtle);
   color: var(--color-accent);
+  flex-shrink: 0;
 }
 
 .tool-name {
   font-size: 14px;
   font-weight: 600;
   color: var(--color-text);
+  font-family: 'JetBrains Mono', monospace;
   margin-bottom: 4px;
 }
 
 .tool-desc {
   font-size: 12px;
   color: var(--color-text-muted);
-  margin: 0;
   line-height: 1.5;
+}
+
+/* 代码风格的描述 */
+.tool-card-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  padding: 12px;
+  background: var(--color-editor-bg);
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+}
+
+.tool-card-code-line {
+  display: flex;
+  gap: 12px;
+}
+
+.tool-card-code-number {
+  color: var(--color-text-muted);
+  user-select: none;
+  min-width: 20px;
+  text-align: right;
+}
+
+.tool-card-code-content {
+  color: var(--color-text-secondary);
+}
+
+/* 语法高亮风格 */
+.tool-card-code-keyword {
+  color: var(--color-accent);
+}
+
+.tool-card-code-string {
+  color: var(--color-success);
+}
+
+.tool-card-code-comment {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* NEW 标签 */
+.tool-card-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 2px 8px;
+  background: var(--color-success);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.5px;
 }
 
 /* ========================================
@@ -447,5 +553,393 @@
 @media (max-width: 480px) {
   .tool-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ========================================
+   Converter 页面 - Soft Minimalism
+   ======================================== */
+
+.converter-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 24px;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* 背景装饰 - 柔和渐变光晕 */
+.converter-bg-decoration {
+  position: fixed;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--color-accent-soft-subtle) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 主卡片 - 毛玻璃效果 */
+.converter-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: var(--shadow-xl);
+}
+
+/* Header */
+.converter-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.converter-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.converter-subtitle {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+/* 分段控制器 */
+.converter-segment {
+  display: flex;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 20px;
+}
+
+.converter-segment-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--color-text-muted);
+}
+
+.converter-segment-btn:hover {
+  color: var(--color-text-secondary);
+  background: var(--color-surface-hover);
+}
+
+.converter-segment-btn.active {
+  background: var(--color-accent-soft);
+  color: var(--color-text-inverse);
+  box-shadow: 0 2px 8px var(--color-accent-soft-glow);
+}
+
+.converter-segment-label {
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+}
+
+.converter-segment-hint {
+  font-size: 10px;
+  opacity: 0.7;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* 提示框 */
+.converter-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--color-accent-soft-subtle);
+  border-radius: 10px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.converter-callout-icon {
+  color: var(--color-accent-soft);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* 输入区域 */
+.converter-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.converter-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  transition: all 0.2s ease;
+}
+
+.converter-input-group.active {
+  border-color: var(--color-accent-soft);
+  box-shadow: 0 0 0 3px var(--color-accent-soft-glow);
+}
+
+.converter-input-label {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.converter-unit-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+}
+
+.converter-unit-full {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+/* 输入框 + 复制按钮 */
+.converter-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 0 4px 0 14px;
+  transition: all 0.2s ease;
+}
+
+.converter-input-wrapper:focus-within {
+  border-color: var(--color-accent-soft);
+  box-shadow: 0 0 0 3px var(--color-accent-soft-glow);
+}
+
+.converter-input {
+  flex: 1;
+  padding: 12px 0;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-text);
+  outline: none;
+}
+
+.converter-input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.5;
+}
+
+.converter-copy-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  opacity: 0.4;
+}
+
+.converter-input-wrapper:hover .converter-copy-btn {
+  opacity: 1;
+}
+
+.converter-copy-btn:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-accent-soft);
+}
+
+/* 精度选择 + 复制全部 */
+.converter-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.converter-precision {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.converter-precision-label {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.converter-precision-options {
+  display: flex;
+  gap: 4px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.converter-precision-btn {
+  padding: 6px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.converter-precision-btn:hover {
+  color: var(--color-text-secondary);
+  background: var(--color-surface-hover);
+}
+
+.converter-precision-btn.active {
+  background: var(--color-accent-soft);
+  color: var(--color-text-inverse);
+}
+
+.converter-copy-all {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.converter-copy-all:hover {
+  border-color: var(--color-border-hover);
+  color: var(--color-text);
+  background: var(--color-surface-hover);
+}
+
+/* 快捷转换 - Pill 标签 */
+.converter-shortcuts {
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+.converter-shortcuts-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.converter-shortcuts-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.converter-pill {
+  padding: 6px 14px;
+  border: none;
+  background: var(--color-surface);
+  border-radius: 100px;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid var(--color-border);
+}
+
+.converter-pill:hover {
+  background: var(--color-accent-soft-subtle);
+  color: var(--color-accent-soft);
+  border-color: var(--color-accent-soft);
+}
+
+.converter-pill:active {
+  transform: scale(0.95);
+}
+
+/* Toast */
+.converter-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-success);
+  z-index: 1000;
+  animation: toast-slide-in 0.2s ease;
+}
+
+/* 响应式 */
+@media (max-width: 600px) {
+  .converter-page {
+    padding: 24px 16px;
+  }
+
+  .converter-card {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .converter-title {
+    font-size: 20px;
+  }
+
+  .converter-segment-btn {
+    padding: 8px 12px;
   }
 }

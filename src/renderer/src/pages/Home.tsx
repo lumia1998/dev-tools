@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { Search } from 'lucide-react'
+import { Search, FileCode } from 'lucide-react'
 import { tools } from '@renderer/tools/registry'
 import type { ToolItem } from '@renderer/types/tool'
 
@@ -35,10 +35,17 @@ export default function Home({ onSelectTool }: HomeProps): React.JSX.Element {
     return grouped
   }, [filteredTools])
 
+  const getFileExtension = (id: string): string => {
+    const extMap: Record<string, string> = {
+      'data-size-converter': 'converter.ts'
+    }
+    return extMap[id] || `${id}.ts`
+  }
+
   return (
     <div className="home-page">
       <div className="home-header">
-        <h1 className="home-title">开发者工具箱</h1>
+        <h1 className="home-title">dev-tools</h1>
         <p className="home-subtitle">常用开发工具集合，提升你的开发效率</p>
 
         <div className="home-search">
@@ -46,7 +53,7 @@ export default function Home({ onSelectTool }: HomeProps): React.JSX.Element {
           <input
             className="home-search-input"
             type="text"
-            placeholder="搜索工具..."
+            placeholder="$ search tools..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -58,7 +65,7 @@ export default function Home({ onSelectTool }: HomeProps): React.JSX.Element {
           ([category, { tools: categoryTools, icon: CategoryIcon }]) => (
             <div key={category} className="tool-category">
               <h3 className="category-title">
-                <CategoryIcon size={16} />
+                <CategoryIcon size={14} />
                 <span>{category}</span>
               </h3>
               <div className="tool-grid">
@@ -70,18 +77,26 @@ export default function Home({ onSelectTool }: HomeProps): React.JSX.Element {
                       className="tool-card"
                       onClick={() => onSelectTool(t.id)}
                     >
+                      {t.isNew && <span className="tool-card-badge">NEW</span>}
+
                       <div className="tool-card-header">
-                        <div className="tool-icon">
-                          <Icon size={20} />
+                        <div className="tool-card-filename">
+                          <FileCode size={12} className="tool-card-filename-icon" />
+                          {getFileExtension(t.id)}
                         </div>
-                        {t.isNew && (
-                          <span className="py-0.5 px-2 bg-[var(--color-success)] text-white rounded text-[10px] font-semibold tracking-wide">
-                            NEW
-                          </span>
-                        )}
                       </div>
-                      <div className="tool-name">{t.name}</div>
-                      <div className="tool-desc">{t.desc}</div>
+
+                      <div className="tool-card-body">
+                        <div className="tool-card-info">
+                          <div className="tool-icon">
+                            <Icon size={18} />
+                          </div>
+                          <div>
+                            <div className="tool-name">{t.name}</div>
+                            <div className="tool-desc">{t.desc}</div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   )
                 })}
