@@ -97,5 +97,14 @@
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
+  },
+  {
+    "id": "timestamp-converter",
+    "name": "Timestamp Converter",
+    "desc": "Unix 时间戳与日期时间双向转换",
+    "icon": "Clock",
+    "category": "换算工具",
+    "categoryIcon": "Code",
+    "isNew": true
   }
 ]

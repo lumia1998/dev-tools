@@ -12,6 +12,7 @@ import URLCodec from '@renderer/pages/URLCodec'
 import HashGenerator from '@renderer/pages/HashGenerator'
 import PasswordGenerator from '@renderer/pages/PasswordGenerator'
 import JWTDecoder from '@renderer/pages/JWTDecoder'
+import TimestampConverter from '@renderer/pages/TimestampConverter'
 import About from '@renderer/pages/About'
 
 function App(): React.JSX.Element {
@@ -84,6 +85,8 @@ function App(): React.JSX.Element {
         return <PasswordGenerator />
       case 'jwt-decoder':
         return <JWTDecoder />
+      case 'timestamp-converter':
+        return <TimestampConverter />
       case 'about':
         return <About />
       default:

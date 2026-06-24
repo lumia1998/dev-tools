@@ -13,6 +13,7 @@
 @import '../styles/hash-generator.css';
 @import '../styles/password-generator.css';
 @import '../styles/jwt-decoder.css';
+@import '../styles/timestamp-converter.css';
 @import '../styles/about.css';
 
 @tailwind base;

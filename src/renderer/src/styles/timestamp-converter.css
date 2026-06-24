@@ -1,0 +1,418 @@
+/* ========================================
+   Timestamp Converter 页面
+   ======================================== */
+
+.tc-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 24px;
+  overflow-y: auto;
+}
+
+.tc-card {
+  width: 100%;
+  max-width: 560px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: var(--shadow-xl);
+}
+
+.tc-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.tc-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.tc-subtitle {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+/* 当前时间 */
+.tc-now {
+  padding: 16px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  margin-bottom: 16px;
+}
+
+.tc-now-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.tc-now-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 12px;
+}
+
+.tc-now-timestamps {
+  display: flex;
+  gap: 8px;
+}
+
+.tc-now-ts {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tc-now-ts:hover {
+  border-color: var(--color-accent-soft);
+}
+
+.tc-now-ts-label {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.tc-now-ts-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-accent-soft);
+}
+
+/* 时区选择 */
+.tc-tz-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  color: var(--color-text-muted);
+}
+
+.tc-tz-label {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.tc-tz-select {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  outline: none;
+  cursor: pointer;
+}
+
+.tc-tz-select option {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+/* 转换区域 */
+.tc-converter {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.tc-input-group {
+  flex: 1;
+}
+
+.tc-input-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.tc-input-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tc-input-hint {
+  font-size: 10px;
+  color: var(--color-text-muted);
+}
+
+.tc-input {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  color: var(--color-text);
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.tc-input:focus {
+  border-color: var(--color-accent-soft);
+}
+
+.tc-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.tc-swap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+/* 操作按钮 */
+.tc-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.tc-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tc-action-btn:hover {
+  border-color: var(--color-accent-soft);
+  color: var(--color-accent-soft);
+}
+
+/* 结果 */
+.tc-results {
+  margin-bottom: 24px;
+}
+
+.tc-result-section {
+  margin-bottom: 20px;
+}
+
+.tc-result-section:last-child {
+  margin-bottom: 0;
+}
+
+.tc-result-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.tc-result-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tc-result-item {
+  padding: 12px 14px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+}
+
+.tc-result-name {
+  display: block;
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin-bottom: 6px;
+}
+
+.tc-result-value-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tc-result-value {
+  flex: 1;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--color-text);
+  word-break: break-all;
+}
+
+.tc-copy-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.tc-copy-btn:hover {
+  border-color: var(--color-accent-soft);
+  color: var(--color-accent-soft);
+}
+
+/* 多时区 */
+.tc-tz-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.tc-tz-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.tc-tz-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.tc-tz-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--color-text);
+}
+
+/* 快捷计算 */
+.tc-quick-offsets {
+  padding: 16px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+}
+
+.tc-quick-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.tc-quick-header svg {
+  color: var(--color-accent-soft);
+}
+
+.tc-quick-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tc-quick-btn {
+  padding: 8px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tc-quick-btn:hover {
+  border-color: var(--color-accent-soft);
+  color: var(--color-accent-soft);
+  background: var(--color-accent-soft-subtle);
+}
+
+/* 响应式 */
+@media (max-width: 600px) {
+  .tc-page {
+    padding: 24px 16px;
+  }
+
+  .tc-card {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .tc-title {
+    font-size: 20px;
+  }
+
+  .tc-converter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tc-swap {
+    transform: rotate(90deg);
+    align-self: center;
+  }
+
+  .tc-tz-grid {
+    grid-template-columns: 1fr;
+  }
+}
