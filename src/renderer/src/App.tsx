@@ -17,6 +17,7 @@ import Base64Codec from '@renderer/pages/Base64Codec'
 import KeyboardTester from '@renderer/pages/KeyboardTester'
 import PortGenerator from '@renderer/pages/PortGenerator'
 import SubnetCalculator from '@renderer/pages/SubnetCalculator'
+import IPv4Converter from '@renderer/pages/IPv4Converter'
 import About from '@renderer/pages/About'
 
 function App(): React.JSX.Element {
@@ -99,6 +100,8 @@ function App(): React.JSX.Element {
         return <PortGenerator />
       case 'subnet-calculator':
         return <SubnetCalculator />
+      case 'ipv4-converter':
+        return <IPv4Converter />
       case 'about':
         return <About />
       default:

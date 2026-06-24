@@ -18,6 +18,7 @@
 @import '../styles/keyboard-tester.css';
 @import '../styles/port-generator.css';
 @import '../styles/subnet-calculator.css';
+@import '../styles/ipv4-converter.css';
 @import '../styles/about.css';
 
 @tailwind base;

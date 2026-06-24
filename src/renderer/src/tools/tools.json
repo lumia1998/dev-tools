@@ -142,5 +142,14 @@
     "category": "网络工具",
     "categoryIcon": "Globe",
     "isNew": true
+  },
+  {
+    "id": "ipv4-converter",
+    "name": "IPv4 Converter",
+    "desc": "IPv4 地址与数字格式互相转换",
+    "icon": "Globe",
+    "category": "网络工具",
+    "categoryIcon": "Globe",
+    "isNew": true
   }
 ]
