@@ -133,5 +133,14 @@
     "category": "网络工具",
     "categoryIcon": "Globe",
     "isNew": true
+  },
+  {
+    "id": "subnet-calculator",
+    "name": "Subnet Calculator",
+    "desc": "IPv4 子网计算器",
+    "icon": "Network",
+    "category": "网络工具",
+    "categoryIcon": "Globe",
+    "isNew": true
   }
 ]

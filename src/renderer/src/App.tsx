@@ -16,6 +16,7 @@ import TimestampConverter from '@renderer/pages/TimestampConverter'
 import Base64Codec from '@renderer/pages/Base64Codec'
 import KeyboardTester from '@renderer/pages/KeyboardTester'
 import PortGenerator from '@renderer/pages/PortGenerator'
+import SubnetCalculator from '@renderer/pages/SubnetCalculator'
 import About from '@renderer/pages/About'
 
 function App(): React.JSX.Element {
@@ -96,6 +97,8 @@ function App(): React.JSX.Element {
         return <KeyboardTester />
       case 'port-generator':
         return <PortGenerator />
+      case 'subnet-calculator':
+        return <SubnetCalculator />
       case 'about':
         return <About />
       default:

@@ -17,6 +17,7 @@
 @import '../styles/base64-codec.css';
 @import '../styles/keyboard-tester.css';
 @import '../styles/port-generator.css';
+@import '../styles/subnet-calculator.css';
 @import '../styles/about.css';
 
 @tailwind base;
