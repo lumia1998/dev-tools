@@ -106,5 +106,14 @@
     "category": "换算工具",
     "categoryIcon": "Code",
     "isNew": true
+  },
+  {
+    "id": "base64-codec",
+    "name": "Base64 Codec",
+    "desc": "Base64 编码与解码，支持 URL Safe",
+    "icon": "Binary",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
   }
 ]
