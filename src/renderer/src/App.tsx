@@ -6,6 +6,7 @@ import MyIp from '@renderer/pages/MyIp'
 import DeviceInfo from '@renderer/pages/DeviceInfo'
 import TokenGenerator from '@renderer/pages/TokenGenerator'
 import JWTGenerator from '@renderer/pages/JWTGenerator'
+import CronGenerator from '@renderer/pages/CronGenerator'
 import About from '@renderer/pages/About'
 
 function App(): React.JSX.Element {
@@ -66,6 +67,8 @@ function App(): React.JSX.Element {
         return <TokenGenerator />
       case 'jwt-generator':
         return <JWTGenerator />
+      case 'cron-generator':
+        return <CronGenerator />
       case 'about':
         return <About />
       default:

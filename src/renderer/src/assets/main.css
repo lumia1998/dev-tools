@@ -7,6 +7,7 @@
 @import '../styles/device-info.css';
 @import '../styles/token-generator.css';
 @import '../styles/jwt-generator.css';
+@import '../styles/cron-generator.css';
 @import '../styles/about.css';
 
 @tailwind base;

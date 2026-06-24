@@ -1,0 +1,588 @@
+/* ========================================
+   Cron Generator 页面 - Soft Minimalism
+   ======================================== */
+
+.cron-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 32px 24px;
+  overflow-y: auto;
+  position: relative;
+}
+
+.cron-bg-decoration {
+  position: fixed;
+  top: -200px;
+  left: -200px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--color-accent-soft-subtle) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cron-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 640px;
+}
+
+.cron-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.cron-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.cron-subtitle {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+/* 模式切换 */
+.cron-mode-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 6px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+}
+
+.cron-mode-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cron-mode-tab:hover {
+  color: var(--color-text-secondary);
+  background: var(--color-surface-hover);
+}
+
+.cron-mode-tab.active {
+  background: var(--color-accent-soft);
+  color: var(--color-text-inverse);
+  border-color: var(--color-accent-soft);
+}
+
+/* 操作按钮 */
+.cron-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.cron-reset-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cron-reset-btn:hover {
+  border-color: var(--color-border-hover);
+  color: var(--color-text-secondary);
+}
+
+/* 区块通用 */
+.cron-section {
+  padding: 20px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 16px;
+}
+
+.cron-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.cron-section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* 快捷模板 */
+.cron-templates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cron-template-btn {
+  padding: 8px 14px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cron-template-btn:hover {
+  border-color: var(--color-accent-soft);
+  color: var(--color-accent-soft);
+  background: var(--color-accent-soft-subtle);
+}
+
+/* 执行频率 */
+.cron-frequencies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cron-freq-btn {
+  flex: 1;
+  min-width: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 12px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cron-freq-btn:hover {
+  border-color: var(--color-border-hover);
+  color: var(--color-text);
+}
+
+.cron-freq-btn.active {
+  background: var(--color-accent-soft-subtle);
+  border-color: var(--color-accent-soft);
+  color: var(--color-accent-soft);
+}
+
+/* 详细配置字段 */
+.cron-field {
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cron-field:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.cron-field-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: 10px;
+}
+
+.cron-field-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.cron-field-btn {
+  padding: 6px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cron-field-btn:hover {
+  border-color: var(--color-border-hover);
+  color: var(--color-text-secondary);
+}
+
+.cron-field-btn.active {
+  background: var(--color-accent-soft-subtle);
+  border-color: var(--color-accent-soft);
+  color: var(--color-accent-soft);
+}
+
+.cron-field-input-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.cron-field-input-label {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.cron-field-input {
+  width: 60px;
+  padding: 6px 10px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text);
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  text-align: center;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.cron-field-input:focus {
+  border-color: var(--color-accent-soft);
+}
+
+.cron-field-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* 星期选择 */
+.cron-weekdays {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.cron-weekday-btn {
+  flex: 1;
+  padding: 10px 8px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cron-weekday-btn:hover {
+  border-color: var(--color-border-hover);
+  color: var(--color-text-secondary);
+}
+
+.cron-weekday-btn.active {
+  background: var(--color-accent-soft-subtle);
+  border-color: var(--color-accent-soft);
+  color: var(--color-accent-soft);
+}
+
+.cron-weekday-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.cron-weekday-action {
+  padding: 6px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cron-weekday-action:hover {
+  border-color: var(--color-border-hover);
+  color: var(--color-text-secondary);
+}
+
+/* Cron 表达式结果 */
+.cron-result {
+  background: var(--color-accent-soft-subtle);
+  border-color: var(--color-accent-soft);
+}
+
+.cron-expression {
+  padding: 16px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.cron-expression code {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-accent-soft);
+  letter-spacing: 2px;
+}
+
+.cron-copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cron-copy-btn:hover {
+  border-color: var(--color-accent-soft);
+  color: var(--color-accent-soft);
+}
+
+/* 描述 */
+.cron-description {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  text-transform: capitalize;
+}
+
+/* 执行预览 */
+.cron-preview-count {
+  display: flex;
+  gap: 6px;
+}
+
+.cron-count-btn {
+  padding: 4px 10px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cron-count-btn:hover {
+  border-color: var(--color-border-hover);
+  color: var(--color-text-secondary);
+}
+
+.cron-count-btn.active {
+  background: var(--color-accent-soft-subtle);
+  border-color: var(--color-accent-soft);
+  color: var(--color-accent-soft);
+}
+
+.cron-next-runs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cron-next-run-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+}
+
+.cron-next-run-icon {
+  color: var(--color-accent-soft);
+  flex-shrink: 0;
+}
+
+.cron-next-run-time {
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-text-secondary);
+}
+
+/* Parser 模式 */
+.cron-parser-input {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  color: var(--color-text);
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 2px;
+  text-align: center;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.cron-parser-input:focus {
+  border-color: var(--color-accent-soft);
+}
+
+.cron-parser-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.cron-parsed-fields {
+  display: flex;
+  gap: 10px;
+}
+
+.cron-parsed-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 8px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+}
+
+.cron-parsed-field-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cron-parsed-field-value {
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-accent-soft);
+}
+
+.cron-error {
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-danger);
+}
+
+/* Toast */
+.cron-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-success);
+  z-index: 1000;
+  animation: toast-slide-in 0.2s ease;
+}
+
+@keyframes toast-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 响应式 */
+@media (max-width: 600px) {
+  .cron-page {
+    padding: 20px 16px;
+  }
+
+  .cron-title {
+    font-size: 20px;
+  }
+
+  .cron-section {
+    padding: 16px;
+  }
+
+  .cron-frequencies {
+    gap: 6px;
+  }
+
+  .cron-freq-btn {
+    min-width: 70px;
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  .cron-weekdays {
+    gap: 4px;
+  }
+
+  .cron-weekday-btn {
+    padding: 8px 4px;
+    font-size: 11px;
+  }
+
+  .cron-parsed-fields {
+    flex-wrap: wrap;
+  }
+
+  .cron-parsed-field {
+    min-width: 60px;
+  }
+}

@@ -10,6 +10,7 @@ import {
   Monitor,
   Key,
   Shield,
+  Clock,
   type LucideIcon
 } from 'lucide-react'
 
@@ -24,7 +25,8 @@ const iconMap: Record<string, LucideIcon> = {
   Settings,
   Monitor,
   Key,
-  Shield
+  Shield,
+  Clock
 }
 
 export function getIcon(name: string): LucideIcon {
