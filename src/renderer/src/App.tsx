@@ -18,6 +18,7 @@ import KeyboardTester from '@renderer/pages/KeyboardTester'
 import PortGenerator from '@renderer/pages/PortGenerator'
 import SubnetCalculator from '@renderer/pages/SubnetCalculator'
 import IPv4Converter from '@renderer/pages/IPv4Converter'
+import IPRangeExpander from '@renderer/pages/IPRangeExpander'
 import About from '@renderer/pages/About'
 
 function App(): React.JSX.Element {
@@ -102,6 +103,8 @@ function App(): React.JSX.Element {
         return <SubnetCalculator />
       case 'ipv4-converter':
         return <IPv4Converter />
+      case 'ip-range-expander':
+        return <IPRangeExpander />
       case 'about':
         return <About />
       default:

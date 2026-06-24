@@ -1,0 +1,355 @@
+/* ========================================
+   IP Range Expander 页面
+   ======================================== */
+
+.re-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 24px;
+  overflow-y: auto;
+}
+
+.re-card {
+  width: 100%;
+  max-width: 560px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: var(--shadow-xl);
+}
+
+.re-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.re-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.re-subtitle {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+/* 输入区域 */
+.re-inputs {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.re-input-group {
+  flex: 1;
+}
+
+.re-input-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.re-input {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  color: var(--color-text);
+  font-size: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  text-align: center;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.re-input:focus {
+  border-color: var(--color-accent-soft);
+}
+
+.re-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.re-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  padding-bottom: 6px;
+}
+
+/* 示例 */
+.re-samples {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.re-sample-btn {
+  padding: 5px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.re-sample-btn:hover {
+  border-color: var(--color-accent-soft);
+  color: var(--color-accent-soft);
+}
+
+/* 统计 */
+.re-stats {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.re-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.re-stat-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.re-stat-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-accent-soft);
+}
+
+/* Section */
+.re-section {
+  margin-bottom: 24px;
+}
+
+.re-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.re-section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.re-copy-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: var(--color-accent-soft-subtle);
+  border: 1px solid var(--color-accent-soft);
+  border-radius: 6px;
+  color: var(--color-accent-soft);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.re-copy-all-btn:hover {
+  background: var(--color-accent-soft);
+  color: white;
+}
+
+/* CIDR 列表 */
+.re-cidr-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.re-cidr-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.re-cidr-item:hover {
+  border-color: var(--color-accent-soft);
+}
+
+.re-cidr-value {
+  flex: 1;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.re-cidr-hosts {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.re-copied-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: var(--color-success);
+  border-radius: 50%;
+  color: white;
+}
+
+/* 可视化 */
+.re-visual {
+  padding: 20px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+}
+
+.re-visual-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.re-visual-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  min-width: 80px;
+}
+
+.re-visual-block.start,
+.re-visual-block.end {
+  border-color: var(--color-accent-soft);
+}
+
+.re-visual-block.middle {
+  flex: 1;
+  background: var(--color-accent-soft-subtle);
+  border-color: var(--color-accent-soft);
+}
+
+.re-visual-label {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.re-visual-ip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.re-visual-line {
+  flex: 0.5;
+  height: 2px;
+  background: var(--color-border);
+}
+
+/* 空状态 */
+.re-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 40px;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+/* 响应式 */
+@media (max-width: 600px) {
+  .re-page {
+    padding: 24px 16px;
+  }
+
+  .re-card {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .re-title {
+    font-size: 20px;
+  }
+
+  .re-inputs {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .re-arrow {
+    transform: rotate(90deg);
+    align-self: center;
+    padding-bottom: 0;
+  }
+
+  .re-visual-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .re-visual-line {
+    width: 2px;
+    height: 16px;
+  }
+}

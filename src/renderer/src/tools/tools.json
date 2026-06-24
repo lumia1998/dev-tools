@@ -151,5 +151,14 @@
     "category": "网络工具",
     "categoryIcon": "Globe",
     "isNew": true
+  },
+  {
+    "id": "ip-range-expander",
+    "name": "IP Range Expander",
+    "desc": "IP 范围转 CIDR 计算",
+    "icon": "Network",
+    "category": "网络工具",
+    "categoryIcon": "Globe",
+    "isNew": true
   }
 ]

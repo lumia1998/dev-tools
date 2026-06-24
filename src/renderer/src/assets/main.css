@@ -19,6 +19,7 @@
 @import '../styles/port-generator.css';
 @import '../styles/subnet-calculator.css';
 @import '../styles/ipv4-converter.css';
+@import '../styles/ip-range-expander.css';
 @import '../styles/about.css';
 
 @tailwind base;
