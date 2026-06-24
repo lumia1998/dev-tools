@@ -48,6 +48,13 @@
   /* 卡片毛玻璃 */
   --glass-bg: rgba(22, 27, 34, 0.8);
   --glass-border: rgba(48, 54, 61, 0.6);
+
+  /* JSON 树视图颜色 */
+  --jf-key: #A78BFA;
+  --jf-string: #6EE7B7;
+  --jf-number: #FCD34D;
+  --jf-boolean: #93C5FD;
+  --jf-null: #9CA3AF;
 }
 
 /* ── 浅色模式 ── Soft Minimalism */
@@ -98,6 +105,13 @@
   /* 卡片毛玻璃 */
   --glass-bg: rgba(255, 255, 255, 0.85);
   --glass-border: rgba(232, 236, 240, 0.8);
+
+  /* JSON 树视图颜色 */
+  --jf-key: #7C3AED;
+  --jf-string: #059669;
+  --jf-number: #D97706;
+  --jf-boolean: #2563EB;
+  --jf-null: #6B7280;
 }
 
 /* ── 全局 Reset ── */

@@ -1,0 +1,611 @@
+/* ========================================
+   JSON Formatter - 左右对比布局
+   ======================================== */
+
+.jf-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.jf-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 20px;
+  gap: 12px;
+  min-height: 0;
+}
+
+/* 顶部操作栏 */
+.jf-topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.jf-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.jf-logo {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent-soft-subtle);
+  border-radius: 8px;
+  color: var(--color-accent-soft);
+}
+
+.jf-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -0.3px;
+}
+
+.jf-topbar-center {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.jf-topbar-right {
+  margin-left: auto;
+}
+
+.jf-indent-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.jf-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.jf-indent-tabs {
+  display: flex;
+  gap: 2px;
+  background: var(--color-surface);
+  border-radius: 6px;
+  padding: 2px;
+  border: 1px solid var(--color-border);
+}
+
+.jf-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 28px;
+  height: 26px;
+  padding: 0 8px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'JetBrains Mono', monospace;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.jf-tab:hover {
+  color: var(--color-text-secondary);
+  background: var(--color-surface-hover);
+}
+
+.jf-tab.active {
+  color: var(--color-accent-soft);
+  background: var(--color-accent-soft-subtle);
+}
+
+.jf-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--color-border);
+}
+
+.jf-primary-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.jf-view-tabs {
+  display: flex;
+  gap: 2px;
+  background: var(--color-surface);
+  border-radius: 6px;
+  padding: 2px;
+  border: 1px solid var(--color-border);
+}
+
+/* 按钮 */
+.jf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+}
+
+.jf-btn:hover:not(:disabled) {
+  border-color: var(--color-border-hover);
+  color: var(--color-text);
+}
+
+.jf-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.jf-btn-primary {
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent-soft);
+  color: white;
+}
+
+.jf-btn-primary:hover:not(:disabled) {
+  background: var(--color-accent-soft-hover);
+  border-color: var(--color-accent-soft-hover);
+  color: white;
+}
+
+.jf-btn-secondary {
+  background: var(--color-surface);
+  border-color: var(--color-accent-soft);
+  color: var(--color-accent-soft);
+}
+
+.jf-btn-secondary:hover:not(:disabled) {
+  background: var(--color-accent-soft-subtle);
+}
+
+.jf-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.jf-icon-btn:hover:not(:disabled) {
+  background: var(--color-surface-hover);
+  color: var(--color-text);
+}
+
+.jf-icon-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.jf-icon-btn.success {
+  color: var(--color-success);
+}
+
+/* 错误提示 */
+.jf-error-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--color-danger-subtle);
+  border: 1px solid var(--color-danger);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-danger);
+}
+
+.jf-error-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-danger);
+  border-radius: 50%;
+  animation: jf-pulse 1.5s ease infinite;
+}
+
+@keyframes jf-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.jf-error {
+  padding: 8px 12px;
+  background: var(--color-danger-subtle);
+  border: 1px solid var(--color-danger);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.jf-error-text {
+  font-size: 12px;
+  color: var(--color-danger);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.jf-error-pos {
+  color: var(--color-text-muted);
+  font-family: inherit;
+}
+
+/* 左右面板 */
+.jf-panels {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  min-height: 0;
+}
+
+.jf-panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  min-height: 0;
+}
+
+.jf-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.jf-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.jf-panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* 编辑器区域 */
+.jf-editor-area {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  background: var(--color-surface);
+}
+
+.jf-editor-area .cm-editor {
+  height: 100%;
+  background: transparent;
+}
+
+.jf-editor-area .cm-scroller {
+  overflow: auto;
+}
+
+.jf-editor-area .cm-content {
+  color: var(--color-text);
+}
+
+/* 树形视图区域 */
+.jf-tree-area {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 12px;
+}
+
+.jf-tree {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  background: transparent !important;
+  color: var(--color-text, #F0F6FC);
+}
+
+.jf-tree ul {
+  list-style: none;
+  padding-left: 20px !important;
+  margin: 0;
+  border-left: 1px dashed var(--color-border);
+}
+
+.jf-tree ul:first-child {
+  padding-left: 0 !important;
+  border-left: none;
+}
+
+.jf-tree li {
+  position: relative;
+  padding: 1px 0;
+}
+
+.jf-tree li::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 50%;
+  width: 10px;
+  height: 0;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+/* 树形视图 - 强制覆盖 react-json-view-lite 默认样式 */
+.jf-tree-key,
+.jf-tree-key span,
+.jf-tree-area .jf-tree-key {
+  color: var(--jf-key) !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+}
+
+.jf-tree-string,
+.jf-tree-string span,
+.jf-tree-area .jf-tree-string {
+  color: var(--jf-string) !important;
+}
+
+.jf-tree-number,
+.jf-tree-number span,
+.jf-tree-area .jf-tree-number {
+  color: var(--jf-number) !important;
+}
+
+.jf-tree-boolean,
+.jf-tree-boolean span,
+.jf-tree-area .jf-tree-boolean {
+  color: var(--jf-boolean) !important;
+}
+
+.jf-tree-null,
+.jf-tree-null span,
+.jf-tree-area .jf-tree-null {
+  color: var(--jf-null) !important;
+  font-style: italic !important;
+}
+
+.jf-tree-expand,
+.jf-tree-collapse {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
+  cursor: pointer;
+  color: var(--color-text);
+  background: var(--color-border);
+  border-radius: 4px;
+  transition: all 0.15s ease;
+  font-size: 10px;
+  user-select: none;
+}
+
+.jf-tree-expand::after {
+  content: '\25B8';
+  font-size: 12px;
+}
+
+.jf-tree-collapse::after {
+  content: '\25BE';
+  font-size: 12px;
+}
+
+.jf-tree-expand:hover,
+.jf-tree-collapse:hover {
+  color: white;
+  background: var(--color-accent-soft);
+}
+
+.jf-tree-collapsed {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* 空状态 */
+.jf-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 100%;
+  min-height: 200px;
+  color: var(--color-text-muted);
+}
+
+.jf-empty p {
+  font-size: 13px;
+}
+
+/* 右键菜单 */
+.jf-context-menu {
+  position: fixed;
+  z-index: 1000;
+  min-width: 220px;
+  padding: 4px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  box-shadow: var(--shadow-lg);
+  animation: jf-context-in 0.15s ease;
+}
+
+@keyframes jf-context-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.jf-context-header {
+  padding: 8px 12px 4px;
+}
+
+.jf-context-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-accent-soft);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.jf-context-divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: 4px 8px;
+}
+
+.jf-context-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.jf-context-item:hover {
+  background: var(--color-accent-soft-subtle);
+  color: var(--color-accent-soft);
+}
+
+.jf-context-item svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.jf-context-item:hover svg {
+  opacity: 1;
+}
+
+.jf-context-preview {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--color-text-muted);
+  background: var(--color-surface-hover);
+  padding: 2px 6px;
+  border-radius: 4px;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jf-context-item:hover .jf-context-preview {
+  background: var(--color-accent-soft-subtle);
+  color: var(--color-accent-soft);
+}
+
+/* Toast */
+.jf-toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  color: var(--color-success);
+  font-size: 12px;
+  font-weight: 500;
+  z-index: 1000;
+  animation: jf-slide-up 0.2s ease;
+}
+
+@keyframes jf-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .jf-container {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .jf-topbar {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .jf-topbar-center {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .jf-panels {
+    grid-template-columns: 1fr;
+  }
+}

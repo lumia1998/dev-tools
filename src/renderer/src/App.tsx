@@ -7,6 +7,7 @@ import DeviceInfo from '@renderer/pages/DeviceInfo'
 import TokenGenerator from '@renderer/pages/TokenGenerator'
 import JWTGenerator from '@renderer/pages/JWTGenerator'
 import CronGenerator from '@renderer/pages/CronGenerator'
+import JsonFormatter from '@renderer/pages/JsonFormatter'
 import About from '@renderer/pages/About'
 
 function App(): React.JSX.Element {
@@ -69,6 +70,8 @@ function App(): React.JSX.Element {
         return <JWTGenerator />
       case 'cron-generator':
         return <CronGenerator />
+      case 'json-formatter':
+        return <JsonFormatter />
       case 'about':
         return <About />
       default:

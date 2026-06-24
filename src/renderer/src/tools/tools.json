@@ -52,5 +52,14 @@
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
+  },
+  {
+    "id": "json-formatter",
+    "name": "JSON Formatter",
+    "desc": "格式化、压缩、校验 JSON 数据",
+    "icon": "FileJson",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
   }
 ]
