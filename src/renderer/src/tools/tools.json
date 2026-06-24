@@ -124,5 +124,14 @@
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
+  },
+  {
+    "id": "port-generator",
+    "name": "Port Generator",
+    "desc": "生成随机网络端口号",
+    "icon": "Zap",
+    "category": "网络工具",
+    "categoryIcon": "Globe",
+    "isNew": true
   }
 ]

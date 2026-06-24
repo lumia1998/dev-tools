@@ -15,6 +15,7 @@ import JWTDecoder from '@renderer/pages/JWTDecoder'
 import TimestampConverter from '@renderer/pages/TimestampConverter'
 import Base64Codec from '@renderer/pages/Base64Codec'
 import KeyboardTester from '@renderer/pages/KeyboardTester'
+import PortGenerator from '@renderer/pages/PortGenerator'
 import About from '@renderer/pages/About'
 
 function App(): React.JSX.Element {
@@ -93,6 +94,8 @@ function App(): React.JSX.Element {
         return <Base64Codec />
       case 'keyboard-tester':
         return <KeyboardTester />
+      case 'port-generator':
+        return <PortGenerator />
       case 'about':
         return <About />
       default:
