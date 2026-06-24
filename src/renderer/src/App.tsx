@@ -8,6 +8,7 @@ import TokenGenerator from '@renderer/pages/TokenGenerator'
 import JWTGenerator from '@renderer/pages/JWTGenerator'
 import CronGenerator from '@renderer/pages/CronGenerator'
 import JsonFormatter from '@renderer/pages/JsonFormatter'
+import URLCodec from '@renderer/pages/URLCodec'
 import About from '@renderer/pages/About'
 
 function App(): React.JSX.Element {
@@ -72,6 +73,8 @@ function App(): React.JSX.Element {
         return <CronGenerator />
       case 'json-formatter':
         return <JsonFormatter />
+      case 'url-codec':
+        return <URLCodec />
       case 'about':
         return <About />
       default:

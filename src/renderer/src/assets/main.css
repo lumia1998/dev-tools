@@ -9,6 +9,7 @@
 @import '../styles/jwt-generator.css';
 @import '../styles/cron-generator.css';
 @import '../styles/json-formatter.css';
+@import '../styles/url-codec.css';
 @import '../styles/about.css';
 
 @tailwind base;

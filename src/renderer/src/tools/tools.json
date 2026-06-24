@@ -61,5 +61,14 @@
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
+  },
+  {
+    "id": "url-codec",
+    "name": "URL Codec",
+    "desc": "URL 编码与解码，支持参数编码和完整 URL",
+    "icon": "Link2",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
   }
 ]
