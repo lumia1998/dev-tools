@@ -15,6 +15,7 @@
 @import '../styles/jwt-decoder.css';
 @import '../styles/timestamp-converter.css';
 @import '../styles/base64-codec.css';
+@import '../styles/keyboard-tester.css';
 @import '../styles/about.css';
 
 @tailwind base;

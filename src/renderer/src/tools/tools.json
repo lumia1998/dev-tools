@@ -115,5 +115,14 @@
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
+  },
+  {
+    "id": "keyboard-tester",
+    "name": "Keyboard Tester",
+    "desc": "实时查看键盘按键的 KeyboardEvent 信息",
+    "icon": "Keyboard",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
   }
 ]
