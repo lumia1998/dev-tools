@@ -10,6 +10,7 @@
 @import '../styles/cron-generator.css';
 @import '../styles/json-formatter.css';
 @import '../styles/url-codec.css';
+@import '../styles/hash-generator.css';
 @import '../styles/about.css';
 
 @tailwind base;

@@ -70,5 +70,14 @@
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
+  },
+  {
+    "id": "hash-generator",
+    "name": "Hash Generator",
+    "desc": "生成 MD5、SHA-1、SHA-256、SHA-512 哈希值",
+    "icon": "Hash",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
   }
 ]
