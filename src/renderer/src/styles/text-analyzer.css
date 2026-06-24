@@ -1,0 +1,196 @@
+/* ========================================
+   Text Analyzer 页面
+   ======================================== */
+
+.ta-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 24px;
+  overflow-y: auto;
+}
+
+.ta-card {
+  width: 100%;
+  max-width: 600px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: var(--shadow-xl);
+}
+
+.ta-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.ta-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.ta-subtitle {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+/* 输入区域 */
+.ta-input-area {
+  margin-bottom: 24px;
+}
+
+.ta-input-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.ta-input-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ta-samples {
+  display: flex;
+  gap: 6px;
+}
+
+.ta-sample-btn {
+  padding: 4px 10px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ta-sample-btn:hover {
+  border-color: var(--color-accent-soft);
+  color: var(--color-accent-soft);
+}
+
+.ta-textarea {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  color: var(--color-text);
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  resize: vertical;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.ta-textarea:focus {
+  border-color: var(--color-accent-soft);
+}
+
+.ta-textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* 统计网格 */
+.ta-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.ta-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  transition: all 0.15s ease;
+}
+
+.ta-stat-item:hover {
+  border-color: var(--color-border-hover);
+}
+
+.ta-stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--color-accent-soft-subtle);
+  border-radius: 10px;
+  color: var(--color-accent-soft);
+  flex-shrink: 0;
+}
+
+.ta-stat-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.ta-stat-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+.ta-stat-label {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 响应式 */
+@media (max-width: 600px) {
+  .ta-page {
+    padding: 24px 16px;
+  }
+
+  .ta-card {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .ta-title {
+    font-size: 20px;
+  }
+
+  .ta-input-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .ta-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ta-stat-value {
+    font-size: 16px;
+  }
+}

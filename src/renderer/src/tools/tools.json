@@ -160,5 +160,14 @@
     "category": "网络工具",
     "categoryIcon": "Globe",
     "isNew": true
+  },
+  {
+    "id": "text-analyzer",
+    "name": "Text Analyzer",
+    "desc": "实时分析文本统计信息",
+    "icon": "Type",
+    "category": "文本工具",
+    "categoryIcon": "FileText",
+    "isNew": true
   }
 ]
