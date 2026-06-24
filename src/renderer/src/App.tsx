@@ -11,6 +11,7 @@ import JsonFormatter from '@renderer/pages/JsonFormatter'
 import URLCodec from '@renderer/pages/URLCodec'
 import HashGenerator from '@renderer/pages/HashGenerator'
 import PasswordGenerator from '@renderer/pages/PasswordGenerator'
+import JWTDecoder from '@renderer/pages/JWTDecoder'
 import About from '@renderer/pages/About'
 
 function App(): React.JSX.Element {
@@ -81,6 +82,8 @@ function App(): React.JSX.Element {
         return <HashGenerator />
       case 'password-generator':
         return <PasswordGenerator />
+      case 'jwt-decoder':
+        return <JWTDecoder />
       case 'about':
         return <About />
       default:

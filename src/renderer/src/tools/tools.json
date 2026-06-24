@@ -88,5 +88,14 @@
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
+  },
+  {
+    "id": "jwt-decoder",
+    "name": "JWT Decoder",
+    "desc": "解析和检查 JWT Token",
+    "icon": "ShieldCheck",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
   }
 ]

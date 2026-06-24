@@ -1,0 +1,393 @@
+/* ========================================
+   JWT Decoder 页面
+   ======================================== */
+
+.jd-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 24px;
+  overflow-y: auto;
+}
+
+.jd-card {
+  width: 100%;
+  max-width: 600px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: var(--shadow-xl);
+}
+
+.jd-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.jd-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.jd-subtitle {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+/* 输入区域 */
+.jd-input-area {
+  margin-bottom: 20px;
+}
+
+.jd-input-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.jd-input-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.jd-input-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.jd-link-btn {
+  background: none;
+  border: none;
+  color: var(--color-accent-soft);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.15s ease;
+}
+
+.jd-link-btn:hover {
+  opacity: 0.8;
+}
+
+.jd-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  color: var(--color-text);
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1.5;
+  resize: vertical;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.jd-textarea:focus {
+  border-color: var(--color-accent-soft);
+}
+
+.jd-textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.jd-input-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.jd-clear-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.jd-clear-btn:hover {
+  border-color: var(--color-border-hover);
+  color: var(--color-text-secondary);
+}
+
+/* 状态 */
+.jd-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-left-width: 4px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.jd-expires {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* 错误 */
+.jd-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  background: var(--color-danger-subtle);
+  border: 1px solid var(--color-danger);
+  border-radius: 10px;
+  font-size: 12px;
+  color: var(--color-danger);
+  margin-bottom: 20px;
+}
+
+/* Section */
+.jd-section {
+  margin-bottom: 20px;
+}
+
+.jd-section:last-child {
+  margin-bottom: 0;
+}
+
+.jd-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.jd-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.jd-section-title svg {
+  color: var(--color-accent-soft);
+}
+
+.jd-section-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.jd-copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.jd-copy-btn:hover {
+  border-color: var(--color-accent-soft);
+  color: var(--color-accent-soft);
+}
+
+/* JSON */
+.jd-json-block {
+  padding: 14px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+.jd-json {
+  margin: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--color-text);
+  white-space: pre;
+}
+
+/* Meta */
+.jd-meta {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.jd-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.jd-meta-label {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.jd-meta-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-accent-soft);
+}
+
+/* 时间信息 */
+.jd-time-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.jd-time-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+}
+
+.jd-time-claim {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.jd-time-claim code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-accent-soft);
+  background: var(--color-accent-soft-subtle);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.jd-time-desc {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.jd-time-value {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.jd-time-ts {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.jd-time-human {
+  font-size: 12px;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+/* Token 信息 */
+.jd-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.jd-info-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+}
+
+.jd-info-label {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.jd-info-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* 响应式 */
+@media (max-width: 600px) {
+  .jd-page {
+    padding: 24px 16px;
+  }
+
+  .jd-card {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .jd-title {
+    font-size: 20px;
+  }
+
+  .jd-meta {
+    flex-direction: column;
+  }
+
+  .jd-time-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .jd-time-value {
+    align-items: flex-start;
+  }
+
+  .jd-info-grid {
+    grid-template-columns: 1fr;
+  }
+}

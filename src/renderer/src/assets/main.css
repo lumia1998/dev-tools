@@ -12,6 +12,7 @@
 @import '../styles/url-codec.css';
 @import '../styles/hash-generator.css';
 @import '../styles/password-generator.css';
+@import '../styles/jwt-decoder.css';
 @import '../styles/about.css';
 
 @tailwind base;
