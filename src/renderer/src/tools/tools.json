@@ -74,8 +74,17 @@
   {
     "id": "hash-generator",
     "name": "Hash Generator",
-    "desc": "生成 MD5、SHA-1、SHA-256、SHA-512 哈希值",
+    "desc": "生成 MD5、SHA-1、SHA-256、SHA-384、SHA-512 哈希值",
     "icon": "Hash",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
+  },
+  {
+    "id": "password-generator",
+    "name": "Password Generator",
+    "desc": "生成高强度安全随机密码",
+    "icon": "Lock",
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
