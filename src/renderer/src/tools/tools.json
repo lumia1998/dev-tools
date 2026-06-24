@@ -25,5 +25,14 @@
     "category": "系统工具",
     "categoryIcon": "Monitor",
     "isNew": true
+  },
+  {
+    "id": "token-generator",
+    "name": "Token Generator",
+    "desc": "生成 UUID、JWT、API Key 等随机标识符",
+    "icon": "Key",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
   }
 ]

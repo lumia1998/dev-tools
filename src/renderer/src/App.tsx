@@ -4,6 +4,7 @@ import Home from '@renderer/pages/Home'
 import Converter from '@renderer/pages/Converter'
 import MyIp from '@renderer/pages/MyIp'
 import DeviceInfo from '@renderer/pages/DeviceInfo'
+import TokenGenerator from '@renderer/pages/TokenGenerator'
 import About from '@renderer/pages/About'
 
 function App(): React.JSX.Element {
@@ -60,6 +61,8 @@ function App(): React.JSX.Element {
         return <MyIp />
       case 'device-info':
         return <DeviceInfo />
+      case 'token-generator':
+        return <TokenGenerator />
       case 'about':
         return <About />
       default:

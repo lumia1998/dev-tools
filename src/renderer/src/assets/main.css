@@ -5,6 +5,7 @@
 @import '../styles/converter.css';
 @import '../styles/myip.css';
 @import '../styles/device-info.css';
+@import '../styles/token-generator.css';
 @import '../styles/about.css';
 
 @tailwind base;
