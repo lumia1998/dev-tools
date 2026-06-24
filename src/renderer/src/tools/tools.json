@@ -34,5 +34,14 @@
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
+  },
+  {
+    "id": "jwt-generator",
+    "name": "JWT Generator",
+    "desc": "快速生成和调试 JSON Web Token",
+    "icon": "Shield",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
   }
 ]
