@@ -169,5 +169,14 @@
     "category": "文本工具",
     "categoryIcon": "FileText",
     "isNew": true
+  },
+  {
+    "id": "git-cheat-sheet",
+    "name": "Git Cheat Sheet",
+    "desc": "Git 命令速查手册",
+    "icon": "GitBranch",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
   }
 ]

@@ -20,6 +20,7 @@ import SubnetCalculator from '@renderer/pages/SubnetCalculator'
 import IPv4Converter from '@renderer/pages/IPv4Converter'
 import IPRangeExpander from '@renderer/pages/IPRangeExpander'
 import TextAnalyzer from '@renderer/pages/TextAnalyzer'
+import GitCheatSheet from '@renderer/pages/GitCheatSheet'
 import About from '@renderer/pages/About'
 
 function App(): React.JSX.Element {
@@ -108,6 +109,8 @@ function App(): React.JSX.Element {
         return <IPRangeExpander />
       case 'text-analyzer':
         return <TextAnalyzer />
+      case 'git-cheat-sheet':
+        return <GitCheatSheet />
       case 'about':
         return <About />
       default:
