@@ -39,7 +39,7 @@ src/
 
 **IPC 模式**: 主进程 `ipcMain.handle` / 渲染进程 `window.api.xxx()` (invoke) 或 `window.maven.xxx()` (Maven 代理)。状态更新走 `webContents.send` + `window.electron.ipcRenderer.on`。
 
-**路由**: `AppContent` 通过 `currentPage` state 做 switch-case 路由，每个 tool id 映射到一个 page 组件。Sidebar 从 `tools.json` 读取工具列表。
+**路由**: `App.tsx` 通过 `pages/registry.ts` 的 `getPageComponent()` 映射 tool id 到 lazy 组件，用 `Suspense` 包裹渲染。特殊页面（home / about / settings）硬编码在 App.tsx。
 
 **样式**: 全局 CSS 变量定义在 `main.css`，每页 CSS 独立。使用 `var(--color-*)` 主题变量，dark/light 由 `data-theme` 属性控制。无 CSS Modules，纯全局 CSS。
 
@@ -51,7 +51,8 @@ src/
 - **IPC 调用**: 渲染进程不直接 `fetch` 外部 API（CORS 问题），走 main process 代理
 - **数据分离**: 静态数据放 JSON 文件 import，不内联在组件里
 - **React 19 + @types/react 19**: `useRef` 需要显式初始值；有 `react-hooks/set-state-in-effect` 严格检查
-- **工具注册**: 新建工具需改 4 个地方 — `tools.json`, `App.tsx` (import + route), `main.css` (@import CSS), 实现文件
+- **工具注册**: 新建工具需改 3 个地方 — `tools.json` (配置), `pages/registry.ts` (lazy import), 实现文件 (页面 + CSS)。App.tsx 不需要改
+- **TypeScript**: `strict: true`，禁止 `any` 和 `@ts-ignore`，基础类型让 TS 推断，复杂类型显式标注泛型
 
 ## Notes
 
