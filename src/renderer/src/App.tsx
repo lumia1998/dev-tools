@@ -16,6 +16,7 @@ import JWTDecoder from '@renderer/pages/JWTDecoder'
 import TimestampConverter from '@renderer/pages/TimestampConverter'
 import Base64Codec from '@renderer/pages/Base64Codec'
 import KeyboardTester from '@renderer/pages/KeyboardTester'
+import MouseTester from '@renderer/pages/MouseTester'
 import PortGenerator from '@renderer/pages/PortGenerator'
 import SubnetCalculator from '@renderer/pages/SubnetCalculator'
 import IPv4Converter from '@renderer/pages/IPv4Converter'
@@ -86,6 +87,8 @@ function AppContent(): React.JSX.Element {
         return <Base64Codec />
       case 'keyboard-tester':
         return <KeyboardTester />
+      case 'mouse-tester':
+        return <MouseTester />
       case 'port-generator':
         return <PortGenerator />
       case 'subnet-calculator':

@@ -126,6 +126,15 @@
     "isNew": true
   },
   {
+    "id": "mouse-tester",
+    "name": "Mouse Tester",
+    "desc": "实时查看鼠标事件的 MouseEvent 信息",
+    "icon": "MousePointer",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
+  },
+  {
     "id": "port-generator",
     "name": "Port Generator",
     "desc": "生成随机网络端口号",
