@@ -39,6 +39,7 @@
 @import '../styles/diff-checker.css';
 @import '../styles/number-base.css';
 @import '../styles/unit-converter.css';
+@import '../styles/timer-stopwatch.css';
 
 @tailwind base;
 @tailwind components;

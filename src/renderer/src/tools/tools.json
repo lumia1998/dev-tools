@@ -331,5 +331,14 @@
     "category": "换算工具",
     "categoryIcon": "Calculator",
     "isNew": true
+  },
+  {
+    "id": "timer-stopwatch",
+    "name": "Timer & Stopwatch",
+    "desc": "秒表 · 倒计时 · 番茄钟 · 间歇训练计时器",
+    "icon": "Timer",
+    "category": "系统工具",
+    "categoryIcon": "Monitor",
+    "isNew": true
   }
 ]

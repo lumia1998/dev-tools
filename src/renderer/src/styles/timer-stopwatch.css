@@ -1,0 +1,374 @@
+/* ========================================
+   Timer & Stopwatch 页面
+   ======================================== */
+
+.ts-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  overflow-y: auto;
+}
+
+.ts-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: var(--shadow-xl);
+  text-align: center;
+}
+
+.ts-header {
+  margin-bottom: 24px;
+}
+
+.ts-title {
+  font-size: 22px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-text);
+  margin: 0 0 4px;
+}
+
+.ts-subtitle {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* ── Tabs ─────────────────────────────── */
+
+.ts-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  padding: 4px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  margin-bottom: 28px;
+}
+
+.ts-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 4px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ts-tab:hover:not(.active) {
+  color: var(--color-text);
+}
+
+.ts-tab.active {
+  background: var(--color-accent-soft);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ── Display ──────────────────────────── */
+
+.ts-display-wrap {
+  margin-bottom: 28px;
+}
+
+.ts-display {
+  padding: 20px 16px;
+  background: var(--color-editor-bg);
+  border: 2px solid var(--color-border);
+  border-radius: 16px;
+  margin-bottom: 10px;
+}
+
+.ts-time {
+  font-size: 56px;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.ts-phase-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  background: var(--color-accent-soft-subtle);
+  border: 1px solid var(--color-accent-soft);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-accent-soft);
+  margin-bottom: 8px;
+}
+
+/* Progress bar */
+.ts-progress-track {
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.ts-progress-fill {
+  height: 100%;
+  background: var(--color-accent-soft);
+  border-radius: 2px;
+  transition: width 0.1s linear;
+}
+
+.ts-prog-work { background: #f97316; }
+.ts-prog-rest { background: #22c55e; }
+
+/* ── Controls ─────────────────────────── */
+
+.ts-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.ts-ctrl-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 22px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ts-ctrl-btn:hover {
+  background: var(--color-surface-hover);
+  border-color: var(--color-border-hover);
+}
+
+.ts-ctrl-primary {
+  background: var(--color-accent-soft);
+  color: #fff;
+  border-color: var(--color-accent-soft);
+  min-width: 120px;
+}
+
+.ts-ctrl-primary:hover {
+  background: var(--color-accent-soft-hover, var(--color-accent-soft));
+  color: #fff;
+}
+
+/* ── Settings ─────────────────────────── */
+
+.ts-settings {
+  margin-bottom: 20px;
+}
+
+.ts-presets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.ts-preset-btn {
+  padding: 5px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ts-preset-btn:hover {
+  border-color: var(--color-accent-soft);
+  color: var(--color-accent-soft);
+}
+
+.ts-cd-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-text-muted);
+}
+
+.ts-cd-input {
+  width: 56px;
+  padding: 8px;
+  text-align: center;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-text);
+  outline: none;
+}
+
+.ts-cd-input:focus {
+  border-color: var(--color-accent-soft);
+}
+
+.ts-setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+.ts-setting-input {
+  width: 56px;
+  padding: 4px 8px;
+  text-align: center;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-text);
+  outline: none;
+}
+
+.ts-setting-input:focus {
+  border-color: var(--color-accent-soft);
+}
+
+/* ── Laps ─────────────────────────────── */
+
+.ts-laps {
+  text-align: left;
+  margin-bottom: 16px;
+}
+
+.ts-laps-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ts-lap-clear {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.ts-lap-clear:hover {
+  color: var(--color-danger, #e53e3e);
+}
+
+.ts-lap-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  margin-bottom: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+}
+
+.ts-lap-id {
+  color: var(--color-text-muted);
+  font-weight: 600;
+  min-width: 28px;
+}
+
+.ts-lap-time {
+  color: var(--color-accent-soft);
+  font-weight: 600;
+}
+
+.ts-lap-total {
+  margin-left: auto;
+  color: var(--color-text-muted);
+}
+
+/* ── Hint ─────────────────────────────── */
+
+.ts-hint {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+.ts-hint kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+}
+
+/* ── Responsive ───────────────────────── */
+
+@media (max-width: 500px) {
+  .ts-page {
+    padding: 24px 16px;
+  }
+
+  .ts-card {
+    padding: 24px 18px;
+    border-radius: 18px;
+  }
+
+  .ts-time {
+    font-size: 40px;
+  }
+
+  .ts-tab {
+    font-size: 10px;
+  }
+
+  .ts-controls {
+    flex-wrap: wrap;
+  }
+}

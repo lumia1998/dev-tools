@@ -46,7 +46,8 @@ const pageMap: Record<string, React.LazyExoticComponent<ComponentType>> = {
   'regex-tester': lazy(() => import('./RegexTester')),
   'diff-checker': lazy(() => import('./DiffChecker')),
   'number-base': lazy(() => import('./NumberBase')),
-  'unit-converter': lazy(() => import('./UnitConverter'))
+  'unit-converter': lazy(() => import('./UnitConverter')),
+  'timer-stopwatch': lazy(() => import('./TimerStopwatch'))
 }
 
 export function getPageComponent(id: string): React.LazyExoticComponent<ComponentType> | null {
