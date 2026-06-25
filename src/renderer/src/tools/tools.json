@@ -313,5 +313,14 @@
     "category": "文本工具",
     "categoryIcon": "FileText",
     "isNew": true
+  },
+  {
+    "id": "number-base",
+    "name": "Number Base Converter",
+    "desc": "进制转换 · 反码 · 补码（Bin/Oct/Dec/Hex）",
+    "icon": "Binary",
+    "category": "换算工具",
+    "categoryIcon": "Calculator",
+    "isNew": true
   }
 ]

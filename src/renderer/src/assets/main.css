@@ -37,6 +37,7 @@
 @import '../styles/lorem-ipsum.css';
 @import '../styles/regex-tester.css';
 @import '../styles/diff-checker.css';
+@import '../styles/number-base.css';
 
 @tailwind base;
 @tailwind components;
