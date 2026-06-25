@@ -29,8 +29,8 @@ src/
 │   └── index.d.ts  # 全局类型声明 (Window 扩展)
 └── renderer/src/   # React 前端
     ├── App.tsx     # 根组件：路由、主题、字体大小
-    ├── pages/      # 25+ 工具页面 (每个工具一个文件)
-    ├── components/ # 共享组件 (Sidebar, CommandPalette, ui/)
+    ├── pages/      # 28+ 工具页面 (每个工具一个文件)
+    ├── components/ # 共享组件 (Sidebar, CommandPalette, CheatSheet, ui/)
     ├── tools/      # 每个工具的 hook + 数据 (JSON)
     ├── lib/        # contexts, updater-context, maven-api
     ├── styles/     # 每个页面一份 CSS，由 main.css @import

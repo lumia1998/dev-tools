@@ -120,6 +120,28 @@ export default function ToolPage(): React.JSX.Element {
 }
 ```
 
+### 通用 CheatSheet 组件
+位置: `components/CheatSheet.tsx`
+用途: 速查表类工具（Git/Docker/npm/Linux/K8s）共享的搜索+分类+命令列表+复制组件
+```typescript
+import CheatSheet from '@renderer/components/CheatSheet'
+import commands from '@renderer/tools/my-cheat-sheet/commands.json'
+import type { CheatSheetCategory } from '@renderer/components/CheatSheet'
+
+const CATEGORIES: CheatSheetCategory[] = commands as CheatSheetCategory[]
+
+export default function MyCheatSheet(): React.JSX.Element {
+  return (
+    <CheatSheet
+      title="My Cheat Sheet"
+      subtitle="命令速查手册"
+      categories={CATEGORIES}
+      searchPlaceholder="搜索命令..."
+    />
+  )
+}
+```
+
 ## 可复用工具函数
 
 ### useConverter Hook
