@@ -44,6 +44,7 @@
 @import '../styles/xpath-tester.css';
 @import '../styles/image-tools.css';
 @import '../styles/data-converter.css';
+@import '../styles/uuid-decoder.css';
 
 @tailwind base;
 @tailwind components;

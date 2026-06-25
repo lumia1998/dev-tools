@@ -412,5 +412,23 @@
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
+  },
+  {
+    "id": "uuid-decoder",
+    "name": "UUID Decoder",
+    "desc": "解析 UUID 版本、变体、时间戳与 MAC",
+    "icon": "Fingerprint",
+    "category": "编码/加密",
+    "categoryIcon": "Lock",
+    "isNew": true
+  },
+  {
+    "id": "css-cheat-sheet",
+    "name": "CSS Cheat Sheet",
+    "desc": "Flexbox · Grid · 单位 · 选择器 · 动画速查",
+    "icon": "Palette",
+    "category": "备忘录",
+    "categoryIcon": "BookMarked",
+    "isNew": true
   }
 ]

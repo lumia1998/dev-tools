@@ -1,0 +1,110 @@
+[
+  {
+    "id": "flex-container",
+    "label": "Flexbox — 容器属性",
+    "icon": "📦",
+    "commands": [
+      { "command": "display: flex", "description": "启用 Flexbox 布局", "example": "display: flex 将子元素变成 flex items" },
+      { "command": "flex-direction: row / row-reverse / column / column-reverse", "description": "主轴方向", "example": "column：从上到下排列" },
+      { "command": "flex-wrap: nowrap / wrap / wrap-reverse", "description": "是否换行", "example": "wrap：子元素过多时自动换行" },
+      { "command": "justify-content: flex-start / flex-end / center / space-between / space-around / space-evenly", "description": "主轴对齐", "example": "space-between：两端对齐，间距平分" },
+      { "command": "align-items: stretch / flex-start / flex-end / center / baseline", "description": "交叉轴对齐（单行）", "example": "center：垂直居中" },
+      { "command": "align-content: flex-start / flex-end / center / stretch / space-between / space-around", "description": "多行对齐", "example": "space-around：每行间距相等" },
+      { "command": "gap: <size>", "description": "子元素间距", "example": "gap: 16px 子元素之间 16px 间距" }
+    ]
+  },
+  {
+    "id": "flex-item",
+    "label": "Flexbox — 子项属性",
+    "icon": "🔲",
+    "commands": [
+      { "command": "flex: <grow> <shrink> <basis>", "description": "弹性简写", "example": "flex: 1 表示 flex-grow:1, flex-shrink:1, flex-basis:0%" },
+      { "command": "flex-grow: <number>", "description": "放大比例", "example": "flex-grow: 2 占据两倍剩余空间" },
+      { "command": "flex-shrink: <number>", "description": "缩小比例", "example": "flex-shrink: 0 不收缩" },
+      { "command": "flex-basis: <size>", "description": "初始大小", "example": "flex-basis: 200px" },
+      { "command": "align-self: auto / flex-start / flex-end / center / baseline / stretch", "description": "单独对齐", "example": "align-self: center 子项独自垂直居中" },
+      { "command": "order: <number>", "description": "排列顺序", "example": "order: -1 排到最前面" }
+    ]
+  },
+  {
+    "id": "grid-container",
+    "label": "Grid — 容器属性",
+    "icon": "🔲",
+    "commands": [
+      { "command": "display: grid", "description": "启用 Grid 布局", "example": "display: grid" },
+      { "command": "grid-template-columns: <track>", "description": "列定义", "example": "repeat(3, 1fr) 三列等宽" },
+      { "command": "grid-template-rows: <track>", "description": "行定义", "example": "grid-template-rows: 100px auto 100px" },
+      { "command": "grid-template-areas: <area>", "description": "命名区域", "example": "grid-template-areas: 'header header' 'sidebar main' 'footer footer'" },
+      { "command": "gap: <row> <column>", "description": "行列间距", "example": "gap: 16px 12px 行间距 16px，列间距 12px" },
+      { "command": "justify-items: start / end / center / stretch", "description": "水平对齐（单元格内）", "example": "center：单元格内水平居中" },
+      { "command": "align-items: start / end / center / stretch", "description": "垂直对齐（单元格内）", "example": "stretch：默认拉伸填满单元格" },
+      { "command": "grid-auto-rows / grid-auto-columns: <size>", "description": "隐式轨道大小", "example": "grid-auto-rows: minmax(100px, auto)" }
+    ]
+  },
+  {
+    "id": "grid-item",
+    "label": "Grid — 子项属性",
+    "icon": "🧱",
+    "commands": [
+      { "command": "grid-column: <start> / <end>", "description": "列跨距", "example": "grid-column: 1 / 3 从第 1 列到第 3 列" },
+      { "command": "grid-row: <start> / <end>", "description": "行跨距", "example": "grid-row: 1 / 3 从第 1 行到第 3 行" },
+      { "command": "grid-area: <row-start> / <col-start> / <row-end> / <col-end>", "description": "区域简写", "example": "grid-area: 1 / 1 / 3 / 3" },
+      { "command": "justify-self: start / end / center / stretch", "description": "单独水平对齐", "example": "justify-self: end 单元格内右对齐" },
+      { "command": "align-self: start / end / center / stretch", "description": "单独垂直对齐", "example": "align-self: center 单元格内垂直居中" }
+    ]
+  },
+  {
+    "id": "units",
+    "label": "常用单位",
+    "icon": "📏",
+    "commands": [
+      { "command": "px", "description": "像素，绝对单位", "example": "16px 适合边框和字号" },
+      { "command": "rem", "description": "根元素字体大小 (默认 16px)", "example": "2rem = 32px" },
+      { "command": "em", "description": "当前元素字体大小", "example": "1.5em 适合 padding/margin" },
+      { "command": "%", "description": "百分比（父元素相对）", "example": "width: 50% 父容器一半宽度" },
+      { "command": "vw / vh", "description": "视口宽/高百分比", "example": "100vh 全屏高度" },
+      { "command": "vmin / vmax", "description": "视口最小/最大边百分比", "example": "50vmin 50% 的短边" },
+      { "command": "fr", "description": "Grid 剩余空间分配", "example": "1fr 平分一份剩余空间" },
+      { "command": "ch", "description": "字符 0 的宽度", "example": "60ch 约 60 个字符宽度" }
+    ]
+  },
+  {
+    "id": "selectors",
+    "label": "高级选择器",
+    "icon": "🎯",
+    "commands": [
+      { "command": ":is()", "description": "选择器分组", "example": ":is(header, main, footer) p 多个容器下的 p" },
+      { "command": ":where()", "description": "选择器分组（优先级 0）", "example": ":where(.card) p 不增加特异性" },
+      { "command": ":has()", "description": "父选择器", "example": "div:has(> p) 包含直接子元素 p 的 div" },
+      { "command": ":not()", "description": "否定选择器", "example": "input:not([type=submit]) 非提交按钮的 input" },
+      { "command": ":nth-child(an+b)", "description": "序号选择", "example": "li:nth-child(2n+1) 奇数行" },
+      { "command": ":nth-of-type()", "description": "同类型序号", "example": "p:nth-of-type(2) 第二个 p 元素" },
+      { "command": "::before / ::after", "description": "伪元素", "example": "a::after { content: '→' }" },
+      { "command": "> / + / ~", "description": "组合器", "example": "ul > li | h2 + p | h2 ~ p" }
+    ]
+  },
+  {
+    "id": "functions",
+    "label": "CSS 函数",
+    "icon": "🔧",
+    "commands": [
+      { "command": "min() / max()", "description": "取最小/最大值", "example": "width: min(100%, 800px)" },
+      { "command": "clamp()", "description": "限值范围", "example": "font-size: clamp(1rem, 2.5vw, 2rem)" },
+      { "command": "calc()", "description": "数学运算", "example": "width: calc(100% - 40px)" },
+      { "command": "var()", "description": "CSS 变量", "example": "color: var(--color-primary)" },
+      { "command": "attr()", "description": "HTML 属性值", "example": "content: attr(data-tip)" },
+      { "command": "rgb() / hsl()", "description": "颜色函数", "example": "rgb(99 102 241 / .8)" }
+    ]
+  },
+  {
+    "id": "animations",
+    "label": "动画与过渡",
+    "icon": "🎬",
+    "commands": [
+      { "command": "transition: <prop> <dur> <easing>", "description": "过渡效果", "example": "transition: transform 0.3s ease" },
+      { "command": "transform: translate() / rotate() / scale() / skew()", "description": "变换", "example": "transform: translateX(50%) scale(1.1)" },
+      { "command": "@keyframes name { from…to… }", "description": "关键帧动画", "example": "@keyframes fadeIn { from { opacity:0 } to { opacity:1 } }" },
+      { "command": "animation: <name> <dur> <count>", "description": "动画简写", "example": "animation: fadeIn 0.5s ease forwards" }
+    ]
+  }
+]
