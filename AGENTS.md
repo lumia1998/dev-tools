@@ -54,6 +54,22 @@ src/
 - **工具注册**: 新建工具需改 3 个地方 — `tools.json` (配置), `pages/registry.ts` (lazy import), 实现文件 (页面 + CSS)。App.tsx 不需要改
 - **TypeScript**: `strict: true`，禁止 `any` 和 `@ts-ignore`，基础类型让 TS 推断，复杂类型显式标注泛型
 
+## 回复约束（必须遵守）
+
+- **每次回复必须以 `(∠・ω＜ )⌒☆` 开头** — 不可省略
+- **语言跟随用户** — 用户写中文就用中文回复，切换时跟随
+- **技术术语不翻译** — 代码、标识符、文件路径、命令保持原文
+- **编码前先确认风格** — 阅读对应记忆文件，对齐项目已有风格，不要自由发挥
+
+### 记忆文件索引（遇到对应场景必须先读）
+
+| 文件 | 场景 |
+|------|------|
+| `memory/tool-patterns.md` | 新建/修改工具页面、注册表、hooks |
+| `memory/design-system.md` | UI 样式、CSS 变量、组件布局 |
+| `memory/ts-conventions.md` | TypeScript 类型、变量命名、React 类型写法 |
+| `memory/git-commit-style.md` | 提交 commit 时的消息格式 |
+
 ## Notes
 
 - electron-builder v26: `win.nsis` 为工具集版本字符串，NSIS 选项在根级 `nsis` 键下
