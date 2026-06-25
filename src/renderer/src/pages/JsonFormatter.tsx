@@ -1,4 +1,4 @@
-import { useCallback, useRef, useEffect, useState } from 'react'
+import { useCallback, useRef, useEffect, useState, useMemo } from 'react'
 import {
   Copy,
   Check,
@@ -12,7 +12,8 @@ import {
   CopyPlus,
   Route,
   Key,
-  BracesIcon
+  BracesIcon,
+  ArrowUpDown
 } from 'lucide-react'
 import CodeMirror from '@uiw/react-codemirror'
 import { json } from '@codemirror/lang-json'
@@ -135,6 +136,7 @@ export default function JsonFormatter(): React.JSX.Element {
     parsedData,
     handleFormat,
     handleMinify,
+    handleSortKeys,
     handleCopy,
     handleClear,
     handleLoadSample,
@@ -147,6 +149,44 @@ export default function JsonFormatter(): React.JSX.Element {
   const isSyncingScroll = useRef(false)
   const [contextMenu, setContextMenu] = useState<ContextMenuInfo | null>(null)
   const [copiedItem, setCopiedItem] = useState<string | null>(null)
+
+  // Stats
+  const stats = useMemo(() => {
+    if (!output) return null
+    const lines = output.split('\n').length
+    const bytes = new Blob([output]).size
+    const data = JSON.parse(output)
+    const countKeys = (obj: unknown): number => {
+      if (Array.isArray(obj)) return obj.reduce((acc, item) => acc + countKeys(item), 0)
+      if (obj !== null && typeof obj === 'object') {
+        const keys = Object.keys(obj as Record<string, unknown>)
+        return keys.length + keys.reduce((acc, k) => acc + countKeys((obj as Record<string, unknown>)[k]), 0)
+      }
+      return 0
+    }
+    const keys = countKeys(data)
+    const maxDepth = (obj: unknown, depth = 0): number => {
+      if (Array.isArray(obj)) return obj.length ? Math.max(...obj.map((item) => maxDepth(item, depth + 1))) : depth
+      if (obj !== null && typeof obj === 'object') {
+        const vals = Object.values(obj as Record<string, unknown>)
+        return vals.length ? Math.max(...vals.map((v) => maxDepth(v, depth + 1))) : depth
+      }
+      return depth
+    }
+    const depth = maxDepth(data)
+    return { lines, bytes, keys, depth }
+  }, [output])
+
+  // Keyboard shortcut
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault()
+        handleFormat()
+      }
+    },
+    [handleFormat]
+  )
 
   const handleEditorChange = useCallback(
     (value: string) => {
@@ -292,7 +332,7 @@ export default function JsonFormatter(): React.JSX.Element {
   }, [contextMenu])
 
   return (
-    <div className="jf-page" onClick={handleCloseContextMenu}>
+    <div className="jf-page" onClick={handleCloseContextMenu} onKeyDown={handleKeyDown}>
       <div className="jf-container">
         {/* 顶部操作区 */}
         <div className="jf-topbar">
@@ -329,6 +369,10 @@ export default function JsonFormatter(): React.JSX.Element {
               <button className="jf-btn jf-btn-secondary" onClick={handleMinify}>
                 <Code size={14} />
                 <span>压缩</span>
+              </button>
+              <button className="jf-btn jf-btn-secondary" onClick={handleSortKeys} title="按键名排序">
+                <ArrowUpDown size={14} />
+                <span>排序</span>
               </button>
             </div>
 
@@ -484,6 +528,17 @@ export default function JsonFormatter(): React.JSX.Element {
             </div>
           </div>
         </div>
+
+        {/* Stats bar */}
+        {stats && (
+          <div className="jf-stats">
+            <span className="jf-stat">{stats.lines} 行</span>
+            <span className="jf-stat">{stats.bytes.toLocaleString()} B</span>
+            <span className="jf-stat">{stats.keys} 键</span>
+            <span className="jf-stat">深度 {stats.depth}</span>
+            <span className="jf-stat-hint">Ctrl+Enter 格式化</span>
+          </div>
+        )}
       </div>
 
       {/* 右键菜单 */}

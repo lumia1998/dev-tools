@@ -75,6 +75,26 @@ export function minifyJson(input: string): string {
   return JSON.stringify(data)
 }
 
+function sortObjectKeys(obj: unknown): unknown {
+  if (Array.isArray(obj)) {
+    return obj.map(sortObjectKeys)
+  }
+  if (obj !== null && typeof obj === 'object') {
+    const sorted: Record<string, unknown> = {}
+    for (const key of Object.keys(obj as Record<string, unknown>).sort()) {
+      sorted[key] = sortObjectKeys((obj as Record<string, unknown>)[key])
+    }
+    return sorted
+  }
+  return obj
+}
+
+export function sortJsonKeys(input: string, indent: Indent): string {
+  const { data, error } = parseJson(input)
+  if (error || data === null) return input
+  return stringify(sortObjectKeys(data), { indent })
+}
+
 export function validateJson(input: string): JsonError | null {
   if (!input.trim()) {
     return null
@@ -139,6 +159,19 @@ export function useJsonFormatter() {
     showToast('压缩成功')
   }, [input, error, showToast])
 
+  const handleSortKeys = useCallback(() => {
+    if (error) {
+      showToast('JSON 格式错误，无法排序')
+      return
+    }
+    if (!input.trim()) {
+      showToast('请输入 JSON 数据')
+      return
+    }
+    setInput(sortJsonKeys(input, indent))
+    showToast('键名已按字母排序')
+  }, [input, indent, error, showToast])
+
   const handleCopy = useCallback(() => {
     const textToCopy = output || input
     if (!textToCopy.trim()) {
@@ -181,6 +214,7 @@ export function useJsonFormatter() {
     parsedData,
     handleFormat,
     handleMinify,
+    handleSortKeys,
     handleCopy,
     handleClear,
     handleLoadSample,
