@@ -33,6 +33,7 @@
 @import '../styles/cheat-sheet.css';
 @import '../styles/about.css';
 @import '../styles/settings.css';
+@import '../styles/color-converter.css';
 
 @tailwind base;
 @tailwind components;

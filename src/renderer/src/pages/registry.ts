@@ -40,7 +40,8 @@ const pageMap: Record<string, React.LazyExoticComponent<ComponentType>> = {
   'unicode-inspector': lazy(() => import('./UnicodeInspector')),
   'npm-cheat-sheet': lazy(() => import('./NpmCheatSheet')),
   'linux-cheat-sheet': lazy(() => import('./LinuxCheatSheet')),
-  'k8s-cheat-sheet': lazy(() => import('./K8sCheatSheet'))
+  'k8s-cheat-sheet': lazy(() => import('./K8sCheatSheet')),
+  'color-converter': lazy(() => import('./ColorConverter'))
 }
 
 export function getPageComponent(id: string): React.LazyExoticComponent<ComponentType> | null {

@@ -277,5 +277,14 @@
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
+  },
+  {
+    "id": "color-converter",
+    "name": "Color Converter",
+    "desc": "颜色格式转换 HEX ↔ RGB ↔ HSL",
+    "icon": "Palette",
+    "category": "换算工具",
+    "categoryIcon": "Code",
+    "isNew": true
   }
 ]
