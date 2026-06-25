@@ -36,6 +36,14 @@ src/renderer/src/
 
 **App.tsx 不需要改。** 特殊页面（home / about / settings）硬编码在 App.tsx，其余全部走 registry。
 
+### 需要 IPC 的工具（如 Environment Variables）
+
+额外步骤：
+1. **main/index.ts** — 添加 `ipcMain.handle('xxx:yyy', handler)`，在 `app.whenReady()` 中注册
+2. **preload/index.ts** — 添加 `xxxAPI` 对象，contextBridge 暴露
+3. **preload/index.d.ts** — 添加接口类型 + Window 声明
+4. renderer 页面通过 `window.xxx.yyy()` 调用
+
 ## 页面注册表（pages/registry.ts）
 
 使用 React.lazy 实现代码分割，所有工具页面按需加载：
