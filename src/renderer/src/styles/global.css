@@ -128,6 +128,42 @@
    ======================================== */
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========================================
+   字体大小
+   ======================================== */
+
+:root {
+  --font-size-base: 14px;
+  --font-size-sm: 12px;
+  --font-size-lg: 16px;
+}
+
+[data-font-size='small'] {
+  --font-size-base: 12px;
+  --font-size-sm: 11px;
+  --font-size-lg: 14px;
+}
+
+[data-font-size='medium'] {
+  --font-size-base: 14px;
+  --font-size-sm: 12px;
+  --font-size-lg: 16px;
+}
+
+[data-font-size='large'] {
+  --font-size-base: 16px;
+  --font-size-sm: 14px;
+  --font-size-lg: 18px;
+}
+
+body {
+  font-size: var(--font-size-base);
 }

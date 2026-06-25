@@ -15,21 +15,20 @@ import {
 } from 'lucide-react'
 import { tools } from '@renderer/tools/registry'
 import { cn } from '@renderer/lib/utils'
+import { useSettings } from '@renderer/lib/contexts'
 
 interface SidebarProps {
   currentPage: string
   onNavigate: (page: string) => void
-  theme: 'light' | 'dark'
-  onToggleTheme: () => void
   collapsed: boolean
   onToggleCollapse: () => void
 }
 
 // 分类图标映射
 const categoryIcons: Record<string, React.ComponentType<{ size?: number }>> = {
-  '换算工具': Calculator,
-  'JSON工具': Code,
-  '网络工具': Globe,
+  换算工具: Calculator,
+  JSON工具: Code,
+  网络工具: Globe,
   __default: Wrench
 }
 
@@ -71,11 +70,16 @@ function NavButton({
 export default function Sidebar({
   currentPage,
   onNavigate,
-  theme,
-  onToggleTheme,
   collapsed,
   onToggleCollapse
 }: SidebarProps): React.JSX.Element {
+  const { settings, updateAppearance } = useSettings()
+  const theme = settings.appearance.theme
+
+  const handleToggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark'
+    updateAppearance({ theme: newTheme })
+  }
   // 按分类组织工具
   const toolsByCategory = useMemo(() => {
     const grouped: Map<string, typeof tools> = new Map()
@@ -126,10 +130,7 @@ export default function Sidebar({
             <div key={category} className="nav-group">
               {/* 分类标题（仅展开时显示） */}
               {!collapsed && (
-                <button
-                  className="nav-category-header"
-                  onClick={() => toggleCategory(category)}
-                >
+                <button className="nav-category-header" onClick={() => toggleCategory(category)}>
                   <CategoryIcon size={14} className="nav-category-icon" />
                   <span className="nav-category-label">{category}</span>
                   <ChevronDown
@@ -153,7 +154,11 @@ export default function Sidebar({
                   return (
                     <button
                       key={tool.id}
-                      className={cn('nav-icon-btn', currentPage === tool.id && 'active', collapsed && 'collapsed')}
+                      className={cn(
+                        'nav-icon-btn',
+                        currentPage === tool.id && 'active',
+                        collapsed && 'collapsed'
+                      )}
                       onClick={() => onNavigate(tool.id)}
                       title={collapsed ? tool.name : undefined}
                     >
@@ -171,10 +176,14 @@ export default function Sidebar({
       <div className="sidebar-bottom">
         <button
           className={cn('nav-icon-btn', collapsed && 'collapsed')}
-          onClick={onToggleTheme}
+          onClick={handleToggleTheme}
           title={collapsed ? (theme === 'dark' ? '浅色模式' : '深色模式') : undefined}
         >
-          {theme === 'dark' ? <Sun size={18} className="nav-icon" /> : <Moon size={18} className="nav-icon" />}
+          {theme === 'dark' ? (
+            <Sun size={18} className="nav-icon" />
+          ) : (
+            <Moon size={18} className="nav-icon" />
+          )}
           {!collapsed && (
             <span className="nav-label">{theme === 'dark' ? '浅色模式' : '深色模式'}</span>
           )}
@@ -196,7 +205,11 @@ export default function Sidebar({
           onClick={onToggleCollapse}
           title={collapsed ? '展开' : '收起'}
         >
-          {collapsed ? <ChevronsRight size={18} className="nav-icon" /> : <ChevronsLeft size={18} className="nav-icon" />}
+          {collapsed ? (
+            <ChevronsRight size={18} className="nav-icon" />
+          ) : (
+            <ChevronsLeft size={18} className="nav-icon" />
+          )}
           {!collapsed && <span className="nav-label">收起</span>}
           {collapsed && <span className="nav-tooltip">展开</span>}
         </button>

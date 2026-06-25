@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import Sidebar from '@renderer/components/Sidebar'
 import Home from '@renderer/pages/Home'
 import Converter from '@renderer/pages/Converter'
@@ -24,50 +24,33 @@ import GitCheatSheet from '@renderer/pages/GitCheatSheet'
 import DockerCheatSheet from '@renderer/pages/DockerCheatSheet'
 import MavenDependency from '@renderer/pages/MavenDependency'
 import About from '@renderer/pages/About'
+import SettingsPage from '@renderer/pages/SettingsPage'
+import { SettingsProvider, useSettings } from '@renderer/lib/contexts'
 
-function App(): React.JSX.Element {
+function AppContent(): React.JSX.Element {
+  const { settings, updateAppearance } = useSettings()
   const [currentPage, setCurrentPage] = useState('home')
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    try {
-      return (localStorage.getItem('theme') as 'light' | 'dark') || 'dark'
-    } catch {
-      return 'dark'
-    }
-  })
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
-    try {
-      return localStorage.getItem('sidebar-collapsed') === 'true'
-    } catch {
-      return false
-    }
-  })
 
-  // 同步主题到 document
-  document.documentElement.setAttribute('data-theme', theme)
+  // 应用主题
+  useEffect(() => {
+    const theme = settings.appearance.theme
+    if (theme === 'system') {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+  }, [settings.appearance.theme])
 
-  const toggleTheme = useCallback(() => {
-    setTheme((prev) => {
-      const next = prev === 'dark' ? 'light' : 'dark'
-      try {
-        localStorage.setItem('theme', next)
-      } catch {
-        // ignore
-      }
-      return next
-    })
-  }, [])
+  // 应用字体大小
+  useEffect(() => {
+    const fontSize = settings.appearance.fontSize
+    document.documentElement.setAttribute('data-font-size', fontSize)
+  }, [settings.appearance.fontSize])
 
   const handleToggleCollapse = useCallback(() => {
-    setSidebarCollapsed((prev) => {
-      const next = !prev
-      try {
-        localStorage.setItem('sidebar-collapsed', String(next))
-      } catch {
-        // ignore
-      }
-      return next
-    })
-  }, [])
+    updateAppearance({ sidebarCollapsed: !settings.appearance.sidebarCollapsed })
+  }, [settings.appearance.sidebarCollapsed, updateAppearance])
 
   const renderPage = (): React.JSX.Element => {
     switch (currentPage) {
@@ -119,6 +102,8 @@ function App(): React.JSX.Element {
         return <MavenDependency />
       case 'about':
         return <About />
+      case 'settings':
+        return <SettingsPage />
       default:
         return <Home onSelectTool={setCurrentPage} />
     }
@@ -129,13 +114,19 @@ function App(): React.JSX.Element {
       <Sidebar
         currentPage={currentPage}
         onNavigate={setCurrentPage}
-        theme={theme}
-        onToggleTheme={toggleTheme}
-        collapsed={sidebarCollapsed}
+        collapsed={settings.appearance.sidebarCollapsed}
         onToggleCollapse={handleToggleCollapse}
       />
       <main className="main-content">{renderPage()}</main>
     </div>
+  )
+}
+
+function App(): React.JSX.Element {
+  return (
+    <SettingsProvider>
+      <AppContent />
+    </SettingsProvider>
   )
 }
 

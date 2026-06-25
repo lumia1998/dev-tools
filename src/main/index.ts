@@ -2,6 +2,36 @@ import { app, shell, BrowserWindow, ipcMain, Menu } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { settingsStore, AppSettings } from './settings'
+
+function registerSettingsHandlers(): void {
+  ipcMain.handle('settings:get', () => {
+    return settingsStore.getSettings()
+  })
+
+  ipcMain.handle('settings:get-appearance', () => {
+    return settingsStore.getAppearance()
+  })
+
+  ipcMain.handle('settings:get-editor', () => {
+    return settingsStore.getEditor()
+  })
+
+  ipcMain.handle(
+    'settings:update-appearance',
+    (_event, updates: Partial<AppSettings['appearance']>) => {
+      return settingsStore.updateAppearance(updates)
+    }
+  )
+
+  ipcMain.handle('settings:update-editor', (_event, updates: Partial<AppSettings['editor']>) => {
+    return settingsStore.updateEditor(updates)
+  })
+
+  ipcMain.handle('settings:reset', () => {
+    return settingsStore.resetToDefaults()
+  })
+}
 
 function createWindow(): void {
   // Create the browser window.
@@ -54,6 +84,9 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
+
+  // Register settings IPC handlers
+  registerSettingsHandlers()
 
   createWindow()
 

@@ -25,6 +25,7 @@
 @import '../styles/docker-cheat-sheet.css';
 @import '../styles/maven-dependency.css';
 @import '../styles/about.css';
+@import '../styles/settings.css';
 
 @tailwind base;
 @tailwind components;
