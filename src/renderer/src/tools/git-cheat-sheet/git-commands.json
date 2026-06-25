@@ -1,5 +1,82 @@
 [
   {
+    "id": "config",
+    "label": "Config",
+    "icon": "🔧",
+    "commands": [
+      {
+        "command": "git config --global user.name <name>",
+        "description": "设置全局用户名",
+        "example": "git config --global user.name \"Your Name\""
+      },
+      {
+        "command": "git config --global user.email <email>",
+        "description": "设置全局邮箱",
+        "example": "git config --global user.email \"you@example.com\""
+      },
+      {
+        "command": "git config --global credential.helper store",
+        "description": "永久保存登录凭证（懒人必备）",
+        "example": "git config --global credential.helper store"
+      },
+      {
+        "command": "git config --global credential.helper cache",
+        "description": "临时缓存凭证 15 分钟",
+        "example": "git config --global credential.helper 'cache --timeout=900'"
+      },
+      {
+        "command": "ssh-keygen -t ed25519 -C <email>",
+        "description": "生成 SSH 密钥（推荐 Ed25519）",
+        "example": "ssh-keygen -t ed25519 -C \"you@example.com\""
+      },
+      {
+        "command": "ssh-keygen -t rsa -b 4096 -C <email>",
+        "description": "生成 RSA 4096 位密钥（兼容旧系统）",
+        "example": "ssh-keygen -t rsa -b 4096 -C \"you@example.com\""
+      },
+      {
+        "command": "cat ~/.ssh/id_ed25519.pub",
+        "description": "查看 SSH 公钥（复制到 GitHub/GitLab）",
+        "example": "cat ~/.ssh/id_ed25519.pub"
+      },
+      {
+        "command": "ssh -T git@github.com",
+        "description": "测试 GitHub SSH 连接",
+        "example": "ssh -T git@github.com"
+      },
+      {
+        "command": "git config --list",
+        "description": "列出所有配置",
+        "example": "git config --list"
+      },
+      {
+        "command": "git config --global --list",
+        "description": "列出全局配置",
+        "example": "git config --global --list"
+      },
+      {
+        "command": "git config --global init.defaultBranch main",
+        "description": "设置默认分支名为 main",
+        "example": "git config --global init.defaultBranch main"
+      },
+      {
+        "command": "git config --global core.autocrlf input",
+        "description": "统一换行符 LF（Mac/Linux）",
+        "example": "git config --global core.autocrlf input"
+      },
+      {
+        "command": "git config --global core.autocrlf true",
+        "description": "统一换行符 CRLF（Windows）",
+        "example": "git config --global core.autocrlf true"
+      },
+      {
+        "command": "git config --global alias.<name> <cmd>",
+        "description": "创建命令别名",
+        "example": "git config --global alias.co checkout"
+      }
+    ]
+  },
+  {
     "id": "repository",
     "label": "Repository",
     "icon": "📁",
@@ -9,6 +86,16 @@
         "command": "git clone <url>",
         "description": "克隆远程仓库",
         "example": "git clone https://github.com/user/repo.git"
+      },
+      {
+        "command": "git clone --depth 1 <url>",
+        "description": "浅克隆（仅最新提交，速度飞快）",
+        "example": "git clone --depth 1 https://github.com/user/repo.git"
+      },
+      {
+        "command": "git clone -b <branch> <url>",
+        "description": "克隆指定分支",
+        "example": "git clone -b develop https://github.com/user/repo.git"
       }
     ]
   },
@@ -19,14 +106,29 @@
     "commands": [
       { "command": "git branch", "description": "列出所有本地分支", "example": "git branch" },
       {
+        "command": "git branch -a",
+        "description": "列出本地和远程所有分支",
+        "example": "git branch -a"
+      },
+      {
+        "command": "git branch -r",
+        "description": "列出所有远程分支",
+        "example": "git branch -r"
+      },
+      {
         "command": "git branch <name>",
         "description": "创建新分支",
         "example": "git branch feature/login"
       },
       {
         "command": "git branch -d <name>",
-        "description": "删除分支",
+        "description": "删除已合并的分支",
         "example": "git branch -d feature/login"
+      },
+      {
+        "command": "git branch -D <name>",
+        "description": "强制删除分支（即使未合并）",
+        "example": "git branch -D feature/login"
       },
       {
         "command": "git checkout <branch>",
@@ -54,9 +156,24 @@
         "example": "git merge feature/login"
       },
       {
+        "command": "git merge --abort",
+        "description": "取消正在进行的合并",
+        "example": "git merge --abort"
+      },
+      {
         "command": "git rebase <branch>",
         "description": "变基当前分支到指定分支",
         "example": "git rebase main"
+      },
+      {
+        "command": "git rebase --abort",
+        "description": "取消正在进行的变基",
+        "example": "git rebase --abort"
+      },
+      {
+        "command": "git rebase -i HEAD~<n>",
+        "description": "交互式变基最近 n 个提交",
+        "example": "git rebase -i HEAD~3"
       }
     ]
   },
@@ -65,26 +182,49 @@
     "label": "Commit",
     "icon": "📝",
     "commands": [
-      { "command": "git add <file>", "description": "添加文件到暂存区", "example": "git add index.ts" },
-      { "command": "git add .", "description": "添加所有更改到暂存区", "example": "git add ." },
+      {
+        "command": "git add <file>",
+        "description": "添加指定文件到暂存区",
+        "example": "git add index.ts"
+      },
+      {
+        "command": "git add .",
+        "description": "添加所有更改到暂存区",
+        "example": "git add ."
+      },
+      {
+        "command": "git add -p",
+        "description": "交互式选择要暂存的更改",
+        "example": "git add -p"
+      },
       {
         "command": "git commit -m <msg>",
         "description": "提交暂存区的更改",
         "example": "git commit -m \"feat: add login\""
       },
       {
+        "command": "git commit -am <msg>",
+        "description": "添加所有改动并提交（跳过 git add）",
+        "example": "git commit -am \"fix: typo\""
+      },
+      {
         "command": "git commit --amend",
-        "description": "修改最近一次提交",
+        "description": "修改最近一次提交（补充遗漏文件）",
         "example": "git commit --amend -m \"fix: typo\""
       },
       {
-        "command": "git reset HEAD~1",
-        "description": "撤销最近一次提交（保留更改）",
+        "command": "git commit --amend --no-edit",
+        "description": "追加到上次提交，不改提交信息",
+        "example": "git add . && git commit --amend --no-edit"
+      },
+      {
+        "command": "git reset --soft HEAD~1",
+        "description": "撤销最近一次提交（保留更改在暂存区）",
         "example": "git reset --soft HEAD~1"
       },
       {
         "command": "git reset --hard HEAD~1",
-        "description": "撤销最近一次提交（丢弃更改）",
+        "description": "撤销最近一次提交（丢弃更改）⚠️ 危险",
         "example": "git reset --hard HEAD~1"
       },
       {
@@ -95,28 +235,106 @@
     ]
   },
   {
+    "id": "undo",
+    "label": "Undo / Restore",
+    "icon": "↩️",
+    "commands": [
+      {
+        "command": "git restore <file>",
+        "description": "撤销工作区文件的更改",
+        "example": "git restore index.ts"
+      },
+      {
+        "command": "git restore --staged <file>",
+        "description": "将文件从暂存区移回工作区",
+        "example": "git restore --staged index.ts"
+      },
+      {
+        "command": "git restore --source <commit> <file>",
+        "description": "恢复文件到指定提交的版本",
+        "example": "git restore --source a1b2c3d index.ts"
+      },
+      {
+        "command": "git checkout -- <file>",
+        "description": "撤销工作区文件更改（旧语法）",
+        "example": "git checkout -- index.ts"
+      },
+      {
+        "command": "git clean -fd",
+        "description": "删除所有未跟踪的文件和目录",
+        "example": "git clean -fd"
+      },
+      {
+        "command": "git clean -n",
+        "description": "预览将要删除的未跟踪文件",
+        "example": "git clean -n"
+      },
+      {
+        "command": "git reset HEAD <file>",
+        "description": "将文件从暂存区移除",
+        "example": "git reset HEAD index.ts"
+      }
+    ]
+  },
+  {
     "id": "remote",
     "label": "Remote",
     "icon": "☁️",
     "commands": [
-      { "command": "git remote -v", "description": "列出所有远程仓库", "example": "git remote -v" },
+      {
+        "command": "git remote -v",
+        "description": "列出所有远程仓库",
+        "example": "git remote -v"
+      },
       {
         "command": "git remote add <name> <url>",
         "description": "添加远程仓库",
         "example": "git remote add origin https://github.com/user/repo.git"
       },
-      { "command": "git fetch", "description": "获取远程仓库的更新", "example": "git fetch origin" },
-      { "command": "git pull", "description": "拉取并合并远程更新", "example": "git pull origin main" },
+      {
+        "command": "git remote set-url <name> <url>",
+        "description": "修改远程仓库地址",
+        "example": "git remote set-url origin https://github.com/user/new-repo.git"
+      },
+      {
+        "command": "git remote remove <name>",
+        "description": "删除远程仓库",
+        "example": "git remote remove upstream"
+      },
+      {
+        "command": "git fetch",
+        "description": "获取远程仓库的更新",
+        "example": "git fetch origin"
+      },
+      {
+        "command": "git fetch --prune",
+        "description": "获取更新并清理已删除的远程分支",
+        "example": "git fetch --prune"
+      },
+      {
+        "command": "git pull",
+        "description": "拉取并合并远程更新",
+        "example": "git pull origin main"
+      },
       {
         "command": "git pull --rebase",
-        "description": "拉取并变基",
+        "description": "拉取并变基（保持历史干净）",
         "example": "git pull --rebase origin main"
       },
-      { "command": "git push", "description": "推送到远程仓库", "example": "git push origin main" },
+      {
+        "command": "git push",
+        "description": "推送到远程仓库",
+        "example": "git push origin main"
+      },
       {
         "command": "git push -u origin <branch>",
         "description": "推送并设置上游分支",
         "example": "git push -u origin feature/login"
+      },
+      {
+        "command": "git push --force-with-lease",
+        "description": "安全强制推送（推荐替代 --force）",
+        "example": "git push --force-with-lease origin main"
       },
       {
         "command": "git push origin --delete <branch>",
@@ -136,8 +354,21 @@
         "description": "暂存并添加描述",
         "example": "git stash push -m \"wip: login page\""
       },
-      { "command": "git stash list", "description": "列出所有暂存", "example": "git stash list" },
-      { "command": "git stash pop", "description": "恢复最近一次暂存", "example": "git stash pop" },
+      {
+        "command": "git stash push -u",
+        "description": "暂存包括未跟踪的文件",
+        "example": "git stash push -u"
+      },
+      {
+        "command": "git stash list",
+        "description": "列出所有暂存",
+        "example": "git stash list"
+      },
+      {
+        "command": "git stash pop",
+        "description": "恢复最近一次暂存",
+        "example": "git stash pop"
+      },
       {
         "command": "git stash apply",
         "description": "恢复暂存（不删除）",
@@ -148,7 +379,11 @@
         "description": "删除最近一次暂存",
         "example": "git stash drop stash@{0}"
       },
-      { "command": "git stash clear", "description": "清除所有暂存", "example": "git stash clear" }
+      {
+        "command": "git stash clear",
+        "description": "清除所有暂存",
+        "example": "git stash clear"
+      }
     ]
   },
   {
@@ -157,6 +392,11 @@
     "icon": "🏷️",
     "commands": [
       { "command": "git tag", "description": "列出所有标签", "example": "git tag" },
+      {
+        "command": "git tag -l \"v1.*\"",
+        "description": "按模式筛选标签",
+        "example": "git tag -l \"v1.*\""
+      },
       { "command": "git tag <name>", "description": "创建轻量标签", "example": "git tag v1.0.0" },
       {
         "command": "git tag -a <name> -m <msg>",
@@ -165,7 +405,7 @@
       },
       {
         "command": "git push origin <tag>",
-        "description": "推送标签到远程",
+        "description": "推送指定标签到远程",
         "example": "git push origin v1.0.0"
       },
       {
@@ -173,7 +413,16 @@
         "description": "推送所有标签",
         "example": "git push origin --tags"
       },
-      { "command": "git tag -d <name>", "description": "删除本地标签", "example": "git tag -d v1.0.0" }
+      {
+        "command": "git tag -d <name>",
+        "description": "删除本地标签",
+        "example": "git tag -d v1.0.0"
+      },
+      {
+        "command": "git push origin --delete <tag>",
+        "description": "删除远程标签",
+        "example": "git push origin --delete v1.0.0"
+      }
     ]
   },
   {
@@ -189,17 +438,44 @@
       },
       {
         "command": "git log --graph",
-        "description": "图形化查看历史",
+        "description": "图形化查看分支历史",
         "example": "git log --graph --oneline --all"
       },
-      { "command": "git log -n <count>", "description": "查看最近 n 条提交", "example": "git log -n 5" },
-      { "command": "git reflog", "description": "查看引用日志", "example": "git reflog" },
+      {
+        "command": "git log --author=<name>",
+        "description": "按作者筛选提交",
+        "example": "git log --author=\"John\""
+      },
+      {
+        "command": "git log --grep=<pattern>",
+        "description": "按提交信息搜索",
+        "example": "git log --grep=\"fix\""
+      },
+      {
+        "command": "git log -n <count>",
+        "description": "查看最近 n 条提交",
+        "example": "git log -n 5"
+      },
+      {
+        "command": "git reflog",
+        "description": "查看 HEAD 引用日志（救回丢失的提交）",
+        "example": "git reflog"
+      },
       {
         "command": "git blame <file>",
         "description": "查看文件每一行的最后修改",
         "example": "git blame index.ts"
       },
-      { "command": "git diff", "description": "查看未暂存的更改", "example": "git diff" },
+      {
+        "command": "git show <commit>",
+        "description": "查看某次提交的详细内容",
+        "example": "git show a1b2c3d"
+      },
+      {
+        "command": "git diff",
+        "description": "查看工作区未暂存的更改",
+        "example": "git diff"
+      },
       {
         "command": "git diff --staged",
         "description": "查看已暂存的更改",
@@ -207,8 +483,41 @@
       },
       {
         "command": "git diff <branch1> <branch2>",
-        "description": "比较两个分支",
+        "description": "比较两个分支差异",
         "example": "git diff main feature/login"
+      },
+      {
+        "command": "git diff --name-only <branch1> <branch2>",
+        "description": "仅列出变更的文件名",
+        "example": "git diff --name-only main feature/login"
+      }
+    ]
+  },
+  {
+    "id": "submodule",
+    "label": "Submodule",
+    "icon": "🧩",
+    "commands": [
+      {
+        "command": "git submodule add <url>",
+        "description": "添加子模块",
+        "example": "git submodule add https://github.com/user/lib.git"
+      },
+      {
+        "command": "git submodule update --init --recursive",
+        "description": "初始化并递归更新所有子模块",
+        "example": "git submodule update --init --recursive"
+      },
+      {
+        "command": "git submodule update --remote",
+        "description": "更新子模块到远程最新提交",
+        "example": "git submodule update --remote"
+      },
+      { "command": "git submodule status", "description": "查看子模块状态", "example": "git submodule status" },
+      {
+        "command": "git clone --recurse-submodules <url>",
+        "description": "克隆仓库并初始化所有子模块",
+        "example": "git clone --recurse-submodules https://github.com/user/repo.git"
       }
     ]
   },
@@ -226,6 +535,70 @@
         "command": "git cherry-pick <commit1> <commit2>",
         "description": "复制多个提交",
         "example": "git cherry-pick a1b2c3d e4f5g6h"
+      },
+      {
+        "command": "git cherry-pick --abort",
+        "description": "取消正在进行的 cherry-pick",
+        "example": "git cherry-pick --abort"
+      },
+      {
+        "command": "git cherry-pick --continue",
+        "description": "解决冲突后继续 cherry-pick",
+        "example": "git cherry-pick --continue"
+      }
+    ]
+  },
+  {
+    "id": "bisect",
+    "label": "Bisect",
+    "icon": "🔍",
+    "commands": [
+      {
+        "command": "git bisect start",
+        "description": "开始二分查找 bug",
+        "example": "git bisect start"
+      },
+      {
+        "command": "git bisect bad",
+        "description": "标记当前提交为有问题的",
+        "example": "git bisect bad"
+      },
+      {
+        "command": "git bisect good <commit>",
+        "description": "标记某次提交为正常的",
+        "example": "git bisect good v1.0.0"
+      },
+      {
+        "command": "git bisect reset",
+        "description": "结束二分查找，回到原始状态",
+        "example": "git bisect reset"
+      }
+    ]
+  },
+  {
+    "id": "cleanup",
+    "label": "Cleanup",
+    "icon": "🧹",
+    "commands": [
+      {
+        "command": "git gc",
+        "description": "清理不必要的文件并优化仓库",
+        "example": "git gc"
+      },
+      {
+        "command": "git gc --aggressive",
+        "description": "激进垃圾回收（耗时但效果最好）",
+        "example": "git gc --aggressive"
+      },
+      {
+        "command": "git prune",
+        "description": "删除不可达的对象",
+        "example": "git prune"
+      },
+      {
+        "command": "git remote prune origin",
+        "description": "清理本地已删除的远程分支引用",
+        "example": "git remote prune origin"
       }
     ]
   }
