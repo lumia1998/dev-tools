@@ -92,13 +92,37 @@ export default function MouseTester(): React.JSX.Element {
   }, [])
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    e.preventDefault()
+    // Prevent browser back/forward navigation for side buttons
+    if (e.button === 3 || e.button === 4) {
+      e.preventDefault()
+    }
     addEvent('mousedown', e)
   }, [addEvent])
 
   const handleMouseUp = useCallback((e: React.MouseEvent) => {
-    addEvent('mouseup', e)
-  }, [addEvent])
+    // Prevent browser back/forward navigation for side buttons
+    if (e.button === 3 || e.button === 4) {
+      e.preventDefault()
+    }
+    // Record in history but don't overwrite button indicators (buttons=0 on mouseup)
+    const eventInfo: MouseEventInfo = {
+      type: 'mouseup',
+      button: e.button,
+      buttons: e.buttons,
+      clientX: e.clientX,
+      clientY: e.clientY,
+      screenX: e.screenX,
+      screenY: e.screenY,
+      pageX: e.pageX || e.clientX,
+      pageY: e.pageY || e.clientY,
+      ctrlKey: e.ctrlKey,
+      shiftKey: e.shiftKey,
+      altKey: e.altKey,
+      metaKey: e.metaKey,
+      timestamp: Date.now()
+    }
+    setHistory((prev) => [eventInfo, ...prev].slice(0, 50))
+  }, [])
 
   const handleContextMenu = useCallback((e: React.MouseEvent) => {
     e.preventDefault()
