@@ -87,6 +87,16 @@
   padding: 4px;
 }
 
+.mvn-dep-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 32px 16px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
 .mvn-dep-item {
   display: flex;
   flex-direction: column;
