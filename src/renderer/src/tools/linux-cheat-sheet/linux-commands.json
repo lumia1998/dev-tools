@@ -1,0 +1,280 @@
+[
+  {
+    "id": "navigation",
+    "label": "文件导航",
+    "icon": "📂",
+    "commands": [
+      { "command": "ls", "description": "列出当前目录文件", "example": "ls -la" },
+      { "command": "cd <dir>", "description": "切换目录", "example": "cd /home/user" },
+      { "command": "pwd", "description": "显示当前工作目录", "example": "pwd" },
+      {
+        "command": "tree",
+        "description": "树形显示目录结构",
+        "example": "tree -L 2 -I node_modules"
+      },
+      { "command": "find", "description": "查找文件", "example": "find . -name '*.ts' -type f" },
+      {
+        "command": "locate <file>",
+        "description": "快速定位文件（基于索引）",
+        "example": "locate nginx.conf"
+      },
+      { "command": "which <cmd>", "description": "查找命令路径", "example": "which node" },
+      {
+        "command": "whereis <cmd>",
+        "description": "查找命令的二进制、源码、手册路径",
+        "example": "whereis python"
+      }
+    ]
+  },
+  {
+    "id": "file-ops",
+    "label": "文件操作",
+    "icon": "📄",
+    "commands": [
+      {
+        "command": "cp <src> <dst>",
+        "description": "复制文件/目录",
+        "example": "cp -r src/ backup/"
+      },
+      {
+        "command": "mv <src> <dst>",
+        "description": "移动/重命名文件",
+        "example": "mv old.txt new.txt"
+      },
+      { "command": "rm <file>", "description": "删除文件", "example": "rm -rf build/" },
+      { "command": "mkdir <dir>", "description": "创建目录", "example": "mkdir -p src/components" },
+      {
+        "command": "touch <file>",
+        "description": "创建空文件/更新时间戳",
+        "example": "touch index.ts"
+      },
+      {
+        "command": "ln -s <target> <link>",
+        "description": "创建软链接",
+        "example": "ln -s /usr/local/bin/node /usr/bin/node"
+      },
+      {
+        "command": "chmod <mode> <file>",
+        "description": "修改文件权限",
+        "example": "chmod +x deploy.sh"
+      },
+      {
+        "command": "chown <user>:<group> <file>",
+        "description": "修改文件所有者",
+        "example": "chown -R www:www /var/www"
+      }
+    ]
+  },
+  {
+    "id": "file-view",
+    "label": "文件查看",
+    "icon": "👁️",
+    "commands": [
+      { "command": "cat <file>", "description": "显示文件内容", "example": "cat package.json" },
+      {
+        "command": "less <file>",
+        "description": "分页查看文件",
+        "example": "less /var/log/syslog"
+      },
+      {
+        "command": "head -n <N> <file>",
+        "description": "查看文件前 N 行",
+        "example": "head -n 20 access.log"
+      },
+      {
+        "command": "tail -n <N> <file>",
+        "description": "查看文件后 N 行",
+        "example": "tail -f /var/log/nginx/error.log"
+      },
+      { "command": "wc -l <file>", "description": "统计行数", "example": "wc -l src/**/*.ts" },
+      {
+        "command": "diff <f1> <f2>",
+        "description": "比较两个文件差异",
+        "example": "diff old.conf new.conf"
+      },
+      { "command": "file <file>", "description": "检测文件类型", "example": "file image.png" }
+    ]
+  },
+  {
+    "id": "text-process",
+    "label": "文本处理",
+    "icon": "🔍",
+    "commands": [
+      {
+        "command": "grep <pattern> <file>",
+        "description": "搜索文本内容",
+        "example": "grep -rn 'TODO' src/"
+      },
+      {
+        "command": "sed 's/old/new/g' <file>",
+        "description": "流编辑器（替换文本）",
+        "example": "sed -i 's/localhost/0.0.0.0/g' config.json"
+      },
+      {
+        "command": "awk '{print $1}' <file>",
+        "description": "文本分析/提取列",
+        "example": "awk -F',' '{print $2}' data.csv"
+      },
+      { "command": "sort <file>", "description": "排序", "example": "sort -u names.txt" },
+      {
+        "command": "uniq <file>",
+        "description": "去重（需先排序）",
+        "example": "sort log.txt | uniq -c | sort -rn"
+      },
+      {
+        "command": "cut -d<delim> -f<N> <file>",
+        "description": "按分隔符截取列",
+        "example": "cut -d':' -f1 /etc/passwd"
+      },
+      {
+        "command": "xargs <cmd>",
+        "description": "将标准输入转为参数",
+        "example": "find . -name '*.log' | xargs rm"
+      }
+    ]
+  },
+  {
+    "id": "process",
+    "label": "进程管理",
+    "icon": "⚙️",
+    "commands": [
+      { "command": "ps aux", "description": "查看所有进程", "example": "ps aux | grep node" },
+      {
+        "command": "top",
+        "description": "实时进程监控（推荐 htop 替代）",
+        "example": "top -o %MEM"
+      },
+      { "command": "kill <pid>", "description": "终止进程", "example": "kill -9 12345" },
+      { "command": "killall <name>", "description": "按名称终止进程", "example": "killall node" },
+      {
+        "command": "pkill <pattern>",
+        "description": "按模式终止进程",
+        "example": "pkill -f 'node server'"
+      },
+      {
+        "command": "nohup <cmd> &",
+        "description": "后台运行（不受终端关闭影响）",
+        "example": "nohup node server.js > log.txt 2>&1 &"
+      },
+      { "command": "jobs / fg / bg", "description": "查看/切到前台/切到后台", "example": "fg %1" },
+      {
+        "command": "lsof -i :<port>",
+        "description": "查看占用端口的进程",
+        "example": "lsof -i :3000"
+      }
+    ]
+  },
+  {
+    "id": "system",
+    "label": "系统信息",
+    "icon": "💻",
+    "commands": [
+      { "command": "uname -a", "description": "查看系统内核信息", "example": "uname -a" },
+      { "command": "df -h", "description": "查看磁盘使用情况", "example": "df -h" },
+      {
+        "command": "du -sh <dir>",
+        "description": "查看目录大小",
+        "example": "du -sh node_modules/"
+      },
+      { "command": "free -h", "description": "查看内存使用情况", "example": "free -h" },
+      { "command": "uptime", "description": "查看系统运行时间", "example": "uptime" },
+      {
+        "command": "date",
+        "description": "显示/设置系统时间",
+        "example": "date '+%Y-%m-%d %H:%M:%S'"
+      },
+      { "command": "hostname", "description": "显示主机名", "example": "hostname -I" },
+      { "command": "env", "description": "查看环境变量", "example": "env | grep PATH" }
+    ]
+  },
+  {
+    "id": "network",
+    "label": "网络工具",
+    "icon": "🌐",
+    "commands": [
+      {
+        "command": "curl <url>",
+        "description": "HTTP 请求工具",
+        "example": "curl -X POST -H 'Content-Type: application/json' -d '{}' https://api.example.com"
+      },
+      {
+        "command": "wget <url>",
+        "description": "下载文件",
+        "example": "wget https://example.com/file.zip"
+      },
+      {
+        "command": "ping <host>",
+        "description": "测试网络连通性",
+        "example": "ping -c 4 google.com"
+      },
+      { "command": "netstat -tlnp", "description": "查看监听端口", "example": "netstat -tlnp" },
+      { "command": "ss -tlnp", "description": "查看监听端口（现代版）", "example": "ss -tlnp" },
+      {
+        "command": "ssh <user>@<host>",
+        "description": "远程登录",
+        "example": "ssh -p 2222 user@server.com"
+      },
+      {
+        "command": "scp <src> <dst>",
+        "description": "远程复制文件",
+        "example": "scp -r ./dist user@server:/var/www/"
+      },
+      {
+        "command": "rsync -avz <src> <dst>",
+        "description": "增量同步文件",
+        "example": "rsync -avz ./build/ user@server:/var/www/html/"
+      }
+    ]
+  },
+  {
+    "id": "archive",
+    "label": "压缩 & 归档",
+    "icon": "📦",
+    "commands": [
+      {
+        "command": "tar -czf <archive> <dir>",
+        "description": "创建 tar.gz 归档",
+        "example": "tar -czf backup.tar.gz ./data/"
+      },
+      {
+        "command": "tar -xzf <archive>",
+        "description": "解压 tar.gz",
+        "example": "tar -xzf backup.tar.gz"
+      },
+      {
+        "command": "tar -xjf <archive>",
+        "description": "解压 tar.bz2",
+        "example": "tar -xjf archive.tar.bz2"
+      },
+      {
+        "command": "zip -r <archive> <dir>",
+        "description": "创建 zip 归档",
+        "example": "zip -r project.zip ./src/"
+      },
+      {
+        "command": "unzip <archive>",
+        "description": "解压 zip",
+        "example": "unzip project.zip -d ./output/"
+      },
+      { "command": "gzip <file>", "description": "gzip 压缩", "example": "gzip access.log" }
+    ]
+  },
+  {
+    "id": "permissions",
+    "label": "用户 & 权限",
+    "icon": "🔐",
+    "commands": [
+      { "command": "sudo <cmd>", "description": "以 root 权限执行", "example": "sudo apt update" },
+      { "command": "su - <user>", "description": "切换用户", "example": "su - postgres" },
+      { "command": "whoami", "description": "显示当前用户", "example": "whoami" },
+      { "command": "id <user>", "description": "显示用户 UID/GID", "example": "id www-data" },
+      {
+        "command": "useradd <user>",
+        "description": "创建用户",
+        "example": "useradd -m -s /bin/bash deploy"
+      },
+      { "command": "passwd <user>", "description": "修改密码", "example": "passwd deploy" },
+      { "command": "visudo", "description": "编辑 sudoers 文件", "example": "sudo visudo" }
+    ]
+  }
+]

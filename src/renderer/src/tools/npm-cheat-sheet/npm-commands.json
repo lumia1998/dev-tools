@@ -1,0 +1,197 @@
+[
+  {
+    "id": "basic",
+    "label": "基础操作",
+    "icon": "📦",
+    "commands": [
+      { "command": "npm init", "description": "初始化新项目（交互式）", "example": "npm init -y" },
+      { "command": "npm install", "description": "安装所有依赖", "example": "npm install" },
+      {
+        "command": "npm install <pkg>",
+        "description": "安装指定包",
+        "example": "npm install lodash"
+      },
+      {
+        "command": "npm install <pkg> -D",
+        "description": "安装为开发依赖",
+        "example": "npm install typescript -D"
+      },
+      {
+        "command": "npm install <pkg> -g",
+        "description": "全局安装",
+        "example": "npm install nodemon -g"
+      },
+      {
+        "command": "npm uninstall <pkg>",
+        "description": "卸载包",
+        "example": "npm uninstall lodash"
+      },
+      { "command": "npm update", "description": "更新所有依赖", "example": "npm update" },
+      { "command": "npm outdated", "description": "检查过时的依赖", "example": "npm outdated" },
+      { "command": "npm audit", "description": "安全漏洞扫描", "example": "npm audit" },
+      { "command": "npm audit fix", "description": "自动修复漏洞", "example": "npm audit fix" }
+    ]
+  },
+  {
+    "id": "scripts",
+    "label": "脚本 & 运行",
+    "icon": "▶️",
+    "commands": [
+      {
+        "command": "npm run <script>",
+        "description": "运行 package.json 中定义的脚本",
+        "example": "npm run build"
+      },
+      { "command": "npm start", "description": "运行 start 脚本", "example": "npm start" },
+      { "command": "npm test", "description": "运行 test 脚本", "example": "npm test" },
+      {
+        "command": "npm run <script> -- <args>",
+        "description": "向脚本传递参数",
+        "example": "npm run test -- --watch"
+      },
+      {
+        "command": "npx <command>",
+        "description": "临时运行包命令（不全局安装）",
+        "example": "npx create-react-app my-app"
+      },
+      {
+        "command": "npm exec -- <cmd>",
+        "description": "执行本地 node_modules 中的命令",
+        "example": "npm exec -- eslint src/"
+      }
+    ]
+  },
+  {
+    "id": "version",
+    "label": "版本管理",
+    "icon": "🏷️",
+    "commands": [
+      {
+        "command": "npm version patch",
+        "description": "递增补丁版本 1.0.0 → 1.0.1",
+        "example": "npm version patch"
+      },
+      {
+        "command": "npm version minor",
+        "description": "递增次版本 1.0.0 → 1.1.0",
+        "example": "npm version minor"
+      },
+      {
+        "command": "npm version major",
+        "description": "递增主版本 1.0.0 → 2.0.0",
+        "example": "npm version major"
+      },
+      {
+        "command": "npm publish",
+        "description": "发布包到 npm registry",
+        "example": "npm publish"
+      },
+      {
+        "command": "npm unpublish <pkg>@<ver>",
+        "description": "取消发布指定版本",
+        "example": "npm unpublish my-pkg@1.0.0"
+      },
+      {
+        "command": "npm view <pkg> versions",
+        "description": "查看包的所有版本",
+        "example": "npm view react versions"
+      }
+    ]
+  },
+  {
+    "id": "cache",
+    "label": "缓存 & 清理",
+    "icon": "🗑️",
+    "commands": [
+      {
+        "command": "npm cache clean --force",
+        "description": "清理 npm 缓存",
+        "example": "npm cache clean --force"
+      },
+      {
+        "command": "npm cache verify",
+        "description": "验证缓存完整性",
+        "example": "npm cache verify"
+      },
+      {
+        "command": "npm ci && npm install",
+        "description": "Clean reinstall（删除 node_modules 后重装）",
+        "example": "rm -rf node_modules package-lock.json && npm install"
+      },
+      { "command": "npm dedupe", "description": "去除重复依赖", "example": "npm dedupe" },
+      { "command": "npm ls", "description": "查看依赖树", "example": "npm ls --depth=0" },
+      {
+        "command": "npm explain <pkg>",
+        "description": "解释为什么安装了某包",
+        "example": "npm explain lodash"
+      }
+    ]
+  },
+  {
+    "id": "yarn",
+    "label": "Yarn 对照",
+    "icon": "🧶",
+    "commands": [
+      { "command": "yarn init", "description": "初始化项目", "example": "yarn init -y" },
+      { "command": "yarn install", "description": "安装所有依赖", "example": "yarn install" },
+      { "command": "yarn add <pkg>", "description": "安装依赖", "example": "yarn add lodash" },
+      {
+        "command": "yarn add <pkg> -D",
+        "description": "安装开发依赖",
+        "example": "yarn add typescript -D"
+      },
+      {
+        "command": "yarn remove <pkg>",
+        "description": "卸载依赖",
+        "example": "yarn remove lodash"
+      },
+      { "command": "yarn upgrade", "description": "更新依赖", "example": "yarn upgrade" },
+      {
+        "command": "yarn <script>",
+        "description": "运行脚本（不需要 run）",
+        "example": "yarn build"
+      },
+      {
+        "command": "yarn why <pkg>",
+        "description": "查看为什么安装了某包",
+        "example": "yarn why lodash"
+      },
+      { "command": "yarn info <pkg>", "description": "查看包信息", "example": "yarn info react" }
+    ]
+  },
+  {
+    "id": "pnpm",
+    "label": "pnpm 对照",
+    "icon": "⚡",
+    "commands": [
+      { "command": "pnpm install", "description": "安装所有依赖", "example": "pnpm install" },
+      { "command": "pnpm add <pkg>", "description": "安装依赖", "example": "pnpm add lodash" },
+      {
+        "command": "pnpm add <pkg> -D",
+        "description": "安装开发依赖",
+        "example": "pnpm add typescript -D"
+      },
+      {
+        "command": "pnpm remove <pkg>",
+        "description": "卸载依赖",
+        "example": "pnpm remove lodash"
+      },
+      { "command": "pnpm <script>", "description": "运行脚本", "example": "pnpm build" },
+      {
+        "command": "pnpm dlx <cmd>",
+        "description": "临时执行（类似 npx）",
+        "example": "pnpm dlx create-vite my-app"
+      },
+      {
+        "command": "pnpm store status",
+        "description": "查看存储状态",
+        "example": "pnpm store status"
+      },
+      {
+        "command": "pnpm store prune",
+        "description": "清理无用的存储",
+        "example": "pnpm store prune"
+      }
+    ]
+  }
+]

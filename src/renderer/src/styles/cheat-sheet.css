@@ -1,0 +1,307 @@
+/* ========================================
+   通用 Cheat Sheet 样式（共享）
+   ======================================== */
+
+.cs-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 24px;
+  overflow-y: auto;
+}
+
+.cs-card {
+  width: 100%;
+  max-width: 640px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: var(--shadow-xl);
+}
+
+.cs-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.cs-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.cs-subtitle {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+/* 搜索 */
+.cs-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  color: var(--color-text-muted);
+}
+
+.cs-search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+  font-size: 14px;
+  outline: none;
+}
+
+.cs-search-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* 内容 */
+.cs-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 分类 */
+.cs-category {
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.cs-category-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cs-category-icon {
+  font-size: 18px;
+}
+
+.cs-category-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.cs-category-count {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: var(--color-border);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+/* 命令列表 */
+.cs-commands {
+  padding: 4px;
+}
+
+.cs-command-wrapper {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cs-command-wrapper:last-child {
+  border-bottom: none;
+}
+
+.cs-command {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-radius: 8px;
+}
+
+.cs-command:hover {
+  background: var(--color-surface-hover);
+}
+
+.cs-command.expanded {
+  background: var(--color-accent-soft-subtle);
+}
+
+.cs-command-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-accent-soft);
+  flex-shrink: 0;
+}
+
+.cs-command-desc {
+  flex: 1;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cs-copy-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.cs-copy-btn:hover {
+  border-color: var(--color-accent-soft);
+  color: var(--color-accent-soft);
+}
+
+/* 命令详情 */
+.cs-command-details {
+  padding: 12px 16px 16px;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  animation: cs-slide-down 0.2s ease;
+}
+
+@keyframes cs-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cs-detail-section {
+  margin-bottom: 12px;
+}
+
+.cs-detail-section:last-child {
+  margin-bottom: 0;
+}
+
+.cs-detail-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.cs-params {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cs-param {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+}
+
+.cs-param-flag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-accent-soft);
+  min-width: 60px;
+}
+
+.cs-param-desc {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.cs-detail-code {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.cs-detail-code code {
+  flex: 1;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--color-text);
+  word-break: break-all;
+}
+
+/* 空状态 */
+.cs-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 40px;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+/* 响应式 */
+@media (max-width: 600px) {
+  .cs-page {
+    padding: 24px 16px;
+  }
+
+  .cs-card {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .cs-title {
+    font-size: 20px;
+  }
+
+  .cs-command {
+    flex-wrap: wrap;
+  }
+
+  .cs-command-text {
+    width: 100%;
+  }
+
+  .cs-command-desc {
+    white-space: normal;
+  }
+}

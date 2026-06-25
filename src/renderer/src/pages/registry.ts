@@ -37,7 +37,10 @@ const pageMap: Record<string, React.LazyExoticComponent<ComponentType>> = {
   'case-converter': lazy(() => import('./CaseConverter')),
   'env-vars': lazy(() => import('./EnvVars')),
   'ascii-table': lazy(() => import('./AsciiTable')),
-  'unicode-inspector': lazy(() => import('./UnicodeInspector'))
+  'unicode-inspector': lazy(() => import('./UnicodeInspector')),
+  'npm-cheat-sheet': lazy(() => import('./NpmCheatSheet')),
+  'linux-cheat-sheet': lazy(() => import('./LinuxCheatSheet')),
+  'k8s-cheat-sheet': lazy(() => import('./K8sCheatSheet'))
 }
 
 export function getPageComponent(id: string): React.LazyExoticComponent<ComponentType> | null {
