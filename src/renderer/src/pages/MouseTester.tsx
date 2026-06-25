@@ -36,6 +36,15 @@ const BUTTON_LABELS: Record<number, string> = {
   4: '前进'
 }
 
+// MouseEvent.buttons bitmask: left=bit0, right=bit1, middle=bit2
+const BUTTON_TO_BIT: Record<number, number> = {
+  0: 1,  // Left  → bit 0
+  1: 4,  // Middle → bit 2
+  2: 2,  // Right → bit 1
+  3: 8,  // Back  → bit 3
+  4: 16  // Forward → bit 4
+}
+
 function formatButton(btn: number): string {
   return BUTTON_LABELS[btn] || `Button ${btn}`
 }
@@ -105,8 +114,28 @@ export default function MouseTester(): React.JSX.Element {
   }, [addEvent])
 
   const handleWheel = useCallback((e: React.WheelEvent) => {
-    addEvent('wheel', e as unknown as WheelEvent)
-  }, [addEvent])
+    const wheelInfo: MouseEventInfo = {
+      type: 'wheel',
+      button: -1,
+      buttons: 0,
+      clientX: e.clientX,
+      clientY: e.clientY,
+      screenX: e.screenX,
+      screenY: e.screenY,
+      pageX: e.clientX,
+      pageY: e.clientY,
+      deltaX: e.deltaX,
+      deltaY: e.deltaY,
+      deltaZ: e.deltaZ,
+      ctrlKey: e.ctrlKey,
+      shiftKey: e.shiftKey,
+      altKey: e.altKey,
+      metaKey: e.metaKey,
+      timestamp: Date.now()
+    }
+    setLastEvent(wheelInfo)
+    setHistory((prev) => [wheelInfo, ...prev].slice(0, 50))
+  }, [])
 
   const clearHistory = useCallback(() => {
     setHistory([])
@@ -183,7 +212,9 @@ export default function MouseTester(): React.JSX.Element {
               <span className="mt-section-label">按键状态</span>
               <div className="mt-buttons">
                 {[0, 1, 2, 3, 4].map((btn) => {
-                  const pressed = (lastEvent.buttons & (1 << btn)) !== 0
+                  const pressed =
+                    lastEvent.type !== 'wheel' &&
+                    (lastEvent.buttons & BUTTON_TO_BIT[btn]) !== 0
                   return (
                     <div key={btn} className={`mt-btn ${pressed ? 'active' : ''}`}>
                       <span className="mt-btn-name">{BUTTON_LABELS[btn] || `B${btn}`}</span>
@@ -272,7 +303,7 @@ export default function MouseTester(): React.JSX.Element {
               {history.map((e, i) => (
                 <div key={e.timestamp + i} className="mt-history-item">
                   <span className={`mt-history-type mt-type-${e.type}`}>{e.type}</span>
-                  {e.type !== 'mousemove' && (
+                  {e.type !== 'mousemove' && e.type !== 'wheel' && (
                     <span className="mt-history-btn-name">{formatButton(e.button)}</span>
                   )}
                   <span className="mt-history-coords">{e.clientX}, {e.clientY}</span>
