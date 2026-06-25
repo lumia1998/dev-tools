@@ -9,12 +9,12 @@ import {
   ChevronsRight,
   ChevronDown,
   Calculator,
-  Code,
   Globe,
   Wrench,
   Monitor,
   FileText,
-  BookMarked
+  BookMarked,
+  Lock
 } from 'lucide-react'
 import { tools } from '@renderer/tools/registry'
 import { cn } from '@renderer/lib/utils'
@@ -30,9 +30,10 @@ interface SidebarProps {
 // 分类图标映射
 const categoryIcons: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   换算工具: Calculator,
-  JSON工具: Code,
   网络工具: Globe,
   系统工具: Monitor,
+  '编码/加密': Lock,
+  开发工具: Wrench,
   文本工具: FileText,
   备忘录: BookMarked,
   __default: Wrench

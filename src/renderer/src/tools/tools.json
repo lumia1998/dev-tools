@@ -31,8 +31,8 @@
     "name": "Token Generator",
     "desc": "生成 UUID、JWT、API Key 等随机标识符",
     "icon": "Key",
-    "category": "开发工具",
-    "categoryIcon": "Wrench",
+    "category": "编码/加密",
+    "categoryIcon": "Lock",
     "isNew": true
   },
   {
@@ -40,8 +40,8 @@
     "name": "JWT Generator",
     "desc": "快速生成和调试 JSON Web Token",
     "icon": "Shield",
-    "category": "开发工具",
-    "categoryIcon": "Wrench",
+    "category": "编码/加密",
+    "categoryIcon": "Lock",
     "isNew": true
   },
   {
@@ -67,8 +67,8 @@
     "name": "URL Codec",
     "desc": "URL 编码与解码，支持参数编码和完整 URL",
     "icon": "Link2",
-    "category": "开发工具",
-    "categoryIcon": "Wrench",
+    "category": "编码/加密",
+    "categoryIcon": "Lock",
     "isNew": true
   },
   {
@@ -76,8 +76,8 @@
     "name": "Hash Generator",
     "desc": "生成 MD5、SHA-1、SHA-256、SHA-384、SHA-512 哈希值",
     "icon": "Hash",
-    "category": "开发工具",
-    "categoryIcon": "Wrench",
+    "category": "编码/加密",
+    "categoryIcon": "Lock",
     "isNew": true
   },
   {
@@ -85,8 +85,8 @@
     "name": "Password Generator",
     "desc": "生成高强度安全随机密码",
     "icon": "Lock",
-    "category": "开发工具",
-    "categoryIcon": "Wrench",
+    "category": "编码/加密",
+    "categoryIcon": "Lock",
     "isNew": true
   },
   {
@@ -94,8 +94,8 @@
     "name": "JWT Decoder",
     "desc": "解析和检查 JWT Token",
     "icon": "ShieldCheck",
-    "category": "开发工具",
-    "categoryIcon": "Wrench",
+    "category": "编码/加密",
+    "categoryIcon": "Lock",
     "isNew": true
   },
   {
@@ -112,8 +112,8 @@
     "name": "Base64 Codec",
     "desc": "Base64 编码与解码，支持 URL Safe",
     "icon": "Binary",
-    "category": "开发工具",
-    "categoryIcon": "Wrench",
+    "category": "编码/加密",
+    "categoryIcon": "Lock",
     "isNew": true
   },
   {
@@ -121,8 +121,8 @@
     "name": "Keyboard Tester",
     "desc": "实时查看键盘按键的 KeyboardEvent 信息",
     "icon": "Keyboard",
-    "category": "开发工具",
-    "categoryIcon": "Wrench",
+    "category": "系统工具",
+    "categoryIcon": "Monitor",
     "isNew": true
   },
   {
@@ -130,8 +130,8 @@
     "name": "Mouse Tester",
     "desc": "实时查看鼠标事件的 MouseEvent 信息",
     "icon": "MousePointer",
-    "category": "开发工具",
-    "categoryIcon": "Wrench",
+    "category": "系统工具",
+    "categoryIcon": "Monitor",
     "isNew": true
   },
   {
@@ -238,8 +238,8 @@
     "name": "ASCII Table",
     "desc": "ASCII 码表完整对照（0–127）",
     "icon": "Binary",
-    "category": "开发工具",
-    "categoryIcon": "Wrench",
+    "category": "备忘录",
+    "categoryIcon": "BookMarked",
     "isNew": true
   },
   {
@@ -247,8 +247,8 @@
     "name": "Unicode Inspector",
     "desc": "查看字符的 Unicode 详细信息",
     "icon": "Languages",
-    "category": "开发工具",
-    "categoryIcon": "Wrench",
+    "category": "文本工具",
+    "categoryIcon": "FileText",
     "isNew": true
   },
   {
