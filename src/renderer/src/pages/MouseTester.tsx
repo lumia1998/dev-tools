@@ -82,22 +82,14 @@ export default function MouseTester(): React.JSX.Element {
       eventInfo.deltaZ = e.deltaZ
     }
 
-    const mouseEvent = e as React.MouseEvent
-    if (type === 'mousemove') {
-      eventInfo.movementX = mouseEvent.movementX || 0
-      eventInfo.movementY = mouseEvent.movementY || 0
-    }
-
     setLastEvent(eventInfo)
-    if (type !== 'mousemove') {
-      setHistory((prev) => [eventInfo, ...prev].slice(0, 50))
-    }
+    setHistory((prev) => [eventInfo, ...prev].slice(0, 50))
   }, [])
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     setPosition({ x: e.clientX, y: e.clientY })
-    addEvent('mousemove', e)
-  }, [addEvent])
+    // Don't overwrite lastEvent with mousemove — too noisy
+  }, [])
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     e.preventDefault()
