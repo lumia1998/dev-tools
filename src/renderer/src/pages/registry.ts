@@ -42,7 +42,9 @@ const pageMap: Record<string, React.LazyExoticComponent<ComponentType>> = {
   'linux-cheat-sheet': lazy(() => import('./LinuxCheatSheet')),
   'k8s-cheat-sheet': lazy(() => import('./K8sCheatSheet')),
   'color-converter': lazy(() => import('./ColorConverter')),
-  'lorem-ipsum': lazy(() => import('./LoremIpsum'))
+  'lorem-ipsum': lazy(() => import('./LoremIpsum')),
+  'regex-tester': lazy(() => import('./RegexTester')),
+  'diff-checker': lazy(() => import('./DiffChecker'))
 }
 
 export function getPageComponent(id: string): React.LazyExoticComponent<ComponentType> | null {

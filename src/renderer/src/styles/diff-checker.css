@@ -1,0 +1,248 @@
+/* ========================================
+   Diff Checker 页面
+   ======================================== */
+
+.df-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 24px;
+  overflow-y: auto;
+}
+
+.df-card {
+  width: 100%;
+  max-width: 960px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: var(--shadow-xl);
+}
+
+.df-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.df-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 4px;
+  letter-spacing: -0.02em;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.df-subtitle {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* ── Toolbar ────────────────────────────── */
+
+.df-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.df-toolbar-spacer {
+  flex: 1;
+}
+
+.df-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1.5px solid transparent;
+  user-select: none;
+}
+
+.df-btn-ghost {
+  background: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.df-btn-ghost:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-text);
+  border-color: var(--color-border-hover);
+}
+
+/* ── Editors ────────────────────────────── */
+
+.df-editors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.df-editor-pane {
+  display: flex;
+  flex-direction: column;
+}
+
+.df-editor-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+
+.df-textarea {
+  flex: 1;
+  min-height: 180px;
+  padding: 12px 14px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  color: var(--color-text);
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+  line-height: 1.6;
+  tab-size: 2;
+}
+
+.df-textarea:focus {
+  border-color: var(--color-accent-soft);
+  box-shadow: 0 0 0 3px var(--color-accent-soft-subtle);
+}
+
+/* ── Result header ──────────────────────── */
+
+.df-result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.df-stats {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.df-stat-add {
+  color: var(--color-success, #22c55e);
+}
+
+.df-stat-rem {
+  color: var(--color-danger, #e53e3e);
+}
+
+.df-stat-same {
+  color: var(--color-text-muted);
+}
+
+/* ── Diff output ────────────────────────── */
+
+.df-diff-output {
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  overflow: hidden;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.df-diff-line {
+  display: flex;
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1.6;
+  min-height: 24px;
+}
+
+.df-diff-same {
+  background: transparent;
+  color: var(--color-text);
+}
+
+.df-diff-added {
+  background: rgba(34, 197, 94, 0.06);
+  color: var(--color-text);
+}
+
+.df-diff-removed {
+  background: rgba(229, 62, 62, 0.06);
+  color: var(--color-text);
+}
+
+.df-line-num {
+  width: 40px;
+  text-align: right;
+  padding: 0 8px;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  user-select: none;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+
+.df-line-sign {
+  width: 20px;
+  text-align: center;
+  font-weight: 700;
+  user-select: none;
+  flex-shrink: 0;
+  font-size: 12px;
+}
+
+.df-diff-added .df-line-sign { color: var(--color-success, #22c55e); }
+.df-diff-removed .df-line-sign { color: var(--color-danger, #e53e3e); }
+
+.df-line-text {
+  flex: 1;
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding-right: 8px;
+}
+
+/* ── Responsive ─────────────────────────── */
+
+@media (max-width: 700px) {
+  .df-page {
+    padding: 24px 16px;
+  }
+
+  .df-card {
+    padding: 24px 18px;
+    border-radius: 16px;
+  }
+
+  .df-editors {
+    grid-template-columns: 1fr;
+  }
+
+  .df-textarea {
+    min-height: 120px;
+  }
+}

@@ -35,6 +35,8 @@
 @import '../styles/settings.css';
 @import '../styles/color-converter.css';
 @import '../styles/lorem-ipsum.css';
+@import '../styles/regex-tester.css';
+@import '../styles/diff-checker.css';
 
 @tailwind base;
 @tailwind components;

@@ -295,5 +295,23 @@
     "category": "文本工具",
     "categoryIcon": "FileText",
     "isNew": true
+  },
+  {
+    "id": "regex-tester",
+    "name": "Regex Tester",
+    "desc": "正则表达式实时测试与替换",
+    "icon": "Regex",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
+  },
+  {
+    "id": "diff-checker",
+    "name": "Diff Checker",
+    "desc": "逐行对比文本差异，高亮新增/删除/修改",
+    "icon": "GitCompare",
+    "category": "文本工具",
+    "categoryIcon": "FileText",
+    "isNew": true
   }
 ]
