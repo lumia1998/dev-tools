@@ -55,6 +55,15 @@ const updaterAPI = {
   }
 }
 
+// Maven API (proxied through main process)
+const mavenAPI = {
+  searchArtifacts: (query: string, rows: number): Promise<unknown> =>
+    ipcRenderer.invoke('maven:search', query, rows),
+  getVersions: (groupId: string, artifactId: string): Promise<unknown> =>
+    ipcRenderer.invoke('maven:versions', groupId, artifactId),
+  fetchPopular: (): Promise<unknown> => ipcRenderer.invoke('maven:popular')
+}
+
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
 // just add to the DOM global.
@@ -63,6 +72,7 @@ if (process.contextIsolated) {
     contextBridge.exposeInMainWorld('electron', electronAPI)
     contextBridge.exposeInMainWorld('api', settingsAPI)
     contextBridge.exposeInMainWorld('updater', updaterAPI)
+    contextBridge.exposeInMainWorld('maven', mavenAPI)
   } catch (error) {
     console.error(error)
   }
@@ -73,21 +83,6 @@ if (process.contextIsolated) {
   window.api = settingsAPI
   // @ts-ignore (define in dts)
   window.updater = updaterAPI
-}
-
-// Use `contextBridge` APIs to expose Electron APIs to
-// renderer only if context isolation is enabled, otherwise
-// just add to the DOM global.
-if (process.contextIsolated) {
-  try {
-    contextBridge.exposeInMainWorld('electron', electronAPI)
-    contextBridge.exposeInMainWorld('api', settingsAPI)
-  } catch (error) {
-    console.error(error)
-  }
-} else {
   // @ts-ignore (define in dts)
-  window.electron = electronAPI
-  // @ts-ignore (define in dts)
-  window.api = settingsAPI
+  window.maven = mavenAPI
 }

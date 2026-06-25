@@ -43,10 +43,17 @@ export interface UpdaterAPI {
   onUpdateStatus: (callback: (status: UpdateStatus) => void) => () => void
 }
 
+export interface MavenAPI {
+  searchArtifacts: (query: string, rows: number) => Promise<unknown>
+  getVersions: (groupId: string, artifactId: string) => Promise<unknown>
+  fetchPopular: () => Promise<unknown>
+}
+
 declare global {
   interface Window {
     electron: ElectronAPI
     api: SettingsAPI
     updater: UpdaterAPI
+    maven: MavenAPI
   }
 }

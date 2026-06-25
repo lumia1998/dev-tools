@@ -63,6 +63,70 @@ function registerUpdaterHandlers(): void {
   })
 }
 
+const SOLR_BASE = 'https://search.maven.org/solrsearch/select'
+
+function registerMavenHandlers(): void {
+  ipcMain.handle('maven:search', async (_event, query: string, rows: number) => {
+    const params = new URLSearchParams({ q: query, rows: String(rows || 20), wt: 'json' })
+    const res = await fetch(`${SOLR_BASE}?${params}`)
+    return res.json()
+  })
+
+  ipcMain.handle('maven:versions', async (_event, groupId: string, artifactId: string) => {
+    const params = new URLSearchParams({
+      q: `g:${groupId} AND a:${artifactId}`,
+      core: 'gav',
+      rows: '15',
+      wt: 'json'
+    })
+    const res = await fetch(`${SOLR_BASE}?${params}`)
+    return res.json()
+  })
+
+  ipcMain.handle('maven:popular', async () => {
+    const seeds = [
+      'spring-boot-starter-web',
+      'spring-boot-starter-data-jpa',
+      'lombok',
+      'guava',
+      'jackson-databind',
+      'gson',
+      'mybatis-spring-boot-starter',
+      'mybatis-plus-boot-starter',
+      'mysql-connector-j',
+      'postgresql',
+      'h2',
+      'commons-lang3',
+      'okhttp',
+      'kafka-clients',
+      'jjwt-api',
+      'springdoc-openapi-starter-webmvc-ui',
+      'mapstruct',
+      'hutool-all',
+      'fastjson2',
+      'knife4j-openapi3-jakarta-spring-boot-starter',
+      'aliyun-sdk-oss',
+      'amqp-client',
+      'jedis',
+      'httpclient5'
+    ]
+    const results: unknown[] = []
+    for (const seed of seeds) {
+      try {
+        const params = new URLSearchParams({ q: `a:${seed}`, rows: '1', wt: 'json' })
+        const res = await fetch(`${SOLR_BASE}?${params}`)
+        const data = await res.json()
+        if (data.response?.docs?.length > 0) {
+          results.push(data.response.docs[0])
+        }
+      } catch {
+        // skip
+      }
+    }
+    return results
+  })
+}
+
 let mainWindow: BrowserWindow | null = null
 
 function createWindow(): void {
@@ -124,6 +188,9 @@ app.whenReady().then(() => {
 
   // Register updater IPC handlers
   registerUpdaterHandlers()
+
+  // Register maven proxy handlers
+  registerMavenHandlers()
 
   createWindow()
 
