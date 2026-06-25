@@ -178,5 +178,14 @@
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
+  },
+  {
+    "id": "docker-cheat-sheet",
+    "name": "Docker Cheat Sheet",
+    "desc": "Docker 命令速查手册",
+    "icon": "Box",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
   }
 ]

@@ -21,6 +21,7 @@ import IPv4Converter from '@renderer/pages/IPv4Converter'
 import IPRangeExpander from '@renderer/pages/IPRangeExpander'
 import TextAnalyzer from '@renderer/pages/TextAnalyzer'
 import GitCheatSheet from '@renderer/pages/GitCheatSheet'
+import DockerCheatSheet from '@renderer/pages/DockerCheatSheet'
 import About from '@renderer/pages/About'
 
 function App(): React.JSX.Element {
@@ -111,6 +112,8 @@ function App(): React.JSX.Element {
         return <TextAnalyzer />
       case 'git-cheat-sheet':
         return <GitCheatSheet />
+      case 'docker-cheat-sheet':
+        return <DockerCheatSheet />
       case 'about':
         return <About />
       default:
