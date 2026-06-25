@@ -53,7 +53,9 @@ const pageMap: Record<string, React.LazyExoticComponent<ComponentType>> = {
   'http-status-codes': lazy(() => import('./HttpStatusCodes')),
   'regex-cheat-sheet': lazy(() => import('./RegexCheatSheet')),
   'html-entities': lazy(() => import('./HtmlEntities')),
-  'sql-cheat-sheet': lazy(() => import('./SqlCheatSheet'))
+  'sql-cheat-sheet': lazy(() => import('./SqlCheatSheet')),
+  'image-tools': lazy(() => import('./ImageTools')),
+  'data-converter': lazy(() => import('./DataConverter'))
 }
 
 export function getPageComponent(id: string): React.LazyExoticComponent<ComponentType> | null {

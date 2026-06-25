@@ -394,5 +394,23 @@
     "category": "备忘录",
     "categoryIcon": "BookMarked",
     "isNew": true
+  },
+  {
+    "id": "image-tools",
+    "name": "Image Tools",
+    "desc": "图片转 Base64 · 图片信息查看",
+    "icon": "Image",
+    "category": "换算工具",
+    "categoryIcon": "Calculator",
+    "isNew": true
+  },
+  {
+    "id": "data-converter",
+    "name": "Data Format Converter",
+    "desc": "CSV ↔ JSON ↔ XML 数据格式互转",
+    "icon": "FileJson",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
   }
 ]
