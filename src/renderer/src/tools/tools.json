@@ -232,5 +232,23 @@
     "category": "系统工具",
     "categoryIcon": "Monitor",
     "isNew": true
+  },
+  {
+    "id": "ascii-table",
+    "name": "ASCII Table",
+    "desc": "ASCII 码表完整对照（0–127）",
+    "icon": "Binary",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
+  },
+  {
+    "id": "unicode-inspector",
+    "name": "Unicode Inspector",
+    "desc": "查看字符的 Unicode 详细信息",
+    "icon": "Languages",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
   }
 ]
