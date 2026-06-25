@@ -25,6 +25,7 @@ import TextAnalyzer from '@renderer/pages/TextAnalyzer'
 import GitCheatSheet from '@renderer/pages/GitCheatSheet'
 import DockerCheatSheet from '@renderer/pages/DockerCheatSheet'
 import MavenDependency from '@renderer/pages/MavenDependency'
+import FileGenerator from '@renderer/pages/FileGenerator'
 import About from '@renderer/pages/About'
 import SettingsPage from '@renderer/pages/SettingsPage'
 import { SettingsProvider, useSettings } from '@renderer/lib/contexts'
@@ -105,6 +106,8 @@ function AppContent(): React.JSX.Element {
         return <DockerCheatSheet />
       case 'maven-dependency':
         return <MavenDependency />
+      case 'file-generator':
+        return <FileGenerator />
       case 'about':
         return <About />
       case 'settings':

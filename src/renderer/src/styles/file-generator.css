@@ -1,0 +1,242 @@
+/* ========================================
+   File Generator 页面
+   ======================================== */
+
+.fg-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 24px;
+  overflow-y: auto;
+}
+
+.fg-card {
+  width: 100%;
+  max-width: 640px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: var(--shadow-xl);
+}
+
+.fg-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.fg-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+
+.fg-subtitle {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.fg-section {
+  margin-bottom: 24px;
+}
+
+.fg-section-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+/* 大小输入 */
+.fg-size-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fg-size-input {
+  width: 100px;
+  padding: 10px 14px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  color: var(--color-text);
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  outline: none;
+  text-align: center;
+}
+
+.fg-size-input:focus {
+  border-color: var(--color-accent-soft);
+}
+
+.fg-unit-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 3px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+}
+
+.fg-unit-btn {
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.fg-unit-btn:hover {
+  color: var(--color-text-secondary);
+}
+
+.fg-unit-btn.active {
+  background: var(--color-accent-soft);
+  color: white;
+}
+
+.fg-size-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* 格式选择 */
+.fg-formats {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fg-format-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.fg-format-btn:hover {
+  border-color: var(--color-border-hover);
+}
+
+.fg-format-btn.active {
+  border-color: var(--color-accent-soft);
+  background: var(--color-accent-soft-subtle);
+  color: var(--color-text);
+}
+
+.fg-format-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fg-format-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.fg-format-desc {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+/* 生成按钮 */
+.fg-generate-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  background: var(--color-accent-soft);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.fg-generate-btn:hover:not(:disabled) {
+  background: var(--color-accent-soft-hover);
+  box-shadow: 0 4px 16px var(--color-accent-soft-glow);
+}
+
+.fg-generate-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fg-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: fg-spin 0.8s linear infinite;
+}
+
+@keyframes fg-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fg-warning {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: var(--color-warning-subtle);
+  border: 1px solid var(--color-warning);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--color-warning);
+}
+
+/* 响应式 */
+@media (max-width: 600px) {
+  .fg-page {
+    padding: 24px 16px;
+  }
+
+  .fg-card {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .fg-title {
+    font-size: 20px;
+  }
+}

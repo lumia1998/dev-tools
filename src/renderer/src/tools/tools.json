@@ -205,5 +205,14 @@
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
+  },
+  {
+    "id": "file-generator",
+    "name": "File Generator",
+    "desc": "生成指定大小的测试文件，用于上传限制测试",
+    "icon": "FileUp",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
   }
 ]
