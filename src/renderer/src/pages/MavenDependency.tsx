@@ -77,7 +77,6 @@ export default function MavenDependency(): React.JSX.Element {
   // Debounced search
   const doSearch = useCallback(async (query: string) => {
     if (!query.trim()) {
-      // Go back to popular list
       setLoading(true)
       const docs = await fetchPopularDeps()
       setDeps(docs)
@@ -90,17 +89,36 @@ export default function MavenDependency(): React.JSX.Element {
     setLoading(false)
   }, [])
 
+  // Trigger search with debounce, unless immediate is set
+  const triggerSearch = useCallback(
+    (query: string, immediate = false) => {
+      if (debounceRef.current) clearTimeout(debounceRef.current)
+      if (immediate) {
+        doSearch(query)
+        return
+      }
+      debounceRef.current = setTimeout(() => doSearch(query), 200)
+    },
+    [doSearch]
+  )
+
   useEffect(() => {
-    if (debounceRef.current) clearTimeout(debounceRef.current)
     if (!search.trim()) {
-      debounceRef.current = setTimeout(() => doSearch(''), 200)
+      triggerSearch('', true)
     } else {
-      debounceRef.current = setTimeout(() => doSearch(search), 400)
+      triggerSearch(search)
     }
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current)
     }
-  }, [search, doSearch])
+  }, [search, triggerSearch])
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === 'Enter') {
+      if (debounceRef.current) clearTimeout(debounceRef.current)
+      doSearch(search)
+    }
+  }
 
   // Fetch versions when a dep is selected
   const selectDep = useCallback(async (dep: MavenDoc) => {
@@ -196,6 +214,7 @@ export default function MavenDependency(): React.JSX.Element {
                 className="mvn-search-input"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
+                onKeyDown={handleSearchKeyDown}
                 placeholder="搜索 Maven 依赖 (spring, lombok, jackson...)"
               />
             </div>
