@@ -11,6 +11,9 @@ export interface AppSettings {
     autoCopy: boolean
     timestampFormat: 'seconds' | 'milliseconds'
   }
+  updater: {
+    autoCheck: boolean
+  }
 }
 
 const DEFAULT_SETTINGS: AppSettings = {
@@ -23,6 +26,9 @@ const DEFAULT_SETTINGS: AppSettings = {
     jsonIndent: 2,
     autoCopy: false,
     timestampFormat: 'seconds'
+  },
+  updater: {
+    autoCheck: true
   }
 }
 
@@ -31,6 +37,7 @@ interface SettingsContextType {
   loading: boolean
   updateAppearance: (updates: Partial<AppSettings['appearance']>) => Promise<void>
   updateEditor: (updates: Partial<AppSettings['editor']>) => Promise<void>
+  updateUpdater: (updates: Partial<AppSettings['updater']>) => Promise<void>
   resetToDefaults: () => Promise<void>
 }
 
@@ -72,6 +79,15 @@ export function SettingsProvider({ children }: { children: ReactNode }): React.J
     }
   }, [])
 
+  const updateUpdater = useCallback(async (updates: Partial<AppSettings['updater']>) => {
+    try {
+      const updated = await window.api.updateUpdater(updates)
+      setSettings(updated)
+    } catch {
+      // 忽略错误
+    }
+  }, [])
+
   const resetToDefaults = useCallback(async () => {
     try {
       const reset = await window.api.resetToDefaults()
@@ -83,7 +99,7 @@ export function SettingsProvider({ children }: { children: ReactNode }): React.J
 
   return (
     <SettingsContext.Provider
-      value={{ settings, loading, updateAppearance, updateEditor, resetToDefaults }}
+      value={{ settings, loading, updateAppearance, updateEditor, updateUpdater, resetToDefaults }}
     >
       {children}
     </SettingsContext.Provider>

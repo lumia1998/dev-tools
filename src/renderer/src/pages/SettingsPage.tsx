@@ -1,9 +1,23 @@
-import { Settings, Palette, RotateCcw } from 'lucide-react'
+import { Settings, Palette, RotateCcw, RefreshCw, Download } from 'lucide-react'
 import { useSettings } from '@renderer/lib/contexts'
+import { useUpdater } from '@renderer/lib/updater-context'
 import '../styles/settings.css'
 
 export default function SettingsPage(): React.JSX.Element {
-  const { settings, updateAppearance, updateEditor, resetToDefaults } = useSettings()
+  const { settings, updateAppearance, updateEditor, updateUpdater, resetToDefaults } =
+    useSettings()
+  const {
+    status,
+    version,
+    isChecking,
+    isDownloading,
+    isAvailable,
+    isDownloaded,
+    hasError,
+    checkForUpdates,
+    downloadUpdate,
+    quitAndInstall
+  } = useUpdater()
 
   return (
     <div className="settings-page">
@@ -132,6 +146,92 @@ export default function SettingsPage(): React.JSX.Element {
                 />
                 <span className="settings-toggle-slider" />
               </label>
+            </div>
+          </div>
+
+          {/* 更新设置 */}
+          <div className="settings-section">
+            <h3 className="settings-section-title">
+              <RefreshCw size={18} className="settings-section-icon" />
+              更新
+            </h3>
+
+            <div className="settings-item">
+              <div className="settings-item-info">
+                <p className="settings-item-label">自动检查更新</p>
+                <p className="settings-item-description">启动时自动检查新版本</p>
+              </div>
+              <label className="settings-toggle">
+                <input
+                  type="checkbox"
+                  checked={settings.updater.autoCheck}
+                  onChange={(e) => updateUpdater({ autoCheck: e.target.checked })}
+                />
+                <span className="settings-toggle-slider" />
+              </label>
+            </div>
+
+            <div className="settings-item">
+              <div className="settings-item-info">
+                <p className="settings-item-label">当前版本</p>
+                <p className="settings-item-description">{version || '加载中...'}</p>
+              </div>
+            </div>
+
+            <div className="settings-item">
+              <div className="settings-item-info">
+                <p className="settings-item-label">状态</p>
+                <p className={`settings-item-description ${hasError ? 'updater-error' : ''}`}>
+                  {isChecking && '正在检查更新...'}
+                  {status.type === 'not-available' && '✓ 已是最新版本'}
+                  {isAvailable &&
+                    `发现新版本 ${status.type === 'available' ? status.version : ''}`}
+                  {isDownloading &&
+                    status.type === 'downloading' &&
+                    `下载中 ${status.percent}%`}
+                  {isDownloaded && '下载完成，重启应用以安装更新'}
+                  {hasError && status.type === 'error' && `✗ ${status.message}`}
+                </p>
+              </div>
+            </div>
+
+            {isDownloading && status.type === 'downloading' && (
+              <div className="updater-progress">
+                <div
+                  className="updater-progress-bar"
+                  style={{ width: `${status.percent}%` }}
+                />
+              </div>
+            )}
+
+            <div className="updater-actions">
+              {!isAvailable && !isDownloading && !isDownloaded && (
+                <button
+                  className="settings-btn settings-btn-primary"
+                  onClick={checkForUpdates}
+                  disabled={isChecking}
+                >
+                  <RefreshCw size={15} className={isChecking ? 'updater-spin' : ''} />
+                  检查更新
+                </button>
+              )}
+              {isAvailable && (
+                <button
+                  className="settings-btn settings-btn-primary"
+                  onClick={downloadUpdate}
+                >
+                  <Download size={15} />
+                  下载更新
+                </button>
+              )}
+              {isDownloaded && (
+                <button
+                  className="settings-btn settings-btn-primary"
+                  onClick={quitAndInstall}
+                >
+                  重启并安装
+                </button>
+              )}
             </div>
           </div>
         </div>

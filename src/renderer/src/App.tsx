@@ -26,6 +26,7 @@ import MavenDependency from '@renderer/pages/MavenDependency'
 import About from '@renderer/pages/About'
 import SettingsPage from '@renderer/pages/SettingsPage'
 import { SettingsProvider, useSettings } from '@renderer/lib/contexts'
+import { UpdaterProvider } from '@renderer/lib/updater-context'
 
 function AppContent(): React.JSX.Element {
   const { settings, updateAppearance } = useSettings()
@@ -125,7 +126,9 @@ function AppContent(): React.JSX.Element {
 function App(): React.JSX.Element {
   return (
     <SettingsProvider>
-      <AppContent />
+      <UpdaterProvider>
+        <AppContent />
+      </UpdaterProvider>
     </SettingsProvider>
   )
 }

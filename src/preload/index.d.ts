@@ -11,6 +11,9 @@ export interface AppSettings {
     autoCopy: boolean
     timestampFormat: 'seconds' | 'milliseconds'
   }
+  updater: {
+    autoCheck: boolean
+  }
 }
 
 export interface SettingsAPI {
@@ -19,12 +22,31 @@ export interface SettingsAPI {
   getEditor: () => Promise<AppSettings['editor']>
   updateAppearance: (updates: Partial<AppSettings['appearance']>) => Promise<AppSettings>
   updateEditor: (updates: Partial<AppSettings['editor']>) => Promise<AppSettings>
+  updateUpdater: (updates: Partial<AppSettings['updater']>) => Promise<AppSettings>
   resetToDefaults: () => Promise<AppSettings>
+}
+
+export type UpdateStatus =
+  | { type: 'idle' }
+  | { type: 'checking' }
+  | { type: 'not-available' }
+  | { type: 'available'; version: string; releaseDate?: string; releaseNotes?: string }
+  | { type: 'downloading'; percent: number }
+  | { type: 'downloaded'; version: string }
+  | { type: 'error'; message: string }
+
+export interface UpdaterAPI {
+  checkForUpdates: () => Promise<UpdateStatus>
+  downloadUpdate: () => Promise<void>
+  quitAndInstall: () => Promise<void>
+  getVersion: () => Promise<string>
+  onUpdateStatus: (callback: (status: UpdateStatus) => void) => () => void
 }
 
 declare global {
   interface Window {
     electron: ElectronAPI
     api: SettingsAPI
+    updater: UpdaterAPI
   }
 }

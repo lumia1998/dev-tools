@@ -13,6 +13,9 @@ export interface AppSettings {
     autoCopy: boolean
     timestampFormat: 'seconds' | 'milliseconds'
   }
+  updater: {
+    autoCheck: boolean
+  }
 }
 
 const DEFAULT_SETTINGS: AppSettings = {
@@ -25,6 +28,9 @@ const DEFAULT_SETTINGS: AppSettings = {
     jsonIndent: 2,
     autoCopy: false,
     timestampFormat: 'seconds'
+  },
+  updater: {
+    autoCheck: true
   }
 }
 
@@ -54,7 +60,8 @@ class SettingsStore {
   private mergeWithDefaults(data: Partial<AppSettings>): AppSettings {
     return {
       appearance: { ...DEFAULT_SETTINGS.appearance, ...data.appearance },
-      editor: { ...DEFAULT_SETTINGS.editor, ...data.editor }
+      editor: { ...DEFAULT_SETTINGS.editor, ...data.editor },
+      updater: { ...DEFAULT_SETTINGS.updater, ...data.updater }
     }
   }
 
@@ -82,6 +89,10 @@ class SettingsStore {
     return { ...this.settings.editor }
   }
 
+  getUpdater(): AppSettings['updater'] {
+    return { ...this.settings.updater }
+  }
+
   updateAppearance(updates: Partial<AppSettings['appearance']>): AppSettings {
     this.settings.appearance = { ...this.settings.appearance, ...updates }
     this.save()
@@ -90,6 +101,12 @@ class SettingsStore {
 
   updateEditor(updates: Partial<AppSettings['editor']>): AppSettings {
     this.settings.editor = { ...this.settings.editor, ...updates }
+    this.save()
+    return this.getSettings()
+  }
+
+  updateUpdater(updates: Partial<AppSettings['updater']>): AppSettings {
+    this.settings.updater = { ...this.settings.updater, ...updates }
     this.save()
     return this.getSettings()
   }
