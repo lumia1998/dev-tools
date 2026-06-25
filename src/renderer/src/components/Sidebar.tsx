@@ -25,7 +25,7 @@ interface SidebarProps {
 }
 
 // 分类图标映射
-const categoryIcons: Record<string, React.ComponentType<{ size?: number }>> = {
+const categoryIcons: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   换算工具: Calculator,
   JSON工具: Code,
   网络工具: Globe,
@@ -48,7 +48,7 @@ function NavButton({
   collapsed,
   onClick
 }: {
-  item: { id: string; label: string; icon: React.ComponentType<{ size?: number }> }
+  item: { id: string; label: string; icon: React.ComponentType<{ size?: number; className?: string }> }
   active: boolean
   collapsed: boolean
   onClick: () => void

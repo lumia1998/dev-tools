@@ -278,12 +278,10 @@ export default function JWTDecoder(): React.JSX.Element {
                   <div key={claim} className="jd-time-item">
                     <div className="jd-time-claim">
                       <code>{claim}</code>
-                      <span className="jd-time-desc">
-                        {CLAIM_DESCRIPTIONS[claim] || claim}
-                      </span>
+                      <span className="jd-time-desc">{CLAIM_DESCRIPTIONS[claim] || claim}</span>
                     </div>
                     <div className="jd-time-value">
-                      <span className="jd-time-ts">{decoded.payload[claim]}</span>
+                      <span className="jd-time-ts">{String(decoded.payload[claim])}</span>
                       <span className="jd-time-human">
                         {formatTimestamp(decoded.payload[claim] as number)}
                       </span>

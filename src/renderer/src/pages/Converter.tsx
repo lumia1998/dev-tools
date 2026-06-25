@@ -28,9 +28,7 @@ export default function Converter(): React.JSX.Element {
         {/* Header */}
         <div className="converter-header">
           <h2 className="converter-title">Data Size Converter</h2>
-          <p className="converter-subtitle">
-            数据大小单位转换工具
-          </p>
+          <p className="converter-subtitle">数据大小单位转换工具</p>
         </div>
 
         {/* 分段控制器 */}
@@ -107,7 +105,11 @@ export default function Converter(): React.JSX.Element {
                 <button
                   key={p}
                   className={`converter-precision-btn ${precision === p ? 'active' : ''}`}
-                  onClick={() => handlePrecisionChange({ target: { value: String(p) } } as React.ChangeEvent<HTMLSelectElement>)}
+                  onClick={() =>
+                    handlePrecisionChange({
+                      target: { value: String(p) }
+                    } as React.ChangeEvent<HTMLSelectElement>)
+                  }
                 >
                   {p}
                 </button>
@@ -125,12 +127,12 @@ export default function Converter(): React.JSX.Element {
           <div className="converter-shortcuts-title">快捷转换</div>
           <div className="converter-shortcuts-list">
             {[
-              { from: '1', unit: 'KB', label: '1 KB → B' },
-              { from: '1024', unit: 'KB', label: '1024 KB → MB' },
-              { from: '1024', unit: 'MB', label: '1024 MB → GB' },
-              { from: '1', unit: 'GB', label: '1 GB → MB' },
-              { from: '1', unit: 'TB', label: '1 TB → GB' },
-              { from: '1', unit: 'GiB', label: '1 GiB → MiB' }
+              { from: '1', unit: 'KB' as Unit, label: '1 KB → B' },
+              { from: '1024', unit: 'KB' as Unit, label: '1024 KB → MB' },
+              { from: '1024', unit: 'MB' as Unit, label: '1024 MB → GB' },
+              { from: '1', unit: 'GB' as Unit, label: '1 GB → MB' },
+              { from: '1', unit: 'TB' as Unit, label: '1 TB → GB' },
+              { from: '1', unit: 'GiB' as Unit, label: '1 GiB → MiB' }
             ].map((item) => (
               <button
                 key={item.label}

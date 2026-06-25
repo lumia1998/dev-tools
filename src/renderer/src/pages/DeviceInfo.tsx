@@ -16,7 +16,15 @@ import {
 } from 'lucide-react'
 import { useDeviceInfo } from '@renderer/tools/device-info/useDeviceInfo'
 
-function InfoRow({ label, value, onCopy }: { label: string; value: string; onCopy?: (text: string) => void }) {
+function InfoRow({
+  label,
+  value,
+  onCopy
+}: {
+  label: string
+  value: string
+  onCopy?: (text: string) => void
+}) {
   return (
     <div className="device-info-row">
       <span className="device-info-label">{label}</span>
@@ -41,16 +49,22 @@ function CapabilityBadge({ name, supported }: { name: string; supported: boolean
   )
 }
 
-function InfoCard({ icon: Icon, title, children }: { icon: React.ComponentType<{ size?: number }>; title: string; children: React.ReactNode }) {
+function InfoCard({
+  icon: Icon,
+  title,
+  children
+}: {
+  icon: React.ComponentType<{ size?: number; className?: string }>
+  title: string
+  children: React.ReactNode
+}) {
   return (
     <div className="device-card">
       <div className="device-card-header">
         <Icon size={16} className="device-card-icon" />
         <h3 className="device-card-title">{title}</h3>
       </div>
-      <div className="device-card-body">
-        {children}
-      </div>
+      <div className="device-card-body">{children}</div>
     </div>
   )
 }
@@ -108,10 +122,22 @@ export default function DeviceInfo(): React.JSX.Element {
         <div className="device-grid">
           {/* 屏幕信息 */}
           <InfoCard icon={Monitor} title="屏幕">
-            <InfoRow label="屏幕分辨率" value={`${info.screen.screenWidth} × ${info.screen.screenHeight}`} onCopy={handleCopy} />
-            <InfoRow label="窗口大小" value={`${info.screen.windowWidth} × ${info.screen.windowHeight}`} onCopy={handleCopy} />
+            <InfoRow
+              label="屏幕分辨率"
+              value={`${info.screen.screenWidth} × ${info.screen.screenHeight}`}
+              onCopy={handleCopy}
+            />
+            <InfoRow
+              label="窗口大小"
+              value={`${info.screen.windowWidth} × ${info.screen.windowHeight}`}
+              onCopy={handleCopy}
+            />
             <InfoRow label="设备像素比" value={`${info.screen.pixelRatio}x`} onCopy={handleCopy} />
-            <InfoRow label="颜色深度" value={`${info.screen.colorDepth} bits`} onCopy={handleCopy} />
+            <InfoRow
+              label="颜色深度"
+              value={`${info.screen.colorDepth} bits`}
+              onCopy={handleCopy}
+            />
             <InfoRow label="方向" value={info.screen.orientation} onCopy={handleCopy} />
             <InfoRow label="旋转角度" value={`${info.screen.angle}°`} onCopy={handleCopy} />
           </InfoCard>
@@ -121,7 +147,11 @@ export default function DeviceInfo(): React.JSX.Element {
             <InfoRow label="浏览器" value={info.browser.vendor} onCopy={handleCopy} />
             <InfoRow label="语言" value={info.browser.language} onCopy={handleCopy} />
             <InfoRow label="时区" value={info.browser.timezone} onCopy={handleCopy} />
-            <InfoRow label="Cookie" value={info.browser.cookieEnabled ? '启用' : '禁用'} onCopy={handleCopy} />
+            <InfoRow
+              label="Cookie"
+              value={info.browser.cookieEnabled ? '启用' : '禁用'}
+              onCopy={handleCopy}
+            />
             <InfoRow label="JavaScript" value="启用" onCopy={handleCopy} />
           </InfoCard>
 
@@ -130,16 +160,36 @@ export default function DeviceInfo(): React.JSX.Element {
             <InfoRow label="平台" value={info.system.platform} onCopy={handleCopy} />
             <InfoRow label="操作系统" value={info.system.os} onCopy={handleCopy} />
             <InfoRow label="CPU 核心数" value={`${info.system.cpuCores} 核`} onCopy={handleCopy} />
-            <InfoRow label="内存" value={info.system.memory ? `${info.system.memory} GB` : '未知'} onCopy={handleCopy} />
-            <InfoRow label="触控支持" value={info.system.touchSupport ? '是' : '否'} onCopy={handleCopy} />
+            <InfoRow
+              label="内存"
+              value={info.system.memory ? `${info.system.memory} GB` : '未知'}
+              onCopy={handleCopy}
+            />
+            <InfoRow
+              label="触控支持"
+              value={info.system.touchSupport ? '是' : '否'}
+              onCopy={handleCopy}
+            />
           </InfoCard>
 
           {/* 网络信息 */}
           <InfoCard icon={Wifi} title="网络">
-            <InfoRow label="在线状态" value={info.network.online ? '在线' : '离线'} onCopy={handleCopy} />
+            <InfoRow
+              label="在线状态"
+              value={info.network.online ? '在线' : '离线'}
+              onCopy={handleCopy}
+            />
             <InfoRow label="网络类型" value={info.network.type} onCopy={handleCopy} />
-            <InfoRow label="下行速度" value={info.network.downlink ? `${info.network.downlink} Mbps` : '未知'} onCopy={handleCopy} />
-            <InfoRow label="延迟" value={info.network.rtt ? `${info.network.rtt} ms` : '未知'} onCopy={handleCopy} />
+            <InfoRow
+              label="下行速度"
+              value={info.network.downlink ? `${info.network.downlink} Mbps` : '未知'}
+              onCopy={handleCopy}
+            />
+            <InfoRow
+              label="延迟"
+              value={info.network.rtt ? `${info.network.rtt} ms` : '未知'}
+              onCopy={handleCopy}
+            />
           </InfoCard>
 
           {/* 地理位置 */}
@@ -173,13 +223,29 @@ export default function DeviceInfo(): React.JSX.Element {
           <InfoCard icon={Battery} title="电池">
             {info.battery.supported ? (
               <>
-                <InfoRow label="电量" value={info.battery.level !== null ? `${info.battery.level}%` : '未知'} onCopy={handleCopy} />
-                <InfoRow label="充电状态" value={info.battery.charging ? '充电中' : '未充电'} onCopy={handleCopy} />
+                <InfoRow
+                  label="电量"
+                  value={info.battery.level !== null ? `${info.battery.level}%` : '未知'}
+                  onCopy={handleCopy}
+                />
+                <InfoRow
+                  label="充电状态"
+                  value={info.battery.charging ? '充电中' : '未充电'}
+                  onCopy={handleCopy}
+                />
                 {info.battery.charging && info.battery.chargingTime !== null && (
-                  <InfoRow label="充满时间" value={`${Math.round(info.battery.chargingTime / 60)} 分钟`} onCopy={handleCopy} />
+                  <InfoRow
+                    label="充满时间"
+                    value={`${Math.round(info.battery.chargingTime / 60)} 分钟`}
+                    onCopy={handleCopy}
+                  />
                 )}
                 {!info.battery.charging && info.battery.dischargingTime !== null && (
-                  <InfoRow label="剩余时间" value={`${Math.round(info.battery.dischargingTime / 60)} 分钟`} onCopy={handleCopy} />
+                  <InfoRow
+                    label="剩余时间"
+                    value={`${Math.round(info.battery.dischargingTime / 60)} 分钟`}
+                    onCopy={handleCopy}
+                  />
                 )}
               </>
             ) : (

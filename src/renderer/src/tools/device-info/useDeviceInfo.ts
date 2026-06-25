@@ -106,7 +106,7 @@ function detectCapabilities(): CapabilityInfo {
   return {
     webgl: !!document.createElement('canvas').getContext('webgl'),
     webgpu: 'gpu' in navigator,
-    webrtc: !!(window.RTCPeerConnection || window.webkitRTCPeerConnection),
+    webrtc: !!(window.RTCPeerConnection || (window as any).webkitRTCPeerConnection),
     websocket: 'WebSocket' in window,
     serviceWorker: 'serviceWorker' in navigator,
     indexedDB: 'indexedDB' in window,
@@ -175,7 +175,13 @@ export function useDeviceInfo() {
 
   const getBatteryInfo = useCallback(async (): Promise<BatteryInfo> => {
     if (!('getBattery' in navigator)) {
-      return { level: null, charging: null, chargingTime: null, dischargingTime: null, supported: false }
+      return {
+        level: null,
+        charging: null,
+        chargingTime: null,
+        dischargingTime: null,
+        supported: false
+      }
     }
     try {
       const battery = await (navigator as any).getBattery()
@@ -187,7 +193,13 @@ export function useDeviceInfo() {
         supported: true
       }
     } catch {
-      return { level: null, charging: null, chargingTime: null, dischargingTime: null, supported: false }
+      return {
+        level: null,
+        charging: null,
+        chargingTime: null,
+        dischargingTime: null,
+        supported: false
+      }
     }
   }, [])
 
@@ -205,37 +217,54 @@ export function useDeviceInfo() {
 
   const fetchLocation = useCallback(() => {
     if (!('geolocation' in navigator)) {
-      setInfo((prev) => prev ? {
-        ...prev,
-        location: { latitude: null, longitude: null, accuracy: null, error: '浏览器不支持地理位置' }
-      } : null)
+      setInfo((prev) =>
+        prev
+          ? {
+              ...prev,
+              location: {
+                latitude: null,
+                longitude: null,
+                accuracy: null,
+                error: '浏览器不支持地理位置'
+              }
+            }
+          : null
+      )
       return
     }
 
     setLocationLoading(true)
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        setInfo((prev) => prev ? {
-          ...prev,
-          location: {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            accuracy: position.coords.accuracy,
-            error: null
-          }
-        } : null)
+        setInfo((prev) =>
+          prev
+            ? {
+                ...prev,
+                location: {
+                  latitude: position.coords.latitude,
+                  longitude: position.coords.longitude,
+                  accuracy: position.coords.accuracy,
+                  error: null
+                }
+              }
+            : null
+        )
         setLocationLoading(false)
       },
       (error) => {
-        setInfo((prev) => prev ? {
-          ...prev,
-          location: {
-            latitude: null,
-            longitude: null,
-            accuracy: null,
-            error: error.message
-          }
-        } : null)
+        setInfo((prev) =>
+          prev
+            ? {
+                ...prev,
+                location: {
+                  latitude: null,
+                  longitude: null,
+                  accuracy: null,
+                  error: error.message
+                }
+              }
+            : null
+        )
         setLocationLoading(false)
       }
     )
@@ -264,26 +293,40 @@ export function useDeviceInfo() {
     })
 
     setLoading(false)
-  }, [getScreenInfo, getBrowserInfo, getSystemInfo, getNetworkInfo, getHardwareInfo, getBatteryInfo])
+  }, [
+    getScreenInfo,
+    getBrowserInfo,
+    getSystemInfo,
+    getNetworkInfo,
+    getHardwareInfo,
+    getBatteryInfo
+  ])
 
   useEffect(() => {
     loadDeviceInfo()
 
     const handleResize = () => {
-      setInfo((prev) => prev ? {
-        ...prev,
-        screen: getScreenInfo()
-      } : null)
+      setInfo((prev) =>
+        prev
+          ? {
+              ...prev,
+              screen: getScreenInfo()
+            }
+          : null
+      )
     }
 
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [loadDeviceInfo, getScreenInfo])
 
-  const handleCopy = useCallback((text: string) => {
-    navigator.clipboard.writeText(text)
-    showToast('已复制')
-  }, [showToast])
+  const handleCopy = useCallback(
+    (text: string) => {
+      navigator.clipboard.writeText(text)
+      showToast('已复制')
+    },
+    [showToast]
+  )
 
   const handleCopyAll = useCallback(() => {
     if (!info) return
