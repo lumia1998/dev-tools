@@ -41,6 +41,7 @@ export interface LocationInfo {
   longitude: number | null
   accuracy: number | null
   error: string | null
+  ipBased: boolean
 }
 
 export interface BatteryInfo {
@@ -239,6 +240,33 @@ export function useDeviceInfo() {
     }
   }, [])
 
+  const fetchLocationByIp = useCallback(async () => {
+    try {
+      const res = await fetch('https://ipapi.co/json/')
+      const data = await res.json()
+      if (data.latitude && !data.error) {
+        setInfo((prev) =>
+          prev
+            ? {
+                ...prev,
+                location: {
+                  latitude: data.latitude,
+                  longitude: data.longitude,
+                  accuracy: null,
+                  error: null,
+                  ipBased: true
+                }
+              }
+            : null
+        )
+        return true
+      }
+    } catch {
+      // IP fallback failed
+    }
+    return false
+  }, [])
+
   const fetchLocation = useCallback(() => {
     if (!('geolocation' in navigator)) {
       setInfo((prev) =>
@@ -249,7 +277,8 @@ export function useDeviceInfo() {
                 latitude: null,
                 longitude: null,
                 accuracy: null,
-                error: '浏览器不支持地理位置'
+                error: '浏览器不支持地理位置',
+                ipBased: false
               }
             }
           : null
@@ -268,31 +297,38 @@ export function useDeviceInfo() {
                   latitude: position.coords.latitude,
                   longitude: position.coords.longitude,
                   accuracy: position.coords.accuracy,
-                  error: null
+                  error: null,
+                  ipBased: false
                 }
               }
             : null
         )
         setLocationLoading(false)
       },
-      (error) => {
-        setInfo((prev) =>
-          prev
-            ? {
-                ...prev,
-                location: {
-                  latitude: null,
-                  longitude: null,
-                  accuracy: null,
-                  error: error.message
+      async (error) => {
+        // If browser geolocation fails, try IP-based fallback
+        const ipSuccess = await fetchLocationByIp()
+        if (!ipSuccess) {
+          setInfo((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  location: {
+                    latitude: null,
+                    longitude: null,
+                    accuracy: null,
+                    error: error.message,
+                    ipBased: false
+                  }
                 }
-              }
-            : null
-        )
+              : null
+          )
+        }
         setLocationLoading(false)
-      }
+      },
+      { timeout: 5000 }
     )
-  }, [])
+  }, [fetchLocationByIp])
 
   const loadDeviceInfo = useCallback(async () => {
     setLoading(true)
@@ -310,7 +346,7 @@ export function useDeviceInfo() {
       browser: browserInfo,
       system: systemInfo,
       network: networkInfo,
-      location: { latitude: null, longitude: null, accuracy: null, error: null },
+      location: { latitude: null, longitude: null, accuracy: null, error: null, ipBased: false },
       battery: batteryInfo,
       hardware: hardwareInfo,
       capabilities

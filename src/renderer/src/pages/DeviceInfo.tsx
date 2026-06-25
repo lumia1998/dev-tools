@@ -204,7 +204,17 @@ export default function DeviceInfo(): React.JSX.Element {
               <>
                 <InfoRow label="纬度" value={`${info.location.latitude}`} onCopy={handleCopy} />
                 <InfoRow label="经度" value={`${info.location.longitude}`} onCopy={handleCopy} />
-                <InfoRow label="精度" value={`${info.location.accuracy} 米`} onCopy={handleCopy} />
+                <InfoRow
+                  label="精度"
+                  value={
+                    info.location.accuracy
+                      ? `${info.location.accuracy} 米`
+                      : info.location.ipBased
+                        ? 'IP 定位'
+                        : '未知'
+                  }
+                  onCopy={handleCopy}
+                />
               </>
             ) : (
               <div className="device-location-placeholder">
