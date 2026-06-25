@@ -257,7 +257,8 @@
 /* 底部操作 */
 .settings-footer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   gap: 12px;
   padding: 20px 40px;
   border-top: 1px solid var(--color-border);
@@ -331,7 +332,6 @@
 .updater-actions {
   display: flex;
   gap: 12px;
-  padding-top: 14px;
 }
 
 .updater-error {

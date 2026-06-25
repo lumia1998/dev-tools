@@ -196,34 +196,33 @@ export default function SettingsPage(): React.JSX.Element {
                 <div className="updater-progress-bar" style={{ width: `${status.percent}%` }} />
               </div>
             )}
-
-            <div className="updater-actions">
-              {!isAvailable && !isDownloading && !isDownloaded && (
-                <button
-                  className="settings-btn settings-btn-primary"
-                  onClick={checkForUpdates}
-                  disabled={isChecking}
-                >
-                  <RefreshCw size={15} className={isChecking ? 'updater-spin' : ''} />
-                  检查更新
-                </button>
-              )}
-              {isAvailable && (
-                <button className="settings-btn settings-btn-primary" onClick={downloadUpdate}>
-                  <Download size={15} />
-                  下载更新
-                </button>
-              )}
-              {isDownloaded && (
-                <button className="settings-btn settings-btn-primary" onClick={quitAndInstall}>
-                  重启并安装
-                </button>
-              )}
-            </div>
           </div>
         </div>
 
         <div className="settings-footer">
+          <div className="updater-actions">
+            {!isAvailable && !isDownloading && !isDownloaded && (
+              <button
+                className="settings-btn settings-btn-primary"
+                onClick={checkForUpdates}
+                disabled={isChecking}
+              >
+                <RefreshCw size={15} className={isChecking ? 'updater-spin' : ''} />
+                检查更新
+              </button>
+            )}
+            {isAvailable && (
+              <button className="settings-btn settings-btn-primary" onClick={downloadUpdate}>
+                <Download size={15} />
+                下载更新
+              </button>
+            )}
+            {isDownloaded && (
+              <button className="settings-btn settings-btn-primary" onClick={quitAndInstall}>
+                重启并安装
+              </button>
+            )}
+          </div>
           <button className="settings-btn settings-btn-secondary" onClick={resetToDefaults}>
             <RotateCcw size={15} />
             恢复默认

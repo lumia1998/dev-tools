@@ -39,19 +39,19 @@ export default function About(): React.JSX.Element {
             <div className="about-features">
               <div className="about-feature-item">
                 <span className="about-feature-dot" />
-                <span>数据大小单位转换</span>
+                <span>28+ 实用开发工具，涵盖编码、转换、生成、调试</span>
               </div>
               <div className="about-feature-item">
                 <span className="about-feature-dot" />
-                <span>内网 IP 地址查看</span>
+                <span>全局命令面板 (Ctrl+K)，键盘驱动的快捷操作</span>
               </div>
               <div className="about-feature-item">
                 <span className="about-feature-dot" />
-                <span>设备信息检测</span>
+                <span>深色 / 浅色 / 跟随系统 三种主题模式</span>
               </div>
               <div className="about-feature-item">
                 <span className="about-feature-dot" />
-                <span>更多工具持续开发中...</span>
+                <span>代码编辑器集成 (CodeMirror)，语法高亮</span>
               </div>
             </div>
           </div>
@@ -63,10 +63,13 @@ export default function About(): React.JSX.Element {
             </h3>
             <div className="about-tech-stack">
               <span className="about-tech-badge">Electron</span>
-              <span className="about-tech-badge">React</span>
+              <span className="about-tech-badge">React 19</span>
               <span className="about-tech-badge">TypeScript</span>
-              <span className="about-tech-badge">Vite</span>
-              <span className="about-tech-badge">SASS</span>
+              <span className="about-tech-badge">Vite 7</span>
+              <span className="about-tech-badge">Tailwind CSS</span>
+              <span className="about-tech-badge">Lucide React</span>
+              <span className="about-tech-badge">Radix UI</span>
+              <span className="about-tech-badge">CodeMirror 6</span>
             </div>
           </div>
         </div>
