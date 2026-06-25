@@ -1,7 +1,20 @@
 import { useState, useMemo } from 'react'
-import { Search, FileCode } from 'lucide-react'
+import { Search, Zap, Layers, ArrowRight } from 'lucide-react'
 import { tools } from '@renderer/tools/registry'
 import type { ToolItem } from '@renderer/types/tool'
+import '../styles/home.css'
+
+// ── Category accent colors ─────────────────────────────────────
+
+const CATEGORY_ACCENTS: Record<string, string> = {
+  '换算工具': 'accent-blue',
+  '网络工具': 'accent-green',
+  '系统工具': 'accent-purple',
+  '编码/加密': 'accent-orange',
+  '开发工具': 'accent-cyan',
+  '文本工具': 'accent-pink',
+  '备忘录': 'accent-yellow'
+}
 
 interface HomeProps {
   onSelectTool: (id: string) => void
@@ -32,74 +45,109 @@ export default function Home({ onSelectTool }: HomeProps): React.JSX.Element {
     return grouped
   }, [filteredTools])
 
-  const getFileExtension = (id: string): string => {
-    const extMap: Record<string, string> = {
-      'data-size-converter': 'converter.ts'
-    }
-    return extMap[id] || `${id}.ts`
-  }
+  const totalTools = tools.length
+  const totalCategories = new Set(tools.map((t) => t.category)).size
 
   return (
     <div className="home-page">
-      <div className="home-header">
-        <h1 className="home-title">dev-tools</h1>
-        <p className="home-subtitle">常用开发工具集合，提升你的开发效率</p>
+      {/* Hero */}
+      <section className="home-hero">
+        <div className="home-hero-glow" />
+        <div className="home-hero-content">
+          <div className="home-hero-badge">
+            <Zap size={12} />
+            <span>{totalTools}+ 开发工具</span>
+          </div>
+          <h1 className="home-hero-title">
+            开发者的
+            <span className="home-hero-highlight"> 瑞士军刀</span>
+          </h1>
+          <p className="home-hero-subtitle">
+            一站式开发工具箱 — 格式化、编码、转换、生成、调试，应有尽有
+          </p>
 
-        <div className="home-search">
-          <Search size={16} className="home-search-icon" />
-          <input
-            className="home-search-input"
-            type="text"
-            placeholder="$ search tools..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-      </div>
-
-      <div className="home-content">
-        {[...categories.entries()].map(
-          ([category, { tools: categoryTools, icon: CategoryIcon }]) => (
-            <div key={category} className="tool-category">
-              <h3 className="category-title">
-                <CategoryIcon size={14} />
-                <span>{category}</span>
-              </h3>
-              <div className="tool-grid">
-                {categoryTools.map((t) => {
-                  const Icon = t.icon
-                  return (
-                    <div key={t.id} className="tool-card" onClick={() => onSelectTool(t.id)}>
-                      {t.isNew && <span className="tool-card-badge">NEW</span>}
-
-                      <div className="tool-card-header">
-                        <div className="tool-card-filename">
-                          <FileCode size={12} className="tool-card-filename-icon" />
-                          {getFileExtension(t.id)}
-                        </div>
-                      </div>
-
-                      <div className="tool-card-body">
-                        <div className="tool-card-info">
-                          <div className="tool-icon">
-                            <Icon size={18} />
-                          </div>
-                          <div>
-                            <div className="tool-name">{t.name}</div>
-                            <div className="tool-desc">{t.desc}</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
+          {/* Stats */}
+          <div className="home-stats">
+            <div className="home-stat">
+              <span className="home-stat-value">{totalTools}</span>
+              <span className="home-stat-label">工具</span>
             </div>
-          )
+            <div className="home-stat-divider" />
+            <div className="home-stat">
+              <span className="home-stat-value">{totalCategories}</span>
+              <span className="home-stat-label">分类</span>
+            </div>
+            <div className="home-stat-divider" />
+            <div className="home-stat">
+              <span className="home-stat-value">100%</span>
+              <span className="home-stat-label">离线可用</span>
+            </div>
+          </div>
+
+          {/* Search */}
+          <div className="home-search-wrap">
+            <Search size={18} className="home-search-icon" />
+            <input
+              className="home-search-input"
+              type="text"
+              placeholder="搜索工具..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            {search && (
+              <span className="home-search-result">
+                {filteredTools.length} 个结果
+              </span>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Tool grid */}
+      <section className="home-tools-section">
+        {[...categories.entries()].map(
+          ([category, { tools: categoryTools }]) => {
+            const accentClass = CATEGORY_ACCENTS[category] || ''
+            return (
+              <div key={category} className="home-category">
+                <div className="home-category-header">
+                  <h3 className="home-category-title">{category}</h3>
+                  <span className="home-category-count">{categoryTools.length}</span>
+                </div>
+                <div className="home-tool-grid">
+                  {categoryTools.map((t) => {
+                    const Icon = t.icon
+                    return (
+                      <button
+                        key={t.id}
+                        className={`home-tool-card ${accentClass}`}
+                        onClick={() => onSelectTool(t.id)}
+                      >
+                        <div className="home-tool-icon">
+                          <Icon size={18} />
+                        </div>
+                        <div className="home-tool-body">
+                          <span className="home-tool-name">{t.name}</span>
+                          <span className="home-tool-desc">{t.desc}</span>
+                        </div>
+                        <ArrowRight size={14} className="home-tool-arrow" />
+                        {t.isNew && <span className="home-tool-badge">NEW</span>}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          }
         )}
 
-        {filteredTools.length === 0 && <div className="home-empty">没有找到匹配的工具</div>}
-      </div>
+        {filteredTools.length === 0 && (
+          <div className="home-empty">
+            <Layers size={32} className="home-empty-icon" />
+            <span>没有找到匹配的工具</span>
+          </div>
+        )}
+      </section>
     </div>
   )
 }
