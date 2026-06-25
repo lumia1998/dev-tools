@@ -45,6 +45,7 @@
 @import '../styles/image-tools.css';
 @import '../styles/data-converter.css';
 @import '../styles/uuid-decoder.css';
+@import '../styles/json-converter.css';
 
 @tailwind base;
 @tailwind components;
