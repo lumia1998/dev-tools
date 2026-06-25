@@ -11,7 +11,10 @@ import {
   Calculator,
   Code,
   Globe,
-  Wrench
+  Wrench,
+  Monitor,
+  FileText,
+  BookMarked
 } from 'lucide-react'
 import { tools } from '@renderer/tools/registry'
 import { cn } from '@renderer/lib/utils'
@@ -29,6 +32,9 @@ const categoryIcons: Record<string, React.ComponentType<{ size?: number; classNa
   换算工具: Calculator,
   JSON工具: Code,
   网络工具: Globe,
+  系统工具: Monitor,
+  文本工具: FileText,
+  备忘录: BookMarked,
   __default: Wrench
 }
 

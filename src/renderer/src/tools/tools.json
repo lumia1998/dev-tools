@@ -184,8 +184,8 @@
     "name": "Git Cheat Sheet",
     "desc": "Git 命令速查手册",
     "icon": "GitBranch",
-    "category": "开发工具",
-    "categoryIcon": "Wrench",
+    "category": "备忘录",
+    "categoryIcon": "BookMarked",
     "isNew": true
   },
   {
@@ -193,8 +193,8 @@
     "name": "Docker Cheat Sheet",
     "desc": "Docker 命令速查手册",
     "icon": "Box",
-    "category": "开发工具",
-    "categoryIcon": "Wrench",
+    "category": "备忘录",
+    "categoryIcon": "BookMarked",
     "isNew": true
   },
   {
@@ -256,8 +256,8 @@
     "name": "npm Cheat Sheet",
     "desc": "npm / Yarn / pnpm 包管理器命令速查",
     "icon": "Package",
-    "category": "开发工具",
-    "categoryIcon": "Wrench",
+    "category": "备忘录",
+    "categoryIcon": "BookMarked",
     "isNew": true
   },
   {
@@ -265,8 +265,8 @@
     "name": "Linux Cheat Sheet",
     "desc": "Linux 常用命令速查手册",
     "icon": "Terminal",
-    "category": "开发工具",
-    "categoryIcon": "Wrench",
+    "category": "备忘录",
+    "categoryIcon": "BookMarked",
     "isNew": true
   },
   {
@@ -274,8 +274,8 @@
     "name": "Kubernetes Cheat Sheet",
     "desc": "K8s 命令速查手册",
     "icon": "Ship",
-    "category": "开发工具",
-    "categoryIcon": "Wrench",
+    "category": "备忘录",
+    "categoryIcon": "BookMarked",
     "isNew": true
   },
   {
