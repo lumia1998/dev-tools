@@ -214,5 +214,14 @@
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
+  },
+  {
+    "id": "case-converter",
+    "name": "Case Converter",
+    "desc": "文本大小写与命名格式实时转换",
+    "icon": "CaseSensitive",
+    "category": "文本工具",
+    "categoryIcon": "FileText",
+    "isNew": true
   }
 ]

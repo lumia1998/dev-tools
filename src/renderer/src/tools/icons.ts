@@ -11,6 +11,21 @@ import {
   Key,
   Shield,
   Clock,
+  Link2,
+  Hash,
+  Lock,
+  ShieldCheck,
+  Binary,
+  Keyboard,
+  MousePointer,
+  Zap,
+  Type,
+  GitBranch,
+  Box,
+  Package,
+  FileUp,
+  FileText,
+  CaseSensitive,
   type LucideIcon
 } from 'lucide-react'
 
@@ -26,7 +41,22 @@ const iconMap: Record<string, LucideIcon> = {
   Monitor,
   Key,
   Shield,
-  Clock
+  Clock,
+  Link2,
+  Hash,
+  Lock,
+  ShieldCheck,
+  Binary,
+  Keyboard,
+  MousePointer,
+  Zap,
+  Type,
+  GitBranch,
+  Box,
+  Package,
+  FileUp,
+  FileText,
+  CaseSensitive
 }
 
 export function getIcon(name: string): LucideIcon {
