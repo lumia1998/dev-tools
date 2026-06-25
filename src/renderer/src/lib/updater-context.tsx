@@ -47,11 +47,14 @@ export function UpdaterProvider({ children }: { children: ReactNode }): React.JS
   const checkForUpdates = useCallback(async () => {
     try {
       const result = await window.updater.checkForUpdates()
-      if (result) {
+      // The event listener handles real-time status updates;
+      // only use the return value as a fallback when the event didn't fire.
+      // Ignore 'available' here — if truly available, the event already set it.
+      if (result && result.type !== 'available') {
         setStatus(result)
       }
     } catch {
-      setStatus({ type: 'error', message: 'Failed to check for updates' })
+      setStatus({ type: 'error', message: '检查更新失败，请检查网络连接' })
     }
   }, [])
 
@@ -59,7 +62,8 @@ export function UpdaterProvider({ children }: { children: ReactNode }): React.JS
     try {
       await window.updater.downloadUpdate()
     } catch {
-      setStatus({ type: 'error', message: 'Failed to download update' })
+      // The event listener will handle the error with a more specific message
+      setStatus({ type: 'error', message: '下载更新失败，请检查网络连接或稍后重试' })
     }
   }, [])
 
