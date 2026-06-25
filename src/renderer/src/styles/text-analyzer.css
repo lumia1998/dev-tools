@@ -15,7 +15,7 @@
 
 .ta-card {
   width: 100%;
-  max-width: 600px;
+  max-width: 780px;
   background: var(--glass-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -111,7 +111,7 @@
 /* 统计网格 */
 .ta-stats-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
 
@@ -187,7 +187,7 @@
   }
 
   .ta-stats-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .ta-stat-value {
