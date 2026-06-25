@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow, ipcMain, Menu } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, Menu, globalShortcut } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
@@ -198,6 +198,13 @@ app.whenReady().then(() => {
   if (mainWindow) {
     initUpdater(mainWindow)
   }
+
+  // Register global shortcut: Ctrl+K opens command palette
+  globalShortcut.register('CommandOrControl+K', () => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('command-palette:toggle')
+    }
+  })
 
   // Auto-check for updates if enabled
   if (shouldAutoCheck()) {

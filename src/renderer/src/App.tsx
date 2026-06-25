@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react'
 import Sidebar from '@renderer/components/Sidebar'
+import CommandPalette from '@renderer/components/CommandPalette'
 import Home from '@renderer/pages/Home'
 import Converter from '@renderer/pages/Converter'
 import MyIp from '@renderer/pages/MyIp'
@@ -119,6 +120,7 @@ function AppContent(): React.JSX.Element {
         onToggleCollapse={handleToggleCollapse}
       />
       <main className="main-content">{renderPage()}</main>
+      <CommandPalette currentPage={currentPage} onNavigate={setCurrentPage} />
     </div>
   )
 }
