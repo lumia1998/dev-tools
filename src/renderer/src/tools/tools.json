@@ -187,5 +187,14 @@
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
+  },
+  {
+    "id": "maven-dependency",
+    "name": "Maven Dependency",
+    "desc": "快速生成 Maven / Gradle 依赖配置",
+    "icon": "Package",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
   }
 ]

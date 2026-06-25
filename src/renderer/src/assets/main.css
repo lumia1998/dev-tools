@@ -23,6 +23,7 @@
 @import '../styles/text-analyzer.css';
 @import '../styles/git-cheat-sheet.css';
 @import '../styles/docker-cheat-sheet.css';
+@import '../styles/maven-dependency.css';
 @import '../styles/about.css';
 
 @tailwind base;

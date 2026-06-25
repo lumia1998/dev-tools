@@ -22,6 +22,7 @@ import IPRangeExpander from '@renderer/pages/IPRangeExpander'
 import TextAnalyzer from '@renderer/pages/TextAnalyzer'
 import GitCheatSheet from '@renderer/pages/GitCheatSheet'
 import DockerCheatSheet from '@renderer/pages/DockerCheatSheet'
+import MavenDependency from '@renderer/pages/MavenDependency'
 import About from '@renderer/pages/About'
 
 function App(): React.JSX.Element {
@@ -114,6 +115,8 @@ function App(): React.JSX.Element {
         return <GitCheatSheet />
       case 'docker-cheat-sheet':
         return <DockerCheatSheet />
+      case 'maven-dependency':
+        return <MavenDependency />
       case 'about':
         return <About />
       default:
