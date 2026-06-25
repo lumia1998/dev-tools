@@ -102,6 +102,7 @@ export default function MavenDependency(): React.JSX.Element {
     [doSearch]
   )
 
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (!search.trim()) {
       triggerSearch('', true)
@@ -112,6 +113,7 @@ export default function MavenDependency(): React.JSX.Element {
       if (debounceRef.current) clearTimeout(debounceRef.current)
     }
   }, [search, triggerSearch])
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter') {

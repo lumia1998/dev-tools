@@ -172,7 +172,11 @@ export default function DockerCheatSheet(): React.JSX.Element {
                                   className="dcs-copy-btn"
                                   onClick={() => copyCommand(cmd.example)}
                                 >
-                                  {copied === cmd.example ? <Check size={12} /> : <Copy size={12} />}
+                                  {copied === cmd.example ? (
+                                    <Check size={12} />
+                                  ) : (
+                                    <Copy size={12} />
+                                  )}
                                 </button>
                               </div>
                             </div>
@@ -220,10 +224,7 @@ export default function DockerCheatSheet(): React.JSX.Element {
                     </div>
                     <div className="dcs-detail-code">
                       <code>{cmd}</code>
-                      <button
-                        className="dcs-copy-btn"
-                        onClick={() => copyCommand(cmd)}
-                      >
+                      <button className="dcs-copy-btn" onClick={() => copyCommand(cmd)}>
                         {copied === cmd ? <Check size={12} /> : <Copy size={12} />}
                       </button>
                     </div>

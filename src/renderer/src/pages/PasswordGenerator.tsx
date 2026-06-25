@@ -173,140 +173,140 @@ export default function PasswordGenerator(): React.JSX.Element {
 
         {activeTab === 'generator' ? (
           <>
-        <div className="pg-password-area">
-          <div className="pg-password-display">
-            <Lock size={16} className="pg-password-icon" />
-            <div className="pg-password-text">{password || '请选择至少一种字符类型'}</div>
-          </div>
-          <div className="pg-password-actions">
-            <button className="pg-action-btn" onClick={copyPassword} disabled={!password}>
-              {copied ? <Check size={15} /> : <Copy size={15} />}
-              {copied ? '已复制' : '复制'}
-            </button>
-            <button className="pg-action-btn" onClick={regenerate} disabled={!password}>
-              <RefreshCw size={15} />
-              重新生成
-            </button>
-          </div>
-        </div>
-
-        <div className="pg-section">
-          <div className="pg-section-header">
-            <span className="pg-section-label">密码长度</span>
-            <span className="pg-length-value">{config.length}</span>
-          </div>
-          <div className="pg-slider-wrapper">
-            <input
-              type="range"
-              className="pg-slider"
-              min={8}
-              max={128}
-              value={config.length}
-              onChange={(e) => updateConfig('length', Number(e.target.value))}
-            />
-            <div className="pg-slider-marks">
-              <span>8</span>
-              <span>32</span>
-              <span>64</span>
-              <span>128</span>
+            <div className="pg-password-area">
+              <div className="pg-password-display">
+                <Lock size={16} className="pg-password-icon" />
+                <div className="pg-password-text">{password || '请选择至少一种字符类型'}</div>
+              </div>
+              <div className="pg-password-actions">
+                <button className="pg-action-btn" onClick={copyPassword} disabled={!password}>
+                  {copied ? <Check size={15} /> : <Copy size={15} />}
+                  {copied ? '已复制' : '复制'}
+                </button>
+                <button className="pg-action-btn" onClick={regenerate} disabled={!password}>
+                  <RefreshCw size={15} />
+                  重新生成
+                </button>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <div className="pg-section">
-          <span className="pg-section-label">字符类型</span>
-          <div className="pg-options">
-            <label className="pg-option">
-              <input
-                type="checkbox"
-                checked={config.uppercase}
-                onChange={(e) => updateConfig('uppercase', e.target.checked)}
-              />
-              <span className="pg-checkbox" />
-              <span className="pg-option-text">大写字母</span>
-              <span className="pg-option-hint">A-Z</span>
-            </label>
-            <label className="pg-option">
-              <input
-                type="checkbox"
-                checked={config.lowercase}
-                onChange={(e) => updateConfig('lowercase', e.target.checked)}
-              />
-              <span className="pg-checkbox" />
-              <span className="pg-option-text">小写字母</span>
-              <span className="pg-option-hint">a-z</span>
-            </label>
-            <label className="pg-option">
-              <input
-                type="checkbox"
-                checked={config.numbers}
-                onChange={(e) => updateConfig('numbers', e.target.checked)}
-              />
-              <span className="pg-checkbox" />
-              <span className="pg-option-text">数字</span>
-              <span className="pg-option-hint">0-9</span>
-            </label>
-            <label className="pg-option">
-              <input
-                type="checkbox"
-                checked={config.symbols}
-                onChange={(e) => updateConfig('symbols', e.target.checked)}
-              />
-              <span className="pg-checkbox" />
-              <span className="pg-option-text">特殊字符</span>
-              <span className="pg-option-hint">!@#$%^&amp;*</span>
-            </label>
-          </div>
-        </div>
-
-        <div className="pg-section">
-          <label className="pg-toggle-option">
-            <input
-              type="checkbox"
-              checked={config.excludeSimilar}
-              onChange={(e) => updateConfig('excludeSimilar', e.target.checked)}
-            />
-            <span className="pg-toggle" />
-            <div className="pg-toggle-content">
-              <span className="pg-toggle-text">排除易混淆字符</span>
-              <span className="pg-toggle-hint">0O 1lI 5S 8B</span>
+            <div className="pg-section">
+              <div className="pg-section-header">
+                <span className="pg-section-label">密码长度</span>
+                <span className="pg-length-value">{config.length}</span>
+              </div>
+              <div className="pg-slider-wrapper">
+                <input
+                  type="range"
+                  className="pg-slider"
+                  min={8}
+                  max={128}
+                  value={config.length}
+                  onChange={(e) => updateConfig('length', Number(e.target.value))}
+                />
+                <div className="pg-slider-marks">
+                  <span>8</span>
+                  <span>32</span>
+                  <span>64</span>
+                  <span>128</span>
+                </div>
+              </div>
             </div>
-          </label>
-        </div>
 
-        {password && (
-          <div className="pg-strength">
-            <div className="pg-strength-header">
-              <Shield size={14} />
-              <span>密码强度</span>
-              <span className="pg-strength-label" style={{ color: strength.color }}>
-                {strength.label}
-              </span>
-            </div>
-            <div className="pg-strength-bar">
-              {Array.from({ length: strengthBarSegments }).map((_, i) => {
-                const filled =
-                  (strength.level === 'weak' && i === 0) ||
-                  (strength.level === 'medium' && i <= 1) ||
-                  (strength.level === 'strong' && i <= 2) ||
-                  strength.level === 'very-strong'
-                return (
-                  <div
-                    key={i}
-                    className={`pg-strength-segment ${filled ? 'filled' : ''}`}
-                    style={filled ? { background: strength.color } : undefined}
+            <div className="pg-section">
+              <span className="pg-section-label">字符类型</span>
+              <div className="pg-options">
+                <label className="pg-option">
+                  <input
+                    type="checkbox"
+                    checked={config.uppercase}
+                    onChange={(e) => updateConfig('uppercase', e.target.checked)}
                   />
-                )
-              })}
+                  <span className="pg-checkbox" />
+                  <span className="pg-option-text">大写字母</span>
+                  <span className="pg-option-hint">A-Z</span>
+                </label>
+                <label className="pg-option">
+                  <input
+                    type="checkbox"
+                    checked={config.lowercase}
+                    onChange={(e) => updateConfig('lowercase', e.target.checked)}
+                  />
+                  <span className="pg-checkbox" />
+                  <span className="pg-option-text">小写字母</span>
+                  <span className="pg-option-hint">a-z</span>
+                </label>
+                <label className="pg-option">
+                  <input
+                    type="checkbox"
+                    checked={config.numbers}
+                    onChange={(e) => updateConfig('numbers', e.target.checked)}
+                  />
+                  <span className="pg-checkbox" />
+                  <span className="pg-option-text">数字</span>
+                  <span className="pg-option-hint">0-9</span>
+                </label>
+                <label className="pg-option">
+                  <input
+                    type="checkbox"
+                    checked={config.symbols}
+                    onChange={(e) => updateConfig('symbols', e.target.checked)}
+                  />
+                  <span className="pg-checkbox" />
+                  <span className="pg-option-text">特殊字符</span>
+                  <span className="pg-option-hint">!@#$%^&amp;*</span>
+                </label>
+              </div>
             </div>
-            <div className="pg-strength-info">
-              <span>熵值: {entropy} bits</span>
-              <span>长度: {password.length} 字符</span>
-            </div>
-          </div>
-        )}
 
-        {!hasCharType && <div className="pg-warning">请至少选择一种字符类型</div>}
+            <div className="pg-section">
+              <label className="pg-toggle-option">
+                <input
+                  type="checkbox"
+                  checked={config.excludeSimilar}
+                  onChange={(e) => updateConfig('excludeSimilar', e.target.checked)}
+                />
+                <span className="pg-toggle" />
+                <div className="pg-toggle-content">
+                  <span className="pg-toggle-text">排除易混淆字符</span>
+                  <span className="pg-toggle-hint">0O 1lI 5S 8B</span>
+                </div>
+              </label>
+            </div>
+
+            {password && (
+              <div className="pg-strength">
+                <div className="pg-strength-header">
+                  <Shield size={14} />
+                  <span>密码强度</span>
+                  <span className="pg-strength-label" style={{ color: strength.color }}>
+                    {strength.label}
+                  </span>
+                </div>
+                <div className="pg-strength-bar">
+                  {Array.from({ length: strengthBarSegments }).map((_, i) => {
+                    const filled =
+                      (strength.level === 'weak' && i === 0) ||
+                      (strength.level === 'medium' && i <= 1) ||
+                      (strength.level === 'strong' && i <= 2) ||
+                      strength.level === 'very-strong'
+                    return (
+                      <div
+                        key={i}
+                        className={`pg-strength-segment ${filled ? 'filled' : ''}`}
+                        style={filled ? { background: strength.color } : undefined}
+                      />
+                    )
+                  })}
+                </div>
+                <div className="pg-strength-info">
+                  <span>熵值: {entropy} bits</span>
+                  <span>长度: {password.length} 字符</span>
+                </div>
+              </div>
+            )}
+
+            {!hasCharType && <div className="pg-warning">请至少选择一种字符类型</div>}
           </>
         ) : (
           // Checker Tab
@@ -364,7 +364,10 @@ export default function PasswordGenerator(): React.JSX.Element {
                   <div className="pg-strength-header">
                     <Shield size={14} />
                     <span>密码强度</span>
-                    <span className="pg-strength-label" style={{ color: checkerResult.strength.color }}>
+                    <span
+                      className="pg-strength-label"
+                      style={{ color: checkerResult.strength.color }}
+                    >
                       {checkerResult.strength.label}
                     </span>
                   </div>
@@ -388,9 +391,7 @@ export default function PasswordGenerator(): React.JSX.Element {
               </>
             )}
 
-            {checkPassword && !checkerResult && (
-              <div className="pg-warning">无法分析空密码</div>
-            )}
+            {checkPassword && !checkerResult && <div className="pg-warning">无法分析空密码</div>}
           </>
         )}
       </div>
