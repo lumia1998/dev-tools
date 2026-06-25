@@ -18,6 +18,15 @@ nsis:
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  perMachine: true
+  allowElevation: true
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+  installerHeaderIcon: build/icon.ico
+  createStartMenuShortcut: true
+  startMenuFolder: dev-tools
 mac:
   entitlementsInherit: build/entitlements.mac.plist
   extendInfo:
