@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback } from 'react'
-import { Copy, Check, Search, Box } from 'lucide-react'
+import { Copy, Check, Search, Box, Terminal } from 'lucide-react'
+import dockerCommands from '@renderer/tools/docker-cheat-sheet/docker-commands.json'
 
 interface DockerCommand {
   command: string
@@ -15,287 +16,38 @@ interface DockerCategory {
   commands: DockerCommand[]
 }
 
-const DOCKER_COMMANDS: DockerCategory[] = [
-  {
-    id: 'container',
-    label: 'Container',
-    icon: '📦',
-    commands: [
-      {
-        command: 'docker run',
-        description: '创建并启动容器',
-        example: 'docker run -d --name nginx -p 80:80 nginx',
-        params: [
-          { flag: '-d', desc: '后台运行' },
-          { flag: '--name', desc: '容器名称' },
-          { flag: '-p', desc: '端口映射' }
-        ]
-      },
-      { command: 'docker start', description: '启动已停止的容器', example: 'docker start nginx' },
-      { command: 'docker stop', description: '停止运行中的容器', example: 'docker stop nginx' },
-      { command: 'docker restart', description: '重启容器', example: 'docker restart nginx' },
-      {
-        command: 'docker rm',
-        description: '删除容器',
-        example: 'docker rm nginx',
-        params: [{ flag: '-f', desc: '强制删除' }]
-      },
-      {
-        command: 'docker exec',
-        description: '在运行中的容器中执行命令',
-        example: 'docker exec -it nginx bash',
-        params: [
-          { flag: '-i', desc: '保持 STDIN' },
-          { flag: '-t', desc: '分配 TTY' }
-        ]
-      },
-      {
-        command: 'docker logs',
-        description: '查看容器日志',
-        example: 'docker logs -f nginx',
-        params: [
-          { flag: '-f', desc: '跟踪日志' },
-          { flag: '--tail', desc: '显示行数' }
-        ]
-      },
-      {
-        command: 'docker inspect',
-        description: '查看容器详细信息',
-        example: 'docker inspect nginx'
-      },
-      {
-        command: 'docker ps',
-        description: '列出容器',
-        example: 'docker ps -a',
-        params: [
-          { flag: '-a', desc: '所有容器' },
-          { flag: '-q', desc: '只显示 ID' }
-        ]
-      },
-      { command: 'docker stats', description: '查看容器资源使用', example: 'docker stats' },
-      { command: 'docker top', description: '查看容器进程', example: 'docker top nginx' },
-      {
-        command: 'docker cp',
-        description: '在容器和主机间复制文件',
-        example: 'docker cp nginx:/etc/nginx/nginx.conf ./nginx.conf'
-      }
-    ]
-  },
-  {
-    id: 'image',
-    label: 'Image',
-    icon: '🖼️',
-    commands: [
-      { command: 'docker pull', description: '拉取镜像', example: 'docker pull nginx:latest' },
-      {
-        command: 'docker push',
-        description: '推送镜像到仓库',
-        example: 'docker push myrepo/myapp:latest'
-      },
-      {
-        command: 'docker images',
-        description: '列出本地镜像',
-        example: 'docker images',
-        params: [
-          { flag: '-a', desc: '所有镜像' },
-          { flag: '-q', desc: '只显示 ID' }
-        ]
-      },
-      {
-        command: 'docker rmi',
-        description: '删除镜像',
-        example: 'docker rmi nginx',
-        params: [{ flag: '-f', desc: '强制删除' }]
-      },
-      {
-        command: 'docker build',
-        description: '构建镜像',
-        example: 'docker build -t myapp:latest .',
-        params: [
-          { flag: '-t', desc: '镜像标签' },
-          { flag: '-f', desc: 'Dockerfile 路径' }
-        ]
-      },
-      {
-        command: 'docker tag',
-        description: '给镜像打标签',
-        example: 'docker tag myapp:latest myrepo/myapp:latest'
-      },
-      {
-        command: 'docker save',
-        description: '导出镜像为 tar 文件',
-        example: 'docker save -o nginx.tar nginx:latest'
-      },
-      {
-        command: 'docker load',
-        description: '从 tar 文件导入镜像',
-        example: 'docker load -i nginx.tar'
-      },
-      {
-        command: 'docker history',
-        description: '查看镜像构建历史',
-        example: 'docker history nginx'
-      }
-    ]
-  },
-  {
-    id: 'network',
-    label: 'Network',
-    icon: '🌐',
-    commands: [
-      { command: 'docker network ls', description: '列出所有网络', example: 'docker network ls' },
-      {
-        command: 'docker network create',
-        description: '创建网络',
-        example: 'docker network create mynet',
-        params: [
-          { flag: '--driver', desc: '网络驱动' },
-          { flag: '--subnet', desc: '子网' }
-        ]
-      },
-      { command: 'docker network rm', description: '删除网络', example: 'docker network rm mynet' },
-      {
-        command: 'docker network inspect',
-        description: '查看网络详情',
-        example: 'docker network inspect mynet'
-      },
-      {
-        command: 'docker network connect',
-        description: '连接容器到网络',
-        example: 'docker network connect mynet nginx'
-      },
-      {
-        command: 'docker network disconnect',
-        description: '断开容器与网络',
-        example: 'docker network disconnect mynet nginx'
-      }
-    ]
-  },
-  {
-    id: 'volume',
-    label: 'Volume',
-    icon: '💾',
-    commands: [
-      { command: 'docker volume ls', description: '列出所有卷', example: 'docker volume ls' },
-      {
-        command: 'docker volume create',
-        description: '创建卷',
-        example: 'docker volume create mydata'
-      },
-      { command: 'docker volume rm', description: '删除卷', example: 'docker volume rm mydata' },
-      {
-        command: 'docker volume inspect',
-        description: '查看卷详情',
-        example: 'docker volume inspect mydata'
-      },
-      {
-        command: 'docker volume prune',
-        description: '删除未使用的卷',
-        example: 'docker volume prune'
-      }
-    ]
-  },
-  {
-    id: 'compose',
-    label: 'Docker Compose',
-    icon: '🔧',
-    commands: [
-      {
-        command: 'docker compose up',
-        description: '创建并启动所有服务',
-        example: 'docker compose up -d',
-        params: [
-          { flag: '-d', desc: '后台运行' },
-          { flag: '--build', desc: '重新构建' }
-        ]
-      },
-      {
-        command: 'docker compose down',
-        description: '停止并删除所有服务',
-        example: 'docker compose down',
-        params: [{ flag: '-v', desc: '同时删除卷' }]
-      },
-      { command: 'docker compose ps', description: '列出所有服务', example: 'docker compose ps' },
-      {
-        command: 'docker compose logs',
-        description: '查看服务日志',
-        example: 'docker compose logs -f',
-        params: [{ flag: '-f', desc: '跟踪日志' }]
-      },
-      {
-        command: 'docker compose build',
-        description: '构建所有服务',
-        example: 'docker compose build --no-cache'
-      },
-      {
-        command: 'docker compose pull',
-        description: '拉取所有服务镜像',
-        example: 'docker compose pull'
-      },
-      {
-        command: 'docker compose exec',
-        description: '在服务中执行命令',
-        example: 'docker compose exec app bash'
-      },
-      {
-        command: 'docker compose restart',
-        description: '重启所有服务',
-        example: 'docker compose restart'
-      },
-      {
-        command: 'docker compose stop',
-        description: '停止所有服务',
-        example: 'docker compose stop'
-      },
-      {
-        command: 'docker compose start',
-        description: '启动所有服务',
-        example: 'docker compose start'
-      }
-    ]
-  },
-  {
-    id: 'system',
-    label: 'System',
-    icon: '⚙️',
-    commands: [
-      {
-        command: 'docker system df',
-        description: '查看 Docker 磁盘使用',
-        example: 'docker system df'
-      },
-      {
-        command: 'docker system prune',
-        description: '清理未使用的数据',
-        example: 'docker system prune -a',
-        params: [
-          { flag: '-a', desc: '所有未使用' },
-          { flag: '--volumes', desc: '包括卷' }
-        ]
-      },
-      { command: 'docker info', description: '查看 Docker 系统信息', example: 'docker info' },
-      { command: 'docker version', description: '查看 Docker 版本', example: 'docker version' },
-      { command: 'docker login', description: '登录 Docker 仓库', example: 'docker login' },
-      { command: 'docker logout', description: '退出 Docker 仓库', example: 'docker logout' },
-      {
-        command: 'docker container prune',
-        description: '删除所有停止的容器',
-        example: 'docker container prune'
-      },
-      {
-        command: 'docker image prune',
-        description: '删除未使用的镜像',
-        example: 'docker image prune -a',
-        params: [{ flag: '-a', desc: '所有未使用' }]
-      }
-    ]
-  }
+const DOCKER_COMMANDS: DockerCategory[] = dockerCommands as DockerCategory[]
+
+interface ContainerAction {
+  command: string
+  desc: string
+  suffix?: string
+  prefix?: boolean
+}
+
+const CONTAINER_ACTIONS: ContainerAction[] = [
+  { command: 'docker restart', desc: '重启容器' },
+  { command: 'docker stop', desc: '停止容器' },
+  { command: 'docker start', desc: '启动容器' },
+  { command: 'docker logs -f', desc: '跟踪日志' },
+  { command: 'docker logs --tail 100', desc: '最近 100 行日志' },
+  { command: 'docker exec -it', desc: '进入容器 Shell', suffix: '/bin/bash' },
+  { command: 'docker inspect', desc: '查看详情' },
+  { command: 'docker top', desc: '查看进程' },
+  { command: 'docker stats', desc: '资源监控' },
+  { command: 'docker rm -f', desc: '强制删除' },
+  { command: 'docker cp', desc: '复制文件到容器', suffix: ':/path' },
+  { command: 'docker cp', desc: '从容器复制文件', prefix: true, suffix: ':/path ./local-path' }
 ]
 
+type TabType = 'cheatsheet' | 'container'
+
 export default function DockerCheatSheet(): React.JSX.Element {
+  const [activeTab, setActiveTab] = useState<TabType>('cheatsheet')
   const [search, setSearch] = useState('')
   const [expandedCommand, setExpandedCommand] = useState<string | null>(null)
   const [copied, setCopied] = useState<string | null>(null)
+  const [containerName, setContainerName] = useState('')
 
   const filteredCategories = useMemo(() => {
     if (!search.trim()) return DOCKER_COMMANDS
@@ -325,92 +77,160 @@ export default function DockerCheatSheet(): React.JSX.Element {
     setExpandedCommand((prev) => (prev === command ? null : command))
   }, [])
 
+  const buildContainerCmd = (action: ContainerAction): string => {
+    if (!containerName.trim()) return `${action.command} <container>`
+    if (action.prefix) {
+      return `${containerName} ${action.command} ${action.suffix ?? ''}`.trim()
+    }
+    return `${action.command} ${containerName} ${action.suffix ?? ''}`.trim()
+  }
+
   return (
     <div className="dcs-page">
       <div className="dcs-card">
         <div className="dcs-header">
           <h2 className="dcs-title">Docker Cheat Sheet</h2>
-          <p className="dcs-subtitle">Docker 命令速查手册</p>
+          <p className="dcs-subtitle">Docker 命令速查手册 & 容器管理</p>
         </div>
 
-        <div className="dcs-search">
-          <Search size={16} />
-          <input
-            type="text"
-            className="dcs-search-input"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="搜索 Docker 命令..."
-          />
+        {/* Tabs */}
+        <div className="mvn-tabs">
+          <button
+            className={`mvn-tab ${activeTab === 'cheatsheet' ? 'active' : ''}`}
+            onClick={() => setActiveTab('cheatsheet')}
+          >
+            速查表
+          </button>
+          <button
+            className={`mvn-tab ${activeTab === 'container' ? 'active' : ''}`}
+            onClick={() => setActiveTab('container')}
+          >
+            容器管理
+          </button>
         </div>
 
-        <div className="dcs-content">
-          {filteredCategories.map((category) => (
-            <div key={category.id} className="dcs-category">
-              <div className="dcs-category-header">
-                <span className="dcs-category-icon">{category.icon}</span>
-                <span className="dcs-category-label">{category.label}</span>
-                <span className="dcs-category-count">{category.commands.length}</span>
-              </div>
-              <div className="dcs-commands">
-                {category.commands.map((cmd) => (
-                  <div key={cmd.command} className="dcs-command-wrapper">
-                    <div
-                      className={`dcs-command ${expandedCommand === cmd.command ? 'expanded' : ''}`}
-                      onClick={() => toggleExpand(cmd.command)}
-                    >
-                      <code className="dcs-command-text">{cmd.command}</code>
-                      <span className="dcs-command-desc">{cmd.description}</span>
-                      <button
-                        className="dcs-copy-btn"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          copyCommand(cmd.example)
-                        }}
-                      >
-                        {copied === cmd.example ? <Check size={12} /> : <Copy size={12} />}
-                      </button>
-                    </div>
-                    {expandedCommand === cmd.command && (
-                      <div className="dcs-command-details">
-                        {cmd.params && cmd.params.length > 0 && (
-                          <div className="dcs-detail-section">
-                            <span className="dcs-detail-label">参数</span>
-                            <div className="dcs-params">
-                              {cmd.params.map((param) => (
-                                <div key={param.flag} className="dcs-param">
-                                  <code className="dcs-param-flag">{param.flag}</code>
-                                  <span className="dcs-param-desc">{param.desc}</span>
+        {activeTab === 'cheatsheet' ? (
+          <>
+            <div className="dcs-search">
+              <Search size={16} />
+              <input
+                type="text"
+                className="dcs-search-input"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="搜索 Docker 命令..."
+              />
+            </div>
+
+            <div className="dcs-content">
+              {filteredCategories.map((category) => (
+                <div key={category.id} className="dcs-category">
+                  <div className="dcs-category-header">
+                    <span className="dcs-category-icon">{category.icon}</span>
+                    <span className="dcs-category-label">{category.label}</span>
+                    <span className="dcs-category-count">{category.commands.length}</span>
+                  </div>
+                  <div className="dcs-commands">
+                    {category.commands.map((cmd) => (
+                      <div key={cmd.command} className="dcs-command-wrapper">
+                        <div
+                          className={`dcs-command ${expandedCommand === cmd.command ? 'expanded' : ''}`}
+                          onClick={() => toggleExpand(cmd.command)}
+                        >
+                          <code className="dcs-command-text">{cmd.command}</code>
+                          <span className="dcs-command-desc">{cmd.description}</span>
+                          <button
+                            className="dcs-copy-btn"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              copyCommand(cmd.example)
+                            }}
+                          >
+                            {copied === cmd.example ? <Check size={12} /> : <Copy size={12} />}
+                          </button>
+                        </div>
+                        {expandedCommand === cmd.command && (
+                          <div className="dcs-command-details">
+                            {cmd.params && cmd.params.length > 0 && (
+                              <div className="dcs-detail-section">
+                                <span className="dcs-detail-label">参数</span>
+                                <div className="dcs-params">
+                                  {cmd.params.map((param) => (
+                                    <div key={param.flag} className="dcs-param">
+                                      <code className="dcs-param-flag">{param.flag}</code>
+                                      <span className="dcs-param-desc">{param.desc}</span>
+                                    </div>
+                                  ))}
                                 </div>
-                              ))}
+                              </div>
+                            )}
+                            <div className="dcs-detail-section">
+                              <span className="dcs-detail-label">示例</span>
+                              <div className="dcs-detail-code">
+                                <code>{cmd.example}</code>
+                                <button
+                                  className="dcs-copy-btn"
+                                  onClick={() => copyCommand(cmd.example)}
+                                >
+                                  {copied === cmd.example ? <Check size={12} /> : <Copy size={12} />}
+                                </button>
+                              </div>
                             </div>
                           </div>
                         )}
-                        <div className="dcs-detail-section">
-                          <span className="dcs-detail-label">示例</span>
-                          <div className="dcs-detail-code">
-                            <code>{cmd.example}</code>
-                            <button
-                              className="dcs-copy-btn"
-                              onClick={() => copyCommand(cmd.example)}
-                            >
-                              {copied === cmd.example ? <Check size={12} /> : <Copy size={12} />}
-                            </button>
-                          </div>
-                        </div>
                       </div>
-                    )}
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        {filteredCategories.length === 0 && (
-          <div className="dcs-empty">
-            <Box size={32} />
-            <span>未找到匹配的命令</span>
+            {filteredCategories.length === 0 && (
+              <div className="dcs-empty">
+                <Box size={32} />
+                <span>未找到匹配的命令</span>
+              </div>
+            )}
+          </>
+        ) : (
+          // Container Management Tab
+          <div className="dcs-container-section">
+            <div className="dcs-search">
+              <Terminal size={16} />
+              <input
+                type="text"
+                className="dcs-search-input"
+                value={containerName}
+                onChange={(e) => setContainerName(e.target.value)}
+                placeholder="输入容器名称或 ID，例如 napcat"
+              />
+            </div>
+
+            <div className="dcs-container-hint">
+              输入容器名称后，下方命令会自动填充容器名，直接复制即可使用
+            </div>
+
+            <div className="dcs-container-actions">
+              {CONTAINER_ACTIONS.map((action) => {
+                const cmd = buildContainerCmd(action)
+                return (
+                  <div key={action.desc} className="dcs-container-action-item">
+                    <div className="dcs-container-action-info">
+                      <span className="dcs-container-action-desc">{action.desc}</span>
+                    </div>
+                    <div className="dcs-detail-code">
+                      <code>{cmd}</code>
+                      <button
+                        className="dcs-copy-btn"
+                        onClick={() => copyCommand(cmd)}
+                      >
+                        {copied === cmd ? <Check size={12} /> : <Copy size={12} />}
+                      </button>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
           </div>
         )}
       </div>
