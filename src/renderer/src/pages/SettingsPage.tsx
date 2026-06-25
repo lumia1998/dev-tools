@@ -40,7 +40,7 @@ export default function SettingsPage(): React.JSX.Element {
                 <p className="settings-item-label">主题</p>
                 <p className="settings-item-description">选择应用的外观主题</p>
               </div>
-              <div className="settings-options">
+              <div className="settings-segmented">
                 <button
                   className={`settings-option ${settings.appearance.theme === 'light' ? 'active' : ''}`}
                   onClick={() => updateAppearance({ theme: 'light' })}
@@ -67,7 +67,7 @@ export default function SettingsPage(): React.JSX.Element {
                 <p className="settings-item-label">字体大小</p>
                 <p className="settings-item-description">调整应用的字体大小</p>
               </div>
-              <div className="settings-options">
+              <div className="settings-segmented">
                 <button
                   className={`settings-option ${settings.appearance.fontSize === 'small' ? 'active' : ''}`}
                   onClick={() => updateAppearance({ fontSize: 'small' })}
@@ -117,7 +117,7 @@ export default function SettingsPage(): React.JSX.Element {
                 <p className="settings-item-label">JSON 缩进</p>
                 <p className="settings-item-description">格式化 JSON 时使用的缩进空格数</p>
               </div>
-              <div className="settings-options">
+              <div className="settings-segmented">
                 <button
                   className={`settings-option ${settings.editor.jsonIndent === 2 ? 'active' : ''}`}
                   onClick={() => updateEditor({ jsonIndent: 2 })}

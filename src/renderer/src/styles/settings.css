@@ -11,7 +11,7 @@
 
 .settings-card {
   width: 100%;
-  max-width: 640px;
+  max-width: 720px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 16px;
@@ -44,10 +44,17 @@
 /* 设置分组 */
 .settings-section {
   padding: 24px 32px;
+  position: relative;
 }
 
-.settings-section + .settings-section {
-  border-top: 1px solid var(--color-border);
+.settings-section + .settings-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 32px;
+  right: 32px;
+  height: 1px;
+  background: var(--color-border);
 }
 
 .settings-section-title {
@@ -64,6 +71,11 @@
   color: var(--color-accent-soft);
   display: flex;
   align-items: center;
+  transition: color 0.2s ease;
+}
+
+.settings-section:hover .settings-section-icon {
+  color: var(--color-accent-soft-hover, var(--color-accent-soft));
 }
 
 /* 设置项 */
@@ -187,44 +199,51 @@
   box-shadow: 0 0 0 4px var(--color-accent-soft-subtle);
 }
 
-/* 选项组 */
-.settings-options {
-  display: flex;
-  gap: 10px;
+/* 分段控制器 (Segmented Control) */
+.settings-segmented {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 3px;
+  background: var(--color-segmented-track, var(--color-background));
+  border-radius: 12px;
   flex-shrink: 0;
+  position: relative;
 }
 
-.settings-option {
-  padding: 8px 18px;
-  background: var(--color-background);
-  border: 1.5px solid var(--color-border);
-  border-radius: 10px;
+.settings-segmented .settings-option {
+  padding: 7px 16px;
+  background: transparent;
+  border: none;
+  border-radius: 9px;
   text-align: center;
   cursor: pointer;
-  transition: all 0.2s ease;
-  min-width: 70px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: auto;
+  position: relative;
+  z-index: 1;
 }
 
-.settings-option:hover {
-  border-color: var(--color-border-hover);
-  background: var(--color-surface-hover);
+.settings-segmented .settings-option:hover:not(.active) {
+  color: var(--color-text);
 }
 
-.settings-option.active {
-  border-color: var(--color-accent-soft);
-  background: var(--color-accent-soft-subtle);
-  box-shadow: 0 0 0 3px var(--color-accent-soft-subtle);
+.settings-segmented .settings-option.active {
+  background: var(--color-surface);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.06);
+  border: none;
 }
 
-.settings-option-label {
+.settings-segmented .settings-option-label {
   font-size: 13px;
   font-weight: 500;
   color: var(--color-text-secondary);
   white-space: nowrap;
+  transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.settings-option.active .settings-option-label {
-  color: var(--color-accent-soft);
+.settings-segmented .settings-option.active .settings-option-label {
+  color: var(--color-text);
   font-weight: 600;
 }
 
@@ -281,6 +300,19 @@
   background: var(--color-surface-hover);
   color: var(--color-text);
   border-color: var(--color-border-hover);
+}
+
+.settings-btn-secondary:hover svg {
+  animation: reset-spin 0.4s ease;
+}
+
+@keyframes reset-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-90deg);
+  }
 }
 
 /* 更新 */
