@@ -35,6 +35,7 @@ function getLocalIps(): Promise<string[]> {
   })
 }
 
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 export function useMyIp() {
   const [ipInfo, setIpInfo] = useState<LocalIpInfo | null>(null)
   const [loading, setLoading] = useState(false)

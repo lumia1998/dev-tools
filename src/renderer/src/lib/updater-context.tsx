@@ -91,6 +91,7 @@ export function UpdaterProvider({ children }: { children: ReactNode }): React.JS
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useUpdater(): UpdaterContextType {
   const context = useContext(UpdaterContext)
   if (!context) {

@@ -97,6 +97,7 @@ export function convertToAllUnits(
   return result
 }
 
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 export function useConverter() {
   const [mode, setMode] = useState<Mode>('binary')
   const [precision, setPrecision] = useState(6)

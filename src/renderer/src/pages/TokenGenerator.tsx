@@ -62,7 +62,7 @@ export default function TokenGenerator(): React.JSX.Element {
     handleExport
   } = useTokenGenerator()
 
-  const renderConfig = () => {
+  const renderConfig = (): React.JSX.Element => {
     switch (tokenType) {
       case 'uuid':
         return (
@@ -232,7 +232,7 @@ export default function TokenGenerator(): React.JSX.Element {
         )
 
       default:
-        return null
+        return null as unknown as React.JSX.Element
     }
   }
 

@@ -284,7 +284,9 @@ export default function JsonFormatter(): React.JSX.Element {
 
   useEffect(() => {
     if (!contextMenu) return
-    const handleClick = () => setContextMenu(null)
+    const handleClick = (): void => {
+      setContextMenu(null)
+    }
     window.addEventListener('click', handleClick)
     return () => window.removeEventListener('click', handleClick)
   }, [contextMenu])

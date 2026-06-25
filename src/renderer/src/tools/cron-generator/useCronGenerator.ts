@@ -144,7 +144,7 @@ function generateDescription(config: CronConfig): string {
 function generateNextRuns(config: CronConfig, count: number = 5): Date[] {
   const runs: Date[] = []
   const now = new Date()
-  let current = new Date(now)
+  const current = new Date(now)
   current.setSeconds(0)
   current.setMilliseconds(0)
   current.setMinutes(current.getMinutes() + 1)
@@ -229,6 +229,7 @@ function generateNextRuns(config: CronConfig, count: number = 5): Date[] {
   return runs
 }
 
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 export function useCronGenerator() {
   const [mode, setMode] = useState<CronMode>('generator')
   const [frequency, setFrequency] = useState<Frequency>('daily')

@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useEffect } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 
 export type Algorithm = 'HS256' | 'HS384' | 'HS512'
 
@@ -108,6 +108,7 @@ function getExpirationSeconds(expiration: Expiration): number {
   }
 }
 
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 export function useJWTGenerator() {
   const [headerJson, setHeaderJson] = useState(JSON.stringify(DEFAULT_HEADER, null, 2))
   const [payloadJson, setPayloadJson] = useState(JSON.stringify(DEFAULT_PAYLOAD, null, 2))
@@ -116,41 +117,30 @@ export function useJWTGenerator() {
   const [algorithm, setAlgorithm] = useState<Algorithm>('HS256')
   const [expiration, setExpiration] = useState<Expiration>('1h')
   const [toast, setToast] = useState('')
-  const [headerError, setHeaderError] = useState('')
-  const [payloadError, setPayloadError] = useState('')
 
   const showToast = useCallback((message: string) => {
     setToast(message)
     setTimeout(() => setToast(''), 1500)
   }, [])
 
-  useEffect(() => {
+  // Validate JSON during render (not in effects)
+  const headerError = useMemo(() => {
     try {
       JSON.parse(headerJson)
-      setHeaderError('')
+      return ''
     } catch {
-      setHeaderError('Invalid JSON')
+      return 'Invalid JSON'
     }
   }, [headerJson])
 
-  useEffect(() => {
+  const payloadError = useMemo(() => {
     try {
       JSON.parse(payloadJson)
-      setPayloadError('')
+      return ''
     } catch {
-      setPayloadError('Invalid JSON')
+      return 'Invalid JSON'
     }
   }, [payloadJson])
-
-  useEffect(() => {
-    try {
-      const header = JSON.parse(headerJson)
-      header.alg = algorithm
-      setHeaderJson(JSON.stringify(header, null, 2))
-    } catch {
-      // ignore
-    }
-  }, [algorithm])
 
   const jwt = useMemo(() => {
     if (headerError || payloadError) return ''
@@ -159,6 +149,7 @@ export function useJWTGenerator() {
       const header = JSON.parse(headerJson)
       const payload = JSON.parse(payloadJson)
 
+      // eslint-disable-next-line react-hooks/purity
       const now = Math.floor(Date.now() / 1000)
       payload.iat = now
       payload.exp = now + getExpirationSeconds(expiration)
@@ -191,9 +182,19 @@ export function useJWTGenerator() {
     }
   }, [jwt])
 
-  const updateAlgorithm = useCallback((alg: Algorithm) => {
-    setAlgorithm(alg)
-  }, [])
+  const updateAlgorithm = useCallback(
+    (alg: Algorithm) => {
+      setAlgorithm(alg)
+      try {
+        const header = JSON.parse(headerJson)
+        header.alg = alg
+        setHeaderJson(JSON.stringify(header, null, 2))
+      } catch {
+        // ignore
+      }
+    },
+    [headerJson]
+  )
 
   const updateExpiration = useCallback((exp: Expiration) => {
     setExpiration(exp)

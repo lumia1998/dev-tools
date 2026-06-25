@@ -134,6 +134,7 @@ function generateJWT(header: string, payload: string, secret: string, expiration
   }
 }
 
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 export function useTokenGenerator() {
   const [tokenType, setTokenType] = useState<TokenType>('uuid')
   const [config, setConfig] = useState<TokenConfig>(DEFAULT_CONFIG)

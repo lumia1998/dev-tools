@@ -83,6 +83,7 @@ export function validateJson(input: string): JsonError | null {
   return error
 }
 
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 export function useJsonFormatter() {
   const [input, setInput] = useState('')
   const [indent, setIndent] = useState<Indent>(2)

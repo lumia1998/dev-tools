@@ -80,7 +80,7 @@ export default function Sidebar({
   const { settings, updateAppearance } = useSettings()
   const theme = settings.appearance.theme
 
-  const handleToggleTheme = () => {
+  const handleToggleTheme = (): void => {
     const newTheme = theme === 'dark' ? 'light' : 'dark'
     updateAppearance({ theme: newTheme })
   }
@@ -102,7 +102,7 @@ export default function Sidebar({
     defaultCollapsedCategories
   )
 
-  const toggleCategory = (category: string) => {
+  const toggleCategory = (category: string): void => {
     setCollapsedCategories((prev) => ({
       ...prev,
       [category]: !prev[category]

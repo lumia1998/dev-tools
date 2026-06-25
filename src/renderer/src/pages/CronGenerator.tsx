@@ -56,7 +56,7 @@ export default function CronGenerator(): React.JSX.Element {
     QUICK_TEMPLATES
   } = useCronGenerator()
 
-  const renderGenerator = () => (
+  const renderGenerator = (): React.JSX.Element => (
     <div className="cron-generator-content">
       {/* 快捷模板 */}
       <div className="cron-section">
@@ -346,7 +346,7 @@ export default function CronGenerator(): React.JSX.Element {
     </div>
   )
 
-  const renderParser = () => (
+  const renderParser = (): React.JSX.Element => (
     <div className="cron-parser-content">
       {/* 输入 */}
       <div className="cron-section">

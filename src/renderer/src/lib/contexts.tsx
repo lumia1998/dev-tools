@@ -48,7 +48,7 @@ export function SettingsProvider({ children }: { children: ReactNode }): React.J
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const loadSettings = async () => {
+    const loadSettings = async (): Promise<void> => {
       try {
         const loaded = await window.api.getSettings()
         setSettings(loaded)
@@ -106,6 +106,7 @@ export function SettingsProvider({ children }: { children: ReactNode }): React.J
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useSettings(): SettingsContextType {
   const context = useContext(SettingsContext)
   if (!context) {

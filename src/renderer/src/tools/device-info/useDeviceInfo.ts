@@ -106,7 +106,10 @@ function detectCapabilities(): CapabilityInfo {
   return {
     webgl: !!document.createElement('canvas').getContext('webgl'),
     webgpu: 'gpu' in navigator,
-    webrtc: !!(window.RTCPeerConnection || (window as any).webkitRTCPeerConnection),
+    webrtc: !!(
+      window.RTCPeerConnection ||
+      (window as unknown as { webkitRTCPeerConnection?: unknown }).webkitRTCPeerConnection
+    ),
     websocket: 'WebSocket' in window,
     serviceWorker: 'serviceWorker' in navigator,
     indexedDB: 'indexedDB' in window,
@@ -116,6 +119,7 @@ function detectCapabilities(): CapabilityInfo {
   }
 }
 
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 export function useDeviceInfo() {
   const [info, setInfo] = useState<DeviceInfo | null>(null)
   const [loading, setLoading] = useState(true)
@@ -157,14 +161,16 @@ export function useDeviceInfo() {
       platform: navigator.platform || 'Unknown',
       os: getOS(),
       cpuCores: navigator.hardwareConcurrency || 0,
-      memory: (navigator as any).deviceMemory || null,
+      memory: (navigator as { deviceMemory?: number }).deviceMemory || null,
       touchSupport: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
       maxTouchPoints: navigator.maxTouchPoints || 0
     }
   }, [])
 
   const getNetworkInfo = useCallback((): NetworkInfo => {
-    const conn = (navigator as any).connection
+    const conn = (
+      navigator as { connection?: { effectiveType?: string; downlink?: number; rtt?: number } }
+    ).connection
     return {
       type: conn?.effectiveType || 'unknown',
       downlink: conn?.downlink || null,
@@ -184,7 +190,25 @@ export function useDeviceInfo() {
       }
     }
     try {
-      const battery = await (navigator as any).getBattery()
+      const battery = await (
+        navigator as unknown as {
+          getBattery?: () => Promise<{
+            level: number
+            charging: boolean
+            chargingTime: number
+            dischargingTime: number
+          }>
+        }
+      ).getBattery?.()
+      if (!battery) {
+        return {
+          level: null,
+          charging: null,
+          chargingTime: null,
+          dischargingTime: null,
+          supported: false
+        }
+      }
       return {
         level: Math.round(battery.level * 100),
         charging: battery.charging,
@@ -208,7 +232,7 @@ export function useDeviceInfo() {
     const gl = canvas.getContext('webgl')
     return {
       cpuCores: navigator.hardwareConcurrency || 0,
-      memory: (navigator as any).deviceMemory || null,
+      memory: (navigator as { deviceMemory?: number }).deviceMemory || null,
       maxTouchPoints: navigator.maxTouchPoints || 0,
       webgl: !!gl,
       webgpu: 'gpu' in navigator
@@ -303,9 +327,12 @@ export function useDeviceInfo() {
   ])
 
   useEffect(() => {
-    loadDeviceInfo()
+    const init = async (): Promise<void> => {
+      await loadDeviceInfo()
+    }
+    init()
 
-    const handleResize = () => {
+    const handleResize = (): void => {
       setInfo((prev) =>
         prev
           ? {

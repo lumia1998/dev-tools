@@ -24,7 +24,7 @@ function InfoRow({
   label: string
   value: string
   onCopy?: (text: string) => void
-}) {
+}): React.JSX.Element {
   return (
     <div className="device-info-row">
       <span className="device-info-label">{label}</span>
@@ -40,7 +40,13 @@ function InfoRow({
   )
 }
 
-function CapabilityBadge({ name, supported }: { name: string; supported: boolean }) {
+function CapabilityBadge({
+  name,
+  supported
+}: {
+  name: string
+  supported: boolean
+}): React.JSX.Element {
   return (
     <div className={`device-capability ${supported ? 'supported' : 'unsupported'}`}>
       {supported ? <Check size={12} /> : <X size={12} />}
@@ -57,7 +63,7 @@ function InfoCard({
   icon: React.ComponentType<{ size?: number; className?: string }>
   title: string
   children: React.ReactNode
-}) {
+}): React.JSX.Element {
   return (
     <div className="device-card">
       <div className="device-card-header">
