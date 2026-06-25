@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react'
-import { Copy, Check, RefreshCw, Shield, Lock } from 'lucide-react'
+import { Copy, Check, RefreshCw, Shield, Lock, Eye, EyeOff, KeyRound } from 'lucide-react'
 
 interface PasswordConfig {
   length: number
@@ -58,7 +58,47 @@ function getStrength(entropy: number): { label: string; level: Strength; color: 
   return { label: '非常强', level: 'very-strong', color: 'var(--color-accent-soft)' }
 }
 
+function checkPasswordStrength(pwd: string): {
+  length: number
+  hasUpper: boolean
+  hasLower: boolean
+  hasNumber: boolean
+  hasSymbol: boolean
+  entropy: number
+  uniqueChars: number
+  strength: { label: string; level: Strength; color: string }
+} {
+  const hasUpper = /[A-Z]/.test(pwd)
+  const hasLower = /[a-z]/.test(pwd)
+  const hasNumber = /[0-9]/.test(pwd)
+  const hasSymbol = /[^A-Za-z0-9]/.test(pwd)
+
+  let poolSize = 0
+  if (hasUpper) poolSize += 26
+  if (hasLower) poolSize += 26
+  if (hasNumber) poolSize += 10
+  if (hasSymbol) poolSize += 32
+  if (poolSize === 0) poolSize = 1
+
+  const entropy = Math.floor(pwd.length * Math.log2(poolSize))
+  const uniqueChars = new Set(pwd).size
+
+  return {
+    length: pwd.length,
+    hasUpper,
+    hasLower,
+    hasNumber,
+    hasSymbol,
+    entropy,
+    uniqueChars,
+    strength: getStrength(entropy)
+  }
+}
+
+type TabType = 'generator' | 'checker'
+
 export default function PasswordGenerator(): React.JSX.Element {
+  const [activeTab, setActiveTab] = useState<TabType>('generator')
   const [config, setConfig] = useState<PasswordConfig>({
     length: 16,
     uppercase: true,
@@ -69,9 +109,18 @@ export default function PasswordGenerator(): React.JSX.Element {
   })
   const [copied, setCopied] = useState(false)
 
+  // Checker state
+  const [checkPassword, setCheckPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+
   const password = useMemo(() => generatePassword(config), [config])
   const entropy = useMemo(() => calculateEntropy(password, config), [password, config])
   const strength = useMemo(() => getStrength(entropy), [entropy])
+
+  const checkerResult = useMemo(
+    () => (checkPassword ? checkPasswordStrength(checkPassword) : null),
+    [checkPassword]
+  )
 
   const updateConfig = useCallback(
     <K extends keyof PasswordConfig>(key: K, value: PasswordConfig[K]) => {
@@ -104,9 +153,26 @@ export default function PasswordGenerator(): React.JSX.Element {
       <div className="pg-card">
         <div className="pg-header">
           <h2 className="pg-title">Password Generator</h2>
-          <p className="pg-subtitle">生成高强度安全随机密码</p>
+          <p className="pg-subtitle">生成高强度安全随机密码 & 检测密码强度</p>
         </div>
 
+        <div className="mvn-tabs">
+          <button
+            className={`mvn-tab ${activeTab === 'generator' ? 'active' : ''}`}
+            onClick={() => setActiveTab('generator')}
+          >
+            生成密码
+          </button>
+          <button
+            className={`mvn-tab ${activeTab === 'checker' ? 'active' : ''}`}
+            onClick={() => setActiveTab('checker')}
+          >
+            检测强度
+          </button>
+        </div>
+
+        {activeTab === 'generator' ? (
+          <>
         <div className="pg-password-area">
           <div className="pg-password-display">
             <Lock size={16} className="pg-password-icon" />
@@ -241,6 +307,92 @@ export default function PasswordGenerator(): React.JSX.Element {
         )}
 
         {!hasCharType && <div className="pg-warning">请至少选择一种字符类型</div>}
+          </>
+        ) : (
+          // Checker Tab
+          <>
+            <div className="pg-password-area">
+              <div className="pg-password-display">
+                <KeyRound size={16} className="pg-password-icon" />
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  className="pg-checker-input"
+                  value={checkPassword}
+                  onChange={(e) => setCheckPassword(e.target.value)}
+                  placeholder="输入要检测的密码..."
+                />
+                <button
+                  className="pg-show-btn"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  title={showPassword ? '隐藏' : '显示'}
+                >
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+              </div>
+            </div>
+
+            {checkerResult && (
+              <>
+                <div className="pg-section">
+                  <span className="pg-section-label">字符构成</span>
+                  <div className="pg-checker-chars">
+                    <span className={`pg-checker-char ${checkerResult.hasUpper ? 'yes' : 'no'}`}>
+                      {checkerResult.hasUpper ? '✓' : '✗'} 大写字母
+                    </span>
+                    <span className={`pg-checker-char ${checkerResult.hasLower ? 'yes' : 'no'}`}>
+                      {checkerResult.hasLower ? '✓' : '✗'} 小写字母
+                    </span>
+                    <span className={`pg-checker-char ${checkerResult.hasNumber ? 'yes' : 'no'}`}>
+                      {checkerResult.hasNumber ? '✓' : '✗'} 数字
+                    </span>
+                    <span className={`pg-checker-char ${checkerResult.hasSymbol ? 'yes' : 'no'}`}>
+                      {checkerResult.hasSymbol ? '✓' : '✗'} 特殊字符
+                    </span>
+                  </div>
+                </div>
+
+                <div className="pg-section">
+                  <span className="pg-section-label">统计</span>
+                  <div className="pg-checker-stats">
+                    <span>长度: {checkerResult.length}</span>
+                    <span>唯一字符: {checkerResult.uniqueChars}</span>
+                    <span>熵值: {checkerResult.entropy} bits</span>
+                  </div>
+                </div>
+
+                <div className="pg-strength">
+                  <div className="pg-strength-header">
+                    <Shield size={14} />
+                    <span>密码强度</span>
+                    <span className="pg-strength-label" style={{ color: checkerResult.strength.color }}>
+                      {checkerResult.strength.label}
+                    </span>
+                  </div>
+                  <div className="pg-strength-bar">
+                    {Array.from({ length: 4 }).map((_, i) => {
+                      const filled =
+                        (checkerResult.strength.level === 'weak' && i === 0) ||
+                        (checkerResult.strength.level === 'medium' && i <= 1) ||
+                        (checkerResult.strength.level === 'strong' && i <= 2) ||
+                        checkerResult.strength.level === 'very-strong'
+                      return (
+                        <div
+                          key={i}
+                          className={`pg-strength-segment ${filled ? 'filled' : ''}`}
+                          style={filled ? { background: checkerResult.strength.color } : undefined}
+                        />
+                      )
+                    })}
+                  </div>
+                </div>
+              </>
+            )}
+
+            {checkPassword && !checkerResult && (
+              <div className="pg-warning">无法分析空密码</div>
+            )}
+          </>
+        )}
       </div>
     </div>
   )
