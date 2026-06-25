@@ -104,6 +104,11 @@ export default function Sidebar({
     return grouped
   }, [])
 
+  const categoryEntries = useMemo(
+    () => [...toolsByCategory.entries()],
+    [toolsByCategory]
+  )
+
   // 分类折叠状态
   const [collapsedCategories, setCollapsedCategories] = useState<Record<string, boolean>>(
     defaultCollapsedCategories
@@ -133,7 +138,7 @@ export default function Sidebar({
         </div>
 
         {/* 工具分类 */}
-        {[...toolsByCategory.entries()].map(([category, categoryTools]) => {
+        {categoryEntries.map(([category, categoryTools]) => {
           const CategoryIcon = categoryIcons[category] || categoryIcons.__default
           const isCategoryCollapsed = collapsedCategories[category] ?? false
 
