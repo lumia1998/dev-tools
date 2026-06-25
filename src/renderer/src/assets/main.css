@@ -34,6 +34,7 @@
 @import '../styles/about.css';
 @import '../styles/settings.css';
 @import '../styles/color-converter.css';
+@import '../styles/lorem-ipsum.css';
 
 @tailwind base;
 @tailwind components;

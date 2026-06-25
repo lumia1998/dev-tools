@@ -286,5 +286,14 @@
     "category": "换算工具",
     "categoryIcon": "Code",
     "isNew": true
+  },
+  {
+    "id": "lorem-ipsum",
+    "name": "Lorem Ipsum Generator",
+    "desc": "生成虚拟占位文本，用于设计和排版",
+    "icon": "Type",
+    "category": "文本工具",
+    "categoryIcon": "FileText",
+    "isNew": true
   }
 ]
