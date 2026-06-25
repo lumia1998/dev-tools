@@ -41,6 +41,7 @@
 @import '../styles/unit-converter.css';
 @import '../styles/timer-stopwatch.css';
 @import '../styles/usb-viewer.css';
+@import '../styles/xpath-tester.css';
 
 @tailwind base;
 @tailwind components;

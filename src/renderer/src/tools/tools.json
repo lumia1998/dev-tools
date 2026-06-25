@@ -349,5 +349,14 @@
     "category": "系统工具",
     "categoryIcon": "Monitor",
     "isNew": true
+  },
+  {
+    "id": "xpath-tester",
+    "name": "XPath Tester",
+    "desc": "XPath 表达式测试 — XML/HTML 节点查询",
+    "icon": "Search",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
   }
 ]
