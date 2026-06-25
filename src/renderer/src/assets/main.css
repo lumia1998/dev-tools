@@ -40,6 +40,7 @@
 @import '../styles/number-base.css';
 @import '../styles/unit-converter.css';
 @import '../styles/timer-stopwatch.css';
+@import '../styles/usb-viewer.css';
 
 @tailwind base;
 @tailwind components;

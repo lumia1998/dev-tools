@@ -340,5 +340,14 @@
     "category": "系统工具",
     "categoryIcon": "Monitor",
     "isNew": true
+  },
+  {
+    "id": "usb-viewer",
+    "name": "USB Device Viewer",
+    "desc": "WebHID — 查看 USB HID 设备 VID/PID/集合/报告",
+    "icon": "Usb",
+    "category": "系统工具",
+    "categoryIcon": "Monitor",
+    "isNew": true
   }
 ]

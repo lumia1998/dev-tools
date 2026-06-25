@@ -1,0 +1,327 @@
+/* ========================================
+   USB Device Viewer 页面
+   ======================================== */
+
+.uv-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 24px;
+  overflow-y: auto;
+}
+
+.uv-card {
+  width: 100%;
+  max-width: 580px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: var(--shadow-xl);
+}
+
+.uv-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.uv-title {
+  font-size: 22px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-text);
+  margin: 0 0 4px;
+}
+
+.uv-subtitle {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* ── Connect ───────────────────────────── */
+
+.uv-connect-area {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.uv-connect-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: var(--color-accent-soft);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.uv-connect-btn:hover:not(:disabled) {
+  background: var(--color-accent-soft-hover, var(--color-accent-soft));
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
+}
+
+.uv-connect-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.uv-connect-disconnect {
+  background: var(--color-danger, #e53e3e);
+}
+
+.uv-connect-disconnect:hover {
+  background: #dc2626;
+}
+
+/* ── Error ─────────────────────────────── */
+
+.uv-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(229, 62, 62, 0.08);
+  border: 1px solid rgba(229, 62, 62, 0.2);
+  border-radius: 10px;
+  color: var(--color-danger, #e53e3e);
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+/* ── Device header ─────────────────────── */
+
+.uv-device-header {
+  text-align: center;
+  padding: 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.uv-device-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.uv-device-maker {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+/* ── VID / PID ─────────────────────────── */
+
+.uv-vidpid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.uv-vidpid-card {
+  padding: 14px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.uv-vidpid-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.uv-vidpid-value {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-accent-soft);
+}
+
+.uv-vidpid-vendor {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+/* ── Actions ───────────────────────────── */
+
+.uv-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.uv-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.uv-btn:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-text);
+  border-color: var(--color-border-hover);
+}
+
+.uv-btn-active {
+  background: var(--color-accent-soft);
+  color: #fff;
+  border-color: var(--color-accent-soft);
+}
+
+/* ── Section ───────────────────────────── */
+
+.uv-section {
+  margin-bottom: 20px;
+}
+
+.uv-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+/* ── Collections ───────────────────────── */
+
+.uv-collection {
+  padding: 12px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+.uv-col-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.uv-col-type {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--color-accent-soft-subtle);
+  color: var(--color-accent-soft);
+}
+
+.uv-col-usage {
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-text);
+}
+
+.uv-col-reports {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: 8px;
+}
+
+.uv-col-report {
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-text-muted);
+}
+
+/* ── Reports ───────────────────────────── */
+
+.uv-reports-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.uv-report-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 10px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+}
+
+.uv-report-id {
+  font-size: 10px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-accent-soft);
+  white-space: nowrap;
+}
+
+.uv-report-data {
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-text);
+  word-break: break-all;
+  line-height: 1.5;
+}
+
+/* ── Note ──────────────────────────────── */
+
+.uv-note {
+  text-align: center;
+  padding: 20px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ── Responsive ────────────────────────── */
+
+@media (max-width: 500px) {
+  .uv-page {
+    padding: 24px 16px;
+  }
+  .uv-card {
+    padding: 24px 18px;
+    border-radius: 16px;
+  }
+  .uv-vidpid {
+    grid-template-columns: 1fr;
+  }
+}
