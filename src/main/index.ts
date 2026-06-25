@@ -127,6 +127,19 @@ function registerMavenHandlers(): void {
   })
 }
 
+function registerEnvHandlers(): void {
+  // Security: this exposes the full process.env to the renderer.
+  // Acceptable for a local dev-tools desktop app, but any future
+  // renderer page or injected script can call this channel.
+  ipcMain.handle('env:get-vars', () => {
+    const env: Record<string, string> = {}
+    for (const [k, v] of Object.entries(process.env)) {
+      if (v !== undefined) env[k] = v
+    }
+    return env
+  })
+}
+
 let mainWindow: BrowserWindow | null = null
 
 function createWindow(): void {
@@ -191,6 +204,9 @@ app.whenReady().then(() => {
 
   // Register maven proxy handlers
   registerMavenHandlers()
+
+  // Register env handlers
+  registerEnvHandlers()
 
   createWindow()
 

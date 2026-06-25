@@ -64,6 +64,11 @@ const mavenAPI = {
   fetchPopular: (): Promise<unknown> => ipcRenderer.invoke('maven:popular')
 }
 
+// Environment Variables API
+const envAPI = {
+  getEnvVars: (): Promise<Record<string, string>> => ipcRenderer.invoke('env:get-vars')
+}
+
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
 // just add to the DOM global.
@@ -73,6 +78,7 @@ if (process.contextIsolated) {
     contextBridge.exposeInMainWorld('api', settingsAPI)
     contextBridge.exposeInMainWorld('updater', updaterAPI)
     contextBridge.exposeInMainWorld('maven', mavenAPI)
+    contextBridge.exposeInMainWorld('env', envAPI)
   } catch (error) {
     console.error(error)
   }
@@ -85,4 +91,6 @@ if (process.contextIsolated) {
   window.updater = updaterAPI
   // @ts-ignore (define in dts)
   window.maven = mavenAPI
+  // @ts-ignore (define in dts)
+  window.env = envAPI
 }

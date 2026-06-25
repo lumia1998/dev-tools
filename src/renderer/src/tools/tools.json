@@ -223,5 +223,14 @@
     "category": "文本工具",
     "categoryIcon": "FileText",
     "isNew": true
+  },
+  {
+    "id": "env-vars",
+    "name": "Environment Variables",
+    "desc": "查看当前系统环境变量",
+    "icon": "Terminal",
+    "category": "系统工具",
+    "categoryIcon": "Monitor",
+    "isNew": true
   }
 ]

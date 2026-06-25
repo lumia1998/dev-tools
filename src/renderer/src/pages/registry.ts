@@ -34,7 +34,8 @@ const pageMap: Record<string, React.LazyExoticComponent<ComponentType>> = {
   'docker-cheat-sheet': lazy(() => import('./DockerCheatSheet')),
   'maven-dependency': lazy(() => import('./MavenDependency')),
   'file-generator': lazy(() => import('./FileGenerator')),
-  'case-converter': lazy(() => import('./CaseConverter'))
+  'case-converter': lazy(() => import('./CaseConverter')),
+  'env-vars': lazy(() => import('./EnvVars'))
 }
 
 export function getPageComponent(id: string): React.LazyExoticComponent<ComponentType> | null {

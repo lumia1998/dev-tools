@@ -26,6 +26,7 @@ import {
   FileUp,
   FileText,
   CaseSensitive,
+  Terminal,
   type LucideIcon
 } from 'lucide-react'
 
@@ -56,7 +57,8 @@ const iconMap: Record<string, LucideIcon> = {
   Package,
   FileUp,
   FileText,
-  CaseSensitive
+  CaseSensitive,
+  Terminal
 }
 
 export function getIcon(name: string): LucideIcon {

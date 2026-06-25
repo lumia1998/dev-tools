@@ -49,11 +49,16 @@ export interface MavenAPI {
   fetchPopular: () => Promise<unknown>
 }
 
+export interface EnvAPI {
+  getEnvVars: () => Promise<Record<string, string>>
+}
+
 declare global {
   interface Window {
     electron: ElectronAPI
     api: SettingsAPI
     updater: UpdaterAPI
     maven: MavenAPI
+    env: EnvAPI
   }
 }

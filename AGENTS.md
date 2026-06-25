@@ -37,7 +37,7 @@ src/
     └── assets/     # main.css 入口、base CSS 变量
 ```
 
-**IPC 模式**: 主进程 `ipcMain.handle` / 渲染进程 `window.api.xxx()` (invoke) 或 `window.maven.xxx()` (Maven 代理)。状态更新走 `webContents.send` + `window.electron.ipcRenderer.on`。
+**IPC 模式**: 主进程 `ipcMain.handle` / 渲染进程 `window.api.xxx()` (invoke) 或 `window.maven.xxx()` (Maven 代理) 或 `window.env.getEnvVars()` (环境变量)。状态更新走 `webContents.send` + `window.electron.ipcRenderer.on`。
 
 **路由**: `App.tsx` 通过 `pages/registry.ts` 的 `getPageComponent()` 映射 tool id 到 lazy 组件，用 `Suspense` 包裹渲染。特殊页面（home / about / settings）硬编码在 App.tsx。
 
