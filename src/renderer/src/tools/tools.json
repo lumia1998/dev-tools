@@ -322,5 +322,14 @@
     "category": "换算工具",
     "categoryIcon": "Calculator",
     "isNew": true
+  },
+  {
+    "id": "unit-converter",
+    "name": "Unit Converter",
+    "desc": "长度/面积/体积/时间/角度/速度/温度/压力/热量/功率换算",
+    "icon": "Ruler",
+    "category": "换算工具",
+    "categoryIcon": "Calculator",
+    "isNew": true
   }
 ]

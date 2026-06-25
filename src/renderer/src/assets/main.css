@@ -38,6 +38,7 @@
 @import '../styles/regex-tester.css';
 @import '../styles/diff-checker.css';
 @import '../styles/number-base.css';
+@import '../styles/unit-converter.css';
 
 @tailwind base;
 @tailwind components;
