@@ -18,7 +18,10 @@ function analyzeText(text: string): TextStats {
   const words = text.trim() ? text.trim().split(/\s+/).length : 0
   const lines = text ? text.split('\n').length : 0
   const paragraphs = text.trim()
-    ? text.trim().split(/\n\s*\n/).filter((p) => p.trim()).length
+    ? text
+        .trim()
+        .split(/\n\s*\n/)
+        .filter((p) => p.trim()).length
     : 0
   const bytes = new TextEncoder().encode(text).length
   const readingTime = Math.ceil(words / 200)

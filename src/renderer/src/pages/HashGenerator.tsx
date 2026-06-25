@@ -35,9 +35,7 @@ function computeFileHash(file: File, algo: Algorithm): Promise<string> {
     if (algo === 'MD5') {
       const reader = new FileReader()
       reader.onload = (e) => {
-        const wordArray = CryptoJS.lib.WordArray.create(
-          e.target?.result as ArrayBuffer
-        )
+        const wordArray = CryptoJS.lib.WordArray.create(e.target?.result as ArrayBuffer)
         resolve(CryptoJS.MD5(wordArray).toString())
       }
       reader.onerror = reject
@@ -261,24 +259,16 @@ export default function HashGenerator(): React.JSX.Element {
             <div className="hg-input-header">
               <span className="hg-input-label">输入文本</span>
               <div className="hg-samples">
-                <button
-                  className="hg-sample-btn"
-                  onClick={() => setTextInput('Hello, World!')}
-                >
+                <button className="hg-sample-btn" onClick={() => setTextInput('Hello, World!')}>
                   示例 1
                 </button>
                 <button
                   className="hg-sample-btn"
-                  onClick={() =>
-                    setTextInput('The quick brown fox jumps over the lazy dog')
-                  }
+                  onClick={() => setTextInput('The quick brown fox jumps over the lazy dog')}
                 >
                   示例 2
                 </button>
-                <button
-                  className="hg-sample-btn"
-                  onClick={() => setTextInput('dev-tools@1.0.0')}
-                >
+                <button className="hg-sample-btn" onClick={() => setTextInput('dev-tools@1.0.0')}>
                   示例 3
                 </button>
               </div>
@@ -374,10 +364,7 @@ export default function HashGenerator(): React.JSX.Element {
                       <Hash size={14} />
                       <span>{label}</span>
                     </div>
-                    <button
-                      className="hg-copy-btn"
-                      onClick={() => copyHash(id, displayHash)}
-                    >
+                    <button className="hg-copy-btn" onClick={() => copyHash(id, displayHash)}>
                       {copiedAlgo === id ? <Check size={13} /> : <Copy size={13} />}
                       {copiedAlgo === id ? '已复制' : '复制'}
                     </button>

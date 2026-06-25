@@ -22,10 +22,7 @@ export default function Home({ onSelectTool }: HomeProps): React.JSX.Element {
   }, [search])
 
   const categories = useMemo(() => {
-    const grouped: Map<
-      string,
-      { tools: ToolItem[]; icon: ToolItem['categoryIcon'] }
-    > = new Map()
+    const grouped: Map<string, { tools: ToolItem[]; icon: ToolItem['categoryIcon'] }> = new Map()
     for (const tool of filteredTools) {
       if (!grouped.has(tool.category)) {
         grouped.set(tool.category, { tools: [], icon: tool.categoryIcon })
@@ -72,11 +69,7 @@ export default function Home({ onSelectTool }: HomeProps): React.JSX.Element {
                 {categoryTools.map((t) => {
                   const Icon = t.icon
                   return (
-                    <div
-                      key={t.id}
-                      className="tool-card"
-                      onClick={() => onSelectTool(t.id)}
-                    >
+                    <div key={t.id} className="tool-card" onClick={() => onSelectTool(t.id)}>
                       {t.isNew && <span className="tool-card-badge">NEW</span>}
 
                       <div className="tool-card-header">
@@ -105,9 +98,7 @@ export default function Home({ onSelectTool }: HomeProps): React.JSX.Element {
           )
         )}
 
-        {filteredTools.length === 0 && (
-          <div className="home-empty">没有找到匹配的工具</div>
-        )}
+        {filteredTools.length === 0 && <div className="home-empty">没有找到匹配的工具</div>}
       </div>
     </div>
   )

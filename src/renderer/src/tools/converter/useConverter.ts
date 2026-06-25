@@ -46,7 +46,12 @@ export function parseInputWithUnit(input: string, activeUnit: Unit): ParsedInput
     const num = parseFloat(match[1])
     const unitStr = match[2].toUpperCase()
     const allUnits = [...BINARY_UNITS, ...DECIMAL_UNITS]
-    const found = allUnits.find((u) => u.toUpperCase() === unitStr || u.toUpperCase() === unitStr + 'B' || u.toUpperCase() === unitStr + 'IB')
+    const found = allUnits.find(
+      (u) =>
+        u.toUpperCase() === unitStr ||
+        u.toUpperCase() === unitStr + 'B' ||
+        u.toUpperCase() === unitStr + 'IB'
+    )
     if (found && !isNaN(num)) {
       return { value: num, unit: found as Unit }
     }

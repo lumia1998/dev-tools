@@ -52,17 +52,18 @@ const QUICK_TEMPLATES = [
 
 const FREQUENCY_PRESETS: Record<Frequency, Partial<CronConfig>> = {
   'every-minute': { minute: '*', hour: '*', dayOfMonth: '*', month: '*', dayOfWeek: [] },
-  'hourly': { minute: '0', hour: '*', dayOfMonth: '*', month: '*', dayOfWeek: [] },
-  'daily': { minute: '0', hour: '9', dayOfMonth: '*', month: '*', dayOfWeek: [] },
-  'weekly': { minute: '0', hour: '0', dayOfMonth: '*', month: '*', dayOfWeek: ['1'] },
-  'monthly': { minute: '0', hour: '0', dayOfMonth: '1', month: '*', dayOfWeek: [] },
-  'custom': { minute: '0', hour: '9', dayOfMonth: '*', month: '*', dayOfWeek: [] }
+  hourly: { minute: '0', hour: '*', dayOfMonth: '*', month: '*', dayOfWeek: [] },
+  daily: { minute: '0', hour: '9', dayOfMonth: '*', month: '*', dayOfWeek: [] },
+  weekly: { minute: '0', hour: '0', dayOfMonth: '*', month: '*', dayOfWeek: ['1'] },
+  monthly: { minute: '0', hour: '0', dayOfMonth: '1', month: '*', dayOfWeek: [] },
+  custom: { minute: '0', hour: '9', dayOfMonth: '*', month: '*', dayOfWeek: [] }
 }
 
 function buildCronExpression(config: CronConfig): string {
-  const dayOfWeek = config.dayOfWeek.length === 0 || config.dayOfWeek.length === 7
-    ? '*'
-    : config.dayOfWeek.join(',')
+  const dayOfWeek =
+    config.dayOfWeek.length === 0 || config.dayOfWeek.length === 7
+      ? '*'
+      : config.dayOfWeek.join(',')
 
   return `${config.minute} ${config.hour} ${config.dayOfMonth} ${config.month} ${dayOfWeek}`
 }
@@ -85,9 +86,10 @@ function parseCronExpression(cron: string): CronConfig | null {
 function generateDescription(config: CronConfig): string {
   const parts: string[] = []
 
-  const dayOfWeekStr = config.dayOfWeek.length === 0 || config.dayOfWeek.length === 7
-    ? ''
-    : config.dayOfWeek.map(d => WEEKDAYS.find(w => w.id === d)?.full || d).join(', ')
+  const dayOfWeekStr =
+    config.dayOfWeek.length === 0 || config.dayOfWeek.length === 7
+      ? ''
+      : config.dayOfWeek.map((d) => WEEKDAYS.find((w) => w.id === d)?.full || d).join(', ')
 
   if (config.minute === '*' && config.hour === '*') {
     parts.push('Every minute')
@@ -125,7 +127,7 @@ function generateDescription(config: CronConfig): string {
     if (config.month.startsWith('*/')) {
       parts.push(`every ${config.month.slice(2)} months`)
     } else {
-      const monthName = MONTHS.find(m => m.value === config.month)?.label || config.month
+      const monthName = MONTHS.find((m) => m.value === config.month)?.label || config.month
       parts.push(`in ${monthName}`)
     }
   }
@@ -276,7 +278,7 @@ export function useCronGenerator() {
   const applyFrequency = useCallback((freq: Frequency) => {
     setFrequency(freq)
     const preset = FREQUENCY_PRESETS[freq]
-    setConfig(prev => ({
+    setConfig((prev) => ({
       ...prev,
       ...preset,
       dayOfWeek: preset.dayOfWeek || []
@@ -292,29 +294,29 @@ export function useCronGenerator() {
   }, [])
 
   const updateMinute = useCallback((value: string) => {
-    setConfig(prev => ({ ...prev, minute: value }))
+    setConfig((prev) => ({ ...prev, minute: value }))
     setFrequency('custom')
   }, [])
 
   const updateHour = useCallback((value: string) => {
-    setConfig(prev => ({ ...prev, hour: value }))
+    setConfig((prev) => ({ ...prev, hour: value }))
     setFrequency('custom')
   }, [])
 
   const updateDayOfMonth = useCallback((value: string) => {
-    setConfig(prev => ({ ...prev, dayOfMonth: value }))
+    setConfig((prev) => ({ ...prev, dayOfMonth: value }))
     setFrequency('custom')
   }, [])
 
   const updateMonth = useCallback((value: string) => {
-    setConfig(prev => ({ ...prev, month: value }))
+    setConfig((prev) => ({ ...prev, month: value }))
     setFrequency('custom')
   }, [])
 
   const toggleDayOfWeek = useCallback((day: string) => {
-    setConfig(prev => {
+    setConfig((prev) => {
       const newDays = prev.dayOfWeek.includes(day)
-        ? prev.dayOfWeek.filter(d => d !== day)
+        ? prev.dayOfWeek.filter((d) => d !== day)
         : [...prev.dayOfWeek, day]
       return { ...prev, dayOfWeek: newDays }
     })
@@ -322,12 +324,12 @@ export function useCronGenerator() {
   }, [])
 
   const selectAllWeekdays = useCallback(() => {
-    setConfig(prev => ({ ...prev, dayOfWeek: ['1', '2', '3', '4', '5'] }))
+    setConfig((prev) => ({ ...prev, dayOfWeek: ['1', '2', '3', '4', '5'] }))
     setFrequency('custom')
   }, [])
 
   const selectAllDays = useCallback(() => {
-    setConfig(prev => ({ ...prev, dayOfWeek: [] }))
+    setConfig((prev) => ({ ...prev, dayOfWeek: [] }))
     setFrequency('custom')
   }, [])
 

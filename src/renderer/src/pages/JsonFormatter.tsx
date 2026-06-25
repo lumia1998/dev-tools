@@ -19,10 +19,7 @@ import { json } from '@codemirror/lang-json'
 import { EditorView } from '@codemirror/view'
 import { JsonView, collapseAllNested, defaultStyles } from 'react-json-view-lite'
 import 'react-json-view-lite/dist/index.css'
-import {
-  useJsonFormatter,
-  type Indent
-} from '@renderer/tools/json-formatter/useJsonFormatter'
+import { useJsonFormatter, type Indent } from '@renderer/tools/json-formatter/useJsonFormatter'
 
 const INDENTS: Indent[] = [2, 4, 6, 8]
 
@@ -210,42 +207,39 @@ export default function JsonFormatter(): React.JSX.Element {
   }, [handleLeftScroll, handleRightScroll, viewMode])
 
   // 树形视图右键菜单
-  const handleTreeContextMenu = useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault()
-      const target = e.target as HTMLElement
+  const handleTreeContextMenu = useCallback((e: React.MouseEvent) => {
+    e.preventDefault()
+    const target = e.target as HTMLElement
 
-      const valueEl = target.closest(
-        '[class*="jf-tree-string"], [class*="jf-tree-number"], [class*="jf-tree-boolean"], [class*="jf-tree-null"]'
-      ) as HTMLElement | null
+    const valueEl = target.closest(
+      '[class*="jf-tree-string"], [class*="jf-tree-number"], [class*="jf-tree-boolean"], [class*="jf-tree-null"]'
+    ) as HTMLElement | null
 
-      if (valueEl) {
-        const value = valueEl.textContent || ''
-        const { key, path } = getNodePath(valueEl)
+    if (valueEl) {
+      const value = valueEl.textContent || ''
+      const { key, path } = getNodePath(valueEl)
+      setContextMenu({
+        x: e.clientX,
+        y: e.clientY,
+        value,
+        key,
+        path
+      })
+    } else {
+      const keyEl = target.closest('[class*="jf-tree-key"]') as HTMLElement | null
+      if (keyEl) {
+        const keyText = keyEl.textContent?.replace(/"/g, '').replace(/:$/, '') || ''
+        const { path } = getNodePath(keyEl)
         setContextMenu({
           x: e.clientX,
           y: e.clientY,
-          value,
-          key,
+          value: keyText,
+          key: keyText,
           path
         })
-      } else {
-        const keyEl = target.closest('[class*="jf-tree-key"]') as HTMLElement | null
-        if (keyEl) {
-          const keyText = keyEl.textContent?.replace(/"/g, '').replace(/:$/, '') || ''
-          const { path } = getNodePath(keyEl)
-          setContextMenu({
-            x: e.clientX,
-            y: e.clientY,
-            value: keyText,
-            key: keyText,
-            path
-          })
-        }
       }
-    },
-    []
-  )
+    }
+  }, [])
 
   const handleCopyValue = useCallback(() => {
     if (contextMenu) {
@@ -390,11 +384,7 @@ export default function JsonFormatter(): React.JSX.Element {
                 <span>输入</span>
               </div>
               <div className="jf-panel-actions">
-                <button
-                  className="jf-icon-btn"
-                  onClick={handleLoadSample}
-                  title="加载示例"
-                >
+                <button className="jf-icon-btn" onClick={handleLoadSample} title="加载示例">
                   <Download size={14} />
                 </button>
                 <button
@@ -502,9 +492,7 @@ export default function JsonFormatter(): React.JSX.Element {
           onClick={(e) => e.stopPropagation()}
         >
           <div className="jf-context-header">
-            <span className="jf-context-label">
-              {contextMenu.key || '(root)'}
-            </span>
+            <span className="jf-context-label">{contextMenu.key || '(root)'}</span>
           </div>
 
           <div className="jf-context-divider" />
@@ -513,7 +501,9 @@ export default function JsonFormatter(): React.JSX.Element {
             <CopyPlus size={14} />
             <span>复制值</span>
             <code className="jf-context-preview">
-              {contextMenu.value.length > 25 ? contextMenu.value.slice(0, 25) + '...' : contextMenu.value}
+              {contextMenu.value.length > 25
+                ? contextMenu.value.slice(0, 25) + '...'
+                : contextMenu.value}
             </code>
           </button>
 

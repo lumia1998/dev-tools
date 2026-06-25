@@ -4,8 +4,7 @@ import { useUpdater } from '@renderer/lib/updater-context'
 import '../styles/settings.css'
 
 export default function SettingsPage(): React.JSX.Element {
-  const { settings, updateAppearance, updateEditor, updateUpdater, resetToDefaults } =
-    useSettings()
+  const { settings, updateAppearance, updateEditor, updateUpdater, resetToDefaults } = useSettings()
   const {
     status,
     version,
@@ -184,11 +183,8 @@ export default function SettingsPage(): React.JSX.Element {
                 <p className={`settings-item-description ${hasError ? 'updater-error' : ''}`}>
                   {isChecking && '正在检查更新...'}
                   {status.type === 'not-available' && '✓ 已是最新版本'}
-                  {isAvailable &&
-                    `发现新版本 ${status.type === 'available' ? status.version : ''}`}
-                  {isDownloading &&
-                    status.type === 'downloading' &&
-                    `下载中 ${status.percent}%`}
+                  {isAvailable && `发现新版本 ${status.type === 'available' ? status.version : ''}`}
+                  {isDownloading && status.type === 'downloading' && `下载中 ${status.percent}%`}
                   {isDownloaded && '下载完成，重启应用以安装更新'}
                   {hasError && status.type === 'error' && `✗ ${status.message}`}
                 </p>
@@ -197,10 +193,7 @@ export default function SettingsPage(): React.JSX.Element {
 
             {isDownloading && status.type === 'downloading' && (
               <div className="updater-progress">
-                <div
-                  className="updater-progress-bar"
-                  style={{ width: `${status.percent}%` }}
-                />
+                <div className="updater-progress-bar" style={{ width: `${status.percent}%` }} />
               </div>
             )}
 
@@ -216,19 +209,13 @@ export default function SettingsPage(): React.JSX.Element {
                 </button>
               )}
               {isAvailable && (
-                <button
-                  className="settings-btn settings-btn-primary"
-                  onClick={downloadUpdate}
-                >
+                <button className="settings-btn settings-btn-primary" onClick={downloadUpdate}>
                   <Download size={15} />
                   下载更新
                 </button>
               )}
               {isDownloaded && (
-                <button
-                  className="settings-btn settings-btn-primary"
-                  onClick={quitAndInstall}
-                >
+                <button className="settings-btn settings-btn-primary" onClick={quitAndInstall}>
                   重启并安装
                 </button>
               )}

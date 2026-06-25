@@ -91,13 +91,20 @@ function simpleSign(message: string, secret: string, algorithm: Algorithm): stri
 
 function getExpirationSeconds(expiration: Expiration): number {
   switch (expiration) {
-    case '15m': return 900
-    case '1h': return 3600
-    case '12h': return 43200
-    case '1d': return 86400
-    case '7d': return 604800
-    case '30d': return 2592000
-    default: return 3600
+    case '15m':
+      return 900
+    case '1h':
+      return 3600
+    case '12h':
+      return 43200
+    case '1d':
+      return 86400
+    case '7d':
+      return 604800
+    case '30d':
+      return 2592000
+    default:
+      return 3600
   }
 }
 
@@ -192,58 +199,67 @@ export function useJWTGenerator() {
     setExpiration(exp)
   }, [])
 
-  const addClaim = useCallback((claim: ClaimField) => {
-    try {
-      const payload = JSON.parse(payloadJson)
-      const now = Math.floor(Date.now() / 1000)
+  const addClaim = useCallback(
+    (claim: ClaimField) => {
+      try {
+        const payload = JSON.parse(payloadJson)
+        const now = Math.floor(Date.now() / 1000)
 
-      switch (claim) {
-        case 'sub':
-          payload.sub = payload.sub || '10001'
-          break
-        case 'exp':
-          payload.exp = now + getExpirationSeconds(expiration)
-          break
-        case 'iat':
-          payload.iat = now
-          break
-        case 'aud':
-          payload.aud = 'your-audience'
-          break
-        case 'iss':
-          payload.iss = 'your-issuer'
-          break
-        case 'jti':
-          payload.jti = crypto.randomUUID()
-          break
+        switch (claim) {
+          case 'sub':
+            payload.sub = payload.sub || '10001'
+            break
+          case 'exp':
+            payload.exp = now + getExpirationSeconds(expiration)
+            break
+          case 'iat':
+            payload.iat = now
+            break
+          case 'aud':
+            payload.aud = 'your-audience'
+            break
+          case 'iss':
+            payload.iss = 'your-issuer'
+            break
+          case 'jti':
+            payload.jti = crypto.randomUUID()
+            break
+        }
+
+        setPayloadJson(JSON.stringify(payload, null, 2))
+      } catch {
+        // ignore
       }
+    },
+    [payloadJson, expiration]
+  )
 
+  const applyRoleTemplate = useCallback(
+    (role: RoleTemplate) => {
+      try {
+        const payload = JSON.parse(payloadJson)
+        const template = ROLE_TEMPLATES[role]
+        Object.assign(payload, template)
+        setPayloadJson(JSON.stringify(payload, null, 2))
+      } catch {
+        // ignore
+      }
+    },
+    [payloadJson]
+  )
+
+  const applyPayloadTemplate = useCallback(
+    (template: keyof typeof PAYLOAD_TEMPLATES) => {
+      const now = Math.floor(Date.now() / 1000)
+      const payload = {
+        ...PAYLOAD_TEMPLATES[template],
+        iat: now,
+        exp: now + getExpirationSeconds(expiration)
+      }
       setPayloadJson(JSON.stringify(payload, null, 2))
-    } catch {
-      // ignore
-    }
-  }, [payloadJson, expiration])
-
-  const applyRoleTemplate = useCallback((role: RoleTemplate) => {
-    try {
-      const payload = JSON.parse(payloadJson)
-      const template = ROLE_TEMPLATES[role]
-      Object.assign(payload, template)
-      setPayloadJson(JSON.stringify(payload, null, 2))
-    } catch {
-      // ignore
-    }
-  }, [payloadJson])
-
-  const applyPayloadTemplate = useCallback((template: keyof typeof PAYLOAD_TEMPLATES) => {
-    const now = Math.floor(Date.now() / 1000)
-    const payload = {
-      ...PAYLOAD_TEMPLATES[template],
-      iat: now,
-      exp: now + getExpirationSeconds(expiration)
-    }
-    setPayloadJson(JSON.stringify(payload, null, 2))
-  }, [expiration])
+    },
+    [expiration]
+  )
 
   const generateRandomPayload = useCallback(() => {
     const now = Math.floor(Date.now() / 1000)
@@ -258,17 +274,20 @@ export function useJWTGenerator() {
     setPayloadJson(JSON.stringify(payload, null, 2))
   }, [expiration])
 
-  const generateRandomSecret = useCallback((length: 32 | 64 | 128 = 32) => {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    let result = ''
-    const array = new Uint32Array(length)
-    crypto.getRandomValues(array)
-    for (let i = 0; i < length; i++) {
-      result += chars[array[i] % chars.length]
-    }
-    setSecret(result)
-    showToast('Secret 已生成')
-  }, [showToast])
+  const generateRandomSecret = useCallback(
+    (length: 32 | 64 | 128 = 32) => {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+      let result = ''
+      const array = new Uint32Array(length)
+      crypto.getRandomValues(array)
+      for (let i = 0; i < length; i++) {
+        result += chars[array[i] % chars.length]
+      }
+      setSecret(result)
+      showToast('Secret 已生成')
+    },
+    [showToast]
+  )
 
   const copyJWT = useCallback(() => {
     if (jwt) {

@@ -16,7 +16,11 @@ import {
   type RandomStringCharset
 } from '@renderer/tools/token-generator/useTokenGenerator'
 
-const TOKEN_TYPES: { id: TokenType; label: string; icon: React.ComponentType<{ size?: number }> }[] = [
+const TOKEN_TYPES: {
+  id: TokenType
+  label: string
+  icon: React.ComponentType<{ size?: number }>
+}[] = [
   { id: 'uuid', label: 'UUID', icon: Hash },
   { id: 'jwt', label: 'JWT', icon: FileCode },
   { id: 'api-key', label: 'API Key', icon: Key },

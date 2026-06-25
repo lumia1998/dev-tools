@@ -103,9 +103,7 @@ export default function KeyboardTester(): React.JSX.Element {
     setCurrentKey(null)
   }, [])
 
-  const displayKey = currentKey
-    ? SPECIAL_KEYS[currentKey.key] || currentKey.key
-    : ''
+  const displayKey = currentKey ? SPECIAL_KEYS[currentKey.key] || currentKey.key : ''
 
   return (
     <div className="kt-page">
@@ -190,21 +188,23 @@ export default function KeyboardTester(): React.JSX.Element {
 
             <div className="kt-section">
               <span className="kt-section-label">JSON</span>
-              <pre className="kt-json">{JSON.stringify(
-                {
-                  key: currentKey.key,
-                  code: currentKey.code,
-                  keyCode: currentKey.keyCode,
-                  which: currentKey.which,
-                  location: currentKey.location,
-                  ctrlKey: currentKey.ctrlKey,
-                  shiftKey: currentKey.shiftKey,
-                  altKey: currentKey.altKey,
-                  metaKey: currentKey.metaKey
-                },
-                null,
-                2
-              )}</pre>
+              <pre className="kt-json">
+                {JSON.stringify(
+                  {
+                    key: currentKey.key,
+                    code: currentKey.code,
+                    keyCode: currentKey.keyCode,
+                    which: currentKey.which,
+                    location: currentKey.location,
+                    ctrlKey: currentKey.ctrlKey,
+                    shiftKey: currentKey.shiftKey,
+                    altKey: currentKey.altKey,
+                    metaKey: currentKey.metaKey
+                  },
+                  null,
+                  2
+                )}
+              </pre>
             </div>
           </>
         )}

@@ -1,11 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-  type ReactNode
-} from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react'
 
 export type UpdateStatus =
   | { type: 'idle' }
@@ -37,7 +30,10 @@ export function UpdaterProvider({ children }: { children: ReactNode }): React.JS
 
   // Load version on mount
   useEffect(() => {
-    window.updater.getVersion().then(setVersion).catch(() => setVersion('unknown'))
+    window.updater
+      .getVersion()
+      .then(setVersion)
+      .catch(() => setVersion('unknown'))
   }, [])
 
   // Listen for main→renderer status updates

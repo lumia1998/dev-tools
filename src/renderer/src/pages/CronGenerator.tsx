@@ -1,16 +1,11 @@
-import {
-  Copy,
-  Check,
-  RefreshCw,
-  Clock,
-  Calendar,
-  Timer,
-  Zap,
-  Settings
-} from 'lucide-react'
+import { Copy, Check, RefreshCw, Clock, Calendar, Timer, Zap, Settings } from 'lucide-react'
 import { useCronGenerator, type Frequency } from '@renderer/tools/cron-generator/useCronGenerator'
 
-const FREQUENCIES: { id: Frequency; label: string; icon: React.ComponentType<{ size?: number }> }[] = [
+const FREQUENCIES: {
+  id: Frequency
+  label: string
+  icon: React.ComponentType<{ size?: number }>
+}[] = [
   { id: 'every-minute', label: '每分钟', icon: Zap },
   { id: 'hourly', label: '每小时', icon: Timer },
   { id: 'daily', label: '每天', icon: Clock },
@@ -320,9 +315,7 @@ export default function CronGenerator(): React.JSX.Element {
         <div className="cron-section-header">
           <span className="cron-section-label">描述</span>
         </div>
-        <div className="cron-description">
-          {description}
-        </div>
+        <div className="cron-description">{description}</div>
       </div>
 
       {/* 执行预览 */}
@@ -413,9 +406,7 @@ export default function CronGenerator(): React.JSX.Element {
             <div className="cron-section-header">
               <span className="cron-section-label">描述</span>
             </div>
-            <div className="cron-description">
-              {parsedDescription}
-            </div>
+            <div className="cron-description">{parsedDescription}</div>
           </div>
 
           {/* 执行预览 */}
@@ -437,9 +428,7 @@ export default function CronGenerator(): React.JSX.Element {
 
       {!parsedConfig && parserInput && (
         <div className="cron-section">
-          <div className="cron-error">
-            无效的 Cron 表达式，请输入 5 个字段（分 时 日 月 周）
-          </div>
+          <div className="cron-error">无效的 Cron 表达式，请输入 5 个字段（分 时 日 月 周）</div>
         </div>
       )}
     </div>

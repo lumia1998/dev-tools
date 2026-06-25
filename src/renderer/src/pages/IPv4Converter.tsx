@@ -166,10 +166,7 @@ export default function IPv4Converter(): React.JSX.Element {
                 <span className="v4c-output-label">{label}</span>
                 <div className="v4c-output-value-row">
                   <code className="v4c-output-value">{value}</code>
-                  <button
-                    className="v4c-copy-btn"
-                    onClick={() => copyValue(value, key)}
-                  >
+                  <button className="v4c-copy-btn" onClick={() => copyValue(value, key)}>
                     {copied === key ? <Check size={12} /> : <Copy size={12} />}
                   </button>
                 </div>

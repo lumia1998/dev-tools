@@ -20,18 +20,12 @@ const RANGES: RangeConfig[] = [
 ]
 
 const COMMON_PORTS = new Set([
-  21, 22, 25, 53, 80, 110, 143, 443, 993, 995,
-  3306, 5432, 6379, 8080, 8443, 9200, 27017
+  21, 22, 25, 53, 80, 110, 143, 443, 993, 995, 3306, 5432, 6379, 8080, 8443, 9200, 27017
 ])
 
 const COUNT_PRESETS = [1, 10, 50, 100]
 
-function generatePorts(
-  min: number,
-  max: number,
-  count: number,
-  excludeCommon: boolean
-): number[] {
+function generatePorts(min: number, max: number, count: number, excludeCommon: boolean): number[] {
   const ports = new Set<number>()
   const maxAttempts = count * 10
   let attempts = 0
@@ -123,7 +117,10 @@ export default function PortGenerator(): React.JSX.Element {
           <span className="pg2-section-label">端口范围</span>
           <div className="pg2-ranges">
             {RANGES.map((range) => (
-              <label key={range.id} className={`pg2-range ${rangeType === range.id ? 'active' : ''}`}>
+              <label
+                key={range.id}
+                className={`pg2-range ${rangeType === range.id ? 'active' : ''}`}
+              >
                 <input
                   type="radio"
                   name="range"

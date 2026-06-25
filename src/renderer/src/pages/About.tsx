@@ -22,7 +22,8 @@ export default function About(): React.JSX.Element {
             </h3>
             <div className="about-section-content">
               <p className="about-text">
-                dev-tools 是一款基于 Electron 开发的桌面开发工具集合，集成了常用的开发工具，帮助开发者提升工作效率。
+                dev-tools 是一款基于 Electron
+                开发的桌面开发工具集合，集成了常用的开发工具，帮助开发者提升工作效率。
               </p>
               <p className="about-text">
                 应用采用现代化的技术栈，使用 React + TypeScript 构建，界面简洁美观，操作流畅。

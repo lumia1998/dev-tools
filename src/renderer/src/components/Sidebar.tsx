@@ -48,7 +48,11 @@ function NavButton({
   collapsed,
   onClick
 }: {
-  item: { id: string; label: string; icon: React.ComponentType<{ size?: number; className?: string }> }
+  item: {
+    id: string
+    label: string
+    icon: React.ComponentType<{ size?: number; className?: string }>
+  }
   active: boolean
   collapsed: boolean
   onClick: () => void

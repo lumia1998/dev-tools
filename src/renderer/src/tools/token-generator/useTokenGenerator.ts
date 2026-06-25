@@ -146,19 +146,22 @@ export function useTokenGenerator() {
     setTimeout(() => setToast(''), 1500)
   }, [])
 
-  const updateConfig = useCallback(<T extends TokenType>(
-    type: T,
-    key: keyof TokenConfig[T],
-    value: TokenConfig[T][keyof TokenConfig[T]]
-  ) => {
-    setConfig((prev) => ({
-      ...prev,
-      [type]: {
-        ...prev[type],
-        [key]: value
-      }
-    }))
-  }, [])
+  const updateConfig = useCallback(
+    <T extends TokenType>(
+      type: T,
+      key: keyof TokenConfig[T],
+      value: TokenConfig[T][keyof TokenConfig[T]]
+    ) => {
+      setConfig((prev) => ({
+        ...prev,
+        [type]: {
+          ...prev[type],
+          [key]: value
+        }
+      }))
+    },
+    []
+  )
 
   const generate = useCallback(() => {
     let generated: string[] = []
@@ -185,10 +188,7 @@ export function useTokenGenerator() {
 
       case 'random-string':
         generated = [
-          generateRandomString(
-            config['random-string'].length,
-            config['random-string'].charset
-          )
+          generateRandomString(config['random-string'].length, config['random-string'].charset)
         ]
         break
 

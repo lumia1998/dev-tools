@@ -147,13 +147,19 @@ export default function IPRangeExpander(): React.JSX.Element {
         </div>
 
         <div className="re-samples">
-          <button className="re-sample-btn" onClick={() => loadSample('192.168.1.1', '192.168.1.254')}>
+          <button
+            className="re-sample-btn"
+            onClick={() => loadSample('192.168.1.1', '192.168.1.254')}
+          >
             192.168.1.0/24
           </button>
           <button className="re-sample-btn" onClick={() => loadSample('10.0.0.1', '10.0.0.126')}>
             10.0.0.0/25
           </button>
-          <button className="re-sample-btn" onClick={() => loadSample('192.168.1.1', '192.168.2.200')}>
+          <button
+            className="re-sample-btn"
+            onClick={() => loadSample('192.168.1.1', '192.168.2.200')}
+          >
             跨网段
           </button>
         </div>
@@ -185,7 +191,11 @@ export default function IPRangeExpander(): React.JSX.Element {
                 {result.cidrs.map((cidr, i) => {
                   const hosts = getCIDRHosts(cidr)
                   return (
-                    <div key={i} className="re-cidr-item" onClick={() => copyValue(cidr, `cidr-${i}`)}>
+                    <div
+                      key={i}
+                      className="re-cidr-item"
+                      onClick={() => copyValue(cidr, `cidr-${i}`)}
+                    >
                       <code className="re-cidr-value">{cidr}</code>
                       <span className="re-cidr-hosts">{hosts} IPs</span>
                       {copied === `cidr-${i}` && (
@@ -207,7 +217,9 @@ export default function IPRangeExpander(): React.JSX.Element {
                 </div>
                 <div className="re-visual-line" />
                 <div className="re-visual-block middle">
-                  <span className="re-visual-label">{result.networkCount} CIDR{result.networkCount > 1 ? 's' : ''}</span>
+                  <span className="re-visual-label">
+                    {result.networkCount} CIDR{result.networkCount > 1 ? 's' : ''}
+                  </span>
                   <code className="re-visual-ip">{result.cidrs[0]}</code>
                 </div>
                 <div className="re-visual-line" />

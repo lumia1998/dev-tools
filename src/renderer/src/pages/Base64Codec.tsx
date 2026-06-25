@@ -1,12 +1,5 @@
 import { useState, useCallback, useMemo } from 'react'
-import {
-  Copy,
-  Check,
-  ArrowLeftRight,
-  RotateCcw,
-  Braces,
-  AlertTriangle
-} from 'lucide-react'
+import { Copy, Check, ArrowLeftRight, RotateCcw, Braces, AlertTriangle } from 'lucide-react'
 
 type Mode = 'encode' | 'decode'
 type Variant = 'standard' | 'url'
@@ -78,7 +71,10 @@ export default function Base64Codec(): React.JSX.Element {
   const [input, setInput] = useState('')
   const [copied, setCopied] = useState(false)
 
-  const { output, error } = useMemo(() => computeOutput(input, mode, variant), [input, mode, variant])
+  const { output, error } = useMemo(
+    () => computeOutput(input, mode, variant),
+    [input, mode, variant]
+  )
 
   const isLikelyBase64 = useMemo(() => looksLikeBase64(input), [input])
 
@@ -186,9 +182,7 @@ export default function Base64Codec(): React.JSX.Element {
               className="b64-textarea"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={
-                mode === 'encode' ? '输入要编码的文本...' : '输入要解码的 Base64...'
-              }
+              placeholder={mode === 'encode' ? '输入要编码的文本...' : '输入要解码的 Base64...'}
               rows={6}
             />
           </div>

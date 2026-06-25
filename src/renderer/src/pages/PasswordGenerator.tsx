@@ -73,12 +73,12 @@ export default function PasswordGenerator(): React.JSX.Element {
   const entropy = useMemo(() => calculateEntropy(password, config), [password, config])
   const strength = useMemo(() => getStrength(entropy), [entropy])
 
-  const updateConfig = useCallback(<K extends keyof PasswordConfig>(
-    key: K,
-    value: PasswordConfig[K]
-  ) => {
-    setConfig((prev) => ({ ...prev, [key]: value }))
-  }, [])
+  const updateConfig = useCallback(
+    <K extends keyof PasswordConfig>(key: K, value: PasswordConfig[K]) => {
+      setConfig((prev) => ({ ...prev, [key]: value }))
+    },
+    []
+  )
 
   const regenerate = useCallback(() => {
     setConfig((prev) => ({ ...prev }))
@@ -110,9 +110,7 @@ export default function PasswordGenerator(): React.JSX.Element {
         <div className="pg-password-area">
           <div className="pg-password-display">
             <Lock size={16} className="pg-password-icon" />
-            <div className="pg-password-text">
-              {password || '请选择至少一种字符类型'}
-            </div>
+            <div className="pg-password-text">{password || '请选择至少一种字符类型'}</div>
           </div>
           <div className="pg-password-actions">
             <button className="pg-action-btn" onClick={copyPassword} disabled={!password}>
@@ -242,9 +240,7 @@ export default function PasswordGenerator(): React.JSX.Element {
           </div>
         )}
 
-        {!hasCharType && (
-          <div className="pg-warning">请至少选择一种字符类型</div>
-        )}
+        {!hasCharType && <div className="pg-warning">请至少选择一种字符类型</div>}
       </div>
     </div>
   )

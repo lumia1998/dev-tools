@@ -20,9 +20,7 @@ export default function URLCodec(): React.JSX.Element {
     if (!input.trim()) return
     setError('')
     try {
-      const result = mode === 'component'
-        ? encodeURIComponent(input)
-        : encodeURI(input)
+      const result = mode === 'component' ? encodeURIComponent(input) : encodeURI(input)
       setOutput(result)
     } catch {
       setError('编码失败')
@@ -33,9 +31,7 @@ export default function URLCodec(): React.JSX.Element {
     if (!input.trim()) return
     setError('')
     try {
-      const result = mode === 'component'
-        ? decodeURIComponent(input)
-        : decodeURI(input)
+      const result = mode === 'component' ? decodeURIComponent(input) : decodeURI(input)
       setOutput(result)
     } catch {
       setError('解码失败：输入包含无效的编码序列')

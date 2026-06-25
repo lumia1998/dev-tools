@@ -11,7 +11,12 @@ import {
   Key,
   Clock
 } from 'lucide-react'
-import { useJWTGenerator, type Algorithm, type Expiration, type RoleTemplate } from '@renderer/tools/jwt-generator/useJWTGenerator'
+import {
+  useJWTGenerator,
+  type Algorithm,
+  type Expiration,
+  type RoleTemplate
+} from '@renderer/tools/jwt-generator/useJWTGenerator'
 
 const ALGORITHMS: Algorithm[] = ['HS256', 'HS384', 'HS512']
 
@@ -33,7 +38,11 @@ const CLAIMS = [
   { id: 'jti' as const, label: 'jti' }
 ]
 
-const ROLE_TEMPLATES: { id: RoleTemplate; label: string; icon: React.ComponentType<{ size?: number }> }[] = [
+const ROLE_TEMPLATES: {
+  id: RoleTemplate
+  label: string
+  icon: React.ComponentType<{ size?: number }>
+}[] = [
   { id: 'admin', label: 'Admin', icon: Shield },
   { id: 'user', label: 'User', icon: User },
   { id: 'guest', label: 'Guest', icon: Users }
@@ -177,10 +186,7 @@ export default function JWTGenerator(): React.JSX.Element {
                     {tpl.label}
                   </button>
                 ))}
-                <button
-                  className="jwt-template-btn jwt-random-btn"
-                  onClick={generateRandomPayload}
-                >
+                <button className="jwt-template-btn jwt-random-btn" onClick={generateRandomPayload}>
                   <Wand2 size={12} />
                   随机生成
                 </button>
@@ -245,11 +251,7 @@ export default function JWTGenerator(): React.JSX.Element {
             <div className="jwt-token-section">
               <div className="jwt-token-header">
                 <span className="jwt-token-label">JWT Token</span>
-                <button
-                  className="jwt-copy-btn"
-                  onClick={copyJWT}
-                  disabled={!jwt}
-                >
+                <button className="jwt-copy-btn" onClick={copyJWT} disabled={!jwt}>
                   {toast ? <Check size={14} /> : <Copy size={14} />}
                   {toast || '复制 JWT'}
                 </button>
@@ -258,9 +260,7 @@ export default function JWTGenerator(): React.JSX.Element {
                 {jwt ? (
                   <code className="jwt-token-text">{jwt}</code>
                 ) : (
-                  <div className="jwt-token-placeholder">
-                    配置左侧参数后自动生成 JWT
-                  </div>
+                  <div className="jwt-token-placeholder">配置左侧参数后自动生成 JWT</div>
                 )}
               </div>
             </div>

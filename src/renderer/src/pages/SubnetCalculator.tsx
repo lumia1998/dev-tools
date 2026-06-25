@@ -197,14 +197,62 @@ export default function SubnetCalculator(): React.JSX.Element {
             <div className="sc-section">
               <span className="sc-section-label">计算结果</span>
               <div className="sc-results">
-                <ResultRow label="Network Address" value={info.networkAddress} copyKey="network" copied={copied} onCopy={copyValue} />
-                <ResultRow label="Broadcast Address" value={info.broadcastAddress} copyKey="broadcast" copied={copied} onCopy={copyValue} />
-                <ResultRow label="Subnet Mask" value={info.subnetMask} copyKey="mask" copied={copied} onCopy={copyValue} />
-                <ResultRow label="Wildcard Mask" value={info.wildcardMask} copyKey="wildcard" copied={copied} onCopy={copyValue} />
-                <ResultRow label="First Host" value={info.firstHost} copyKey="first" copied={copied} onCopy={copyValue} />
-                <ResultRow label="Last Host" value={info.lastHost} copyKey="last" copied={copied} onCopy={copyValue} />
-                <ResultRow label="Usable Hosts" value={info.usableHosts.toLocaleString()} copyKey="usable" copied={copied} onCopy={copyValue} />
-                <ResultRow label="Total Hosts" value={info.totalHosts.toLocaleString()} copyKey="total" copied={copied} onCopy={copyValue} />
+                <ResultRow
+                  label="Network Address"
+                  value={info.networkAddress}
+                  copyKey="network"
+                  copied={copied}
+                  onCopy={copyValue}
+                />
+                <ResultRow
+                  label="Broadcast Address"
+                  value={info.broadcastAddress}
+                  copyKey="broadcast"
+                  copied={copied}
+                  onCopy={copyValue}
+                />
+                <ResultRow
+                  label="Subnet Mask"
+                  value={info.subnetMask}
+                  copyKey="mask"
+                  copied={copied}
+                  onCopy={copyValue}
+                />
+                <ResultRow
+                  label="Wildcard Mask"
+                  value={info.wildcardMask}
+                  copyKey="wildcard"
+                  copied={copied}
+                  onCopy={copyValue}
+                />
+                <ResultRow
+                  label="First Host"
+                  value={info.firstHost}
+                  copyKey="first"
+                  copied={copied}
+                  onCopy={copyValue}
+                />
+                <ResultRow
+                  label="Last Host"
+                  value={info.lastHost}
+                  copyKey="last"
+                  copied={copied}
+                  onCopy={copyValue}
+                />
+                <ResultRow
+                  label="Usable Hosts"
+                  value={info.usableHosts.toLocaleString()}
+                  copyKey="usable"
+                  copied={copied}
+                  onCopy={copyValue}
+                />
+                <ResultRow
+                  label="Total Hosts"
+                  value={info.totalHosts.toLocaleString()}
+                  copyKey="total"
+                  copied={copied}
+                  onCopy={copyValue}
+                />
               </div>
             </div>
 

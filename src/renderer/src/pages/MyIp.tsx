@@ -3,16 +3,8 @@ import { Copy, Check, RefreshCw, Wifi } from 'lucide-react'
 import { useMyIp } from '@renderer/tools/my-ip/useMyIp'
 
 export default function MyIp(): React.JSX.Element {
-  const {
-    ipInfo,
-    loading,
-    error,
-    toast,
-    copiedIndex,
-    fetchLocalIp,
-    handleCopyIp,
-    handleCopyAll
-  } = useMyIp()
+  const { ipInfo, loading, error, toast, copiedIndex, fetchLocalIp, handleCopyIp, handleCopyAll } =
+    useMyIp()
 
   const fetched = useRef(false)
 
@@ -68,11 +60,7 @@ export default function MyIp(): React.JSX.Element {
         </div>
 
         <div className="myip-actions">
-          <button
-            className="myip-refresh-btn"
-            onClick={fetchLocalIp}
-            disabled={loading}
-          >
+          <button className="myip-refresh-btn" onClick={fetchLocalIp} disabled={loading}>
             <RefreshCw size={14} className={loading ? 'spinning' : ''} />
             {loading ? '检测中...' : '重新检测'}
           </button>

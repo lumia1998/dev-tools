@@ -1,13 +1,5 @@
 import { useState, useCallback, useEffect, useMemo } from 'react'
-import {
-  Copy,
-  Check,
-  RotateCcw,
-  Clock,
-  ArrowLeftRight,
-  Globe,
-  Zap
-} from 'lucide-react'
+import { Copy, Check, RotateCcw, Clock, ArrowLeftRight, Globe, Zap } from 'lucide-react'
 
 const TIMEZONES = [
   { id: 'UTC', label: 'UTC' },
@@ -75,31 +67,25 @@ export default function TimestampConverter(): React.JSX.Element {
     return parseDateInput(dateInput)
   }, [timestampInput, dateInput, activeInput])
 
-  const handleTimestampChange = useCallback(
-    (value: string) => {
-      setTimestampInput(value)
-      setActiveInput('timestamp')
-      const parsed = parseTimestamp(value)
-      if (parsed) {
-        const date = new Date(parsed.isMs ? parsed.value : parsed.value * 1000)
-        const iso = date.toISOString().slice(0, 19)
-        setDateInput(iso)
-      }
-    },
-    []
-  )
+  const handleTimestampChange = useCallback((value: string) => {
+    setTimestampInput(value)
+    setActiveInput('timestamp')
+    const parsed = parseTimestamp(value)
+    if (parsed) {
+      const date = new Date(parsed.isMs ? parsed.value : parsed.value * 1000)
+      const iso = date.toISOString().slice(0, 19)
+      setDateInput(iso)
+    }
+  }, [])
 
-  const handleDateChange = useCallback(
-    (value: string) => {
-      setDateInput(value)
-      setActiveInput('date')
-      const date = parseDateInput(value)
-      if (date) {
-        setTimestampInput(Math.floor(date.getTime() / 1000).toString())
-      }
-    },
-    []
-  )
+  const handleDateChange = useCallback((value: string) => {
+    setDateInput(value)
+    setActiveInput('date')
+    const date = parseDateInput(value)
+    if (date) {
+      setTimestampInput(Math.floor(date.getTime() / 1000).toString())
+    }
+  }, [])
 
   const useCurrentTime = useCallback(() => {
     const date = new Date()
@@ -157,18 +143,14 @@ export default function TimestampConverter(): React.JSX.Element {
             <Clock size={14} />
             <span>当前时间</span>
           </div>
-          <div className="tc-now-time">
-            {formatInTimezone(now, timezone, dateOpts)}
-          </div>
+          <div className="tc-now-time">{formatInTimezone(now, timezone, dateOpts)}</div>
           <div className="tc-now-timestamps">
             <button
               className="tc-now-ts"
               onClick={() => copyText(Math.floor(now.getTime() / 1000).toString(), 'now-s')}
             >
               <span className="tc-now-ts-label">Unix</span>
-              <span className="tc-now-ts-value">
-                {Math.floor(now.getTime() / 1000)}
-              </span>
+              <span className="tc-now-ts-value">{Math.floor(now.getTime() / 1000)}</span>
             </button>
             <button
               className="tc-now-ts"
@@ -255,10 +237,7 @@ export default function TimestampConverter(): React.JSX.Element {
                     <button
                       className="tc-copy-btn"
                       onClick={() =>
-                        copyText(
-                          Math.floor(currentDate.getTime() / 1000).toString(),
-                          'unix'
-                        )
+                        copyText(Math.floor(currentDate.getTime() / 1000).toString(), 'unix')
                       }
                     >
                       {copied === 'unix' ? <Check size={12} /> : <Copy size={12} />}
