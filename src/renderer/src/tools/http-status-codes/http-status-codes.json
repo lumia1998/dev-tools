@@ -1,0 +1,64 @@
+[
+  {
+    "id": "1xx",
+    "label": "1xx — 信息",
+    "icon": "ℹ️",
+    "commands": [
+      { "command": "100", "description": "Continue — 继续请求", "example": "客户端应继续发送请求" },
+      { "command": "101", "description": "Switching Protocols — 切换协议", "example": "服务器同意切换协议 (WebSocket)" },
+      { "command": "102", "description": "Processing — 处理中", "example": "WebDAV: 服务器正在处理请求" },
+      { "command": "103", "description": "Early Hints — 预加载提示", "example": "在最终响应前发送 Link 头" }
+    ]
+  },
+  {
+    "id": "2xx",
+    "label": "2xx — 成功",
+    "icon": "✅",
+    "commands": [
+      { "command": "200", "description": "OK — 请求成功", "example": "GET/POST 成功返回数据" },
+      { "command": "201", "description": "Created — 已创建", "example": "POST 成功创建新资源" },
+      { "command": "202", "description": "Accepted — 已接受", "example": "异步处理，请求已排队" },
+      { "command": "204", "description": "No Content — 无内容", "example": "DELETE 成功，无返回体" },
+      { "command": "206", "description": "Partial Content — 部分内容", "example": "Range 请求，断点续传" }
+    ]
+  },
+  {
+    "id": "3xx",
+    "label": "3xx — 重定向",
+    "icon": "↗️",
+    "commands": [
+      { "command": "301", "description": "Moved Permanently — 永久重定向", "example": "资源已永久移动到新 URL" },
+      { "command": "302", "description": "Found — 临时重定向", "example": "资源临时位于不同 URL" },
+      { "command": "304", "description": "Not Modified — 未修改", "example": "缓存有效，使用本地副本" },
+      { "command": "307", "description": "Temporary Redirect — 临时重定向", "example": "保持原始请求方法 (GET/POST)" },
+      { "command": "308", "description": "Permanent Redirect — 永久重定向", "example": "保持原始请求方法，永久" }
+    ]
+  },
+  {
+    "id": "4xx",
+    "label": "4xx — 客户端错误",
+    "icon": "❌",
+    "commands": [
+      { "command": "400", "description": "Bad Request — 错误请求", "example": "请求参数格式错误" },
+      { "command": "401", "description": "Unauthorized — 未授权", "example": "需要登录认证" },
+      { "command": "403", "description": "Forbidden — 禁止访问", "example": "已认证但无权限" },
+      { "command": "404", "description": "Not Found — 未找到", "example": "请求的资源不存在" },
+      { "command": "405", "description": "Method Not Allowed — 方法不允许", "example": "GET 端点收到 POST 请求" },
+      { "command": "408", "description": "Request Timeout — 请求超时", "example": "服务器等待请求超时" },
+      { "command": "409", "description": "Conflict — 冲突", "example": "资源版本冲突 (乐观锁)" },
+      { "command": "422", "description": "Unprocessable Entity — 无法处理", "example": "请求格式正确但语义错误" },
+      { "command": "429", "description": "Too Many Requests — 请求过多", "example": "触发频率限制 (Rate Limit)" }
+    ]
+  },
+  {
+    "id": "5xx",
+    "label": "5xx — 服务器错误",
+    "icon": "💥",
+    "commands": [
+      { "command": "500", "description": "Internal Server Error — 内部错误", "example": "服务器代码异常" },
+      { "command": "502", "description": "Bad Gateway — 网关错误", "example": "上游服务器返回无效响应" },
+      { "command": "503", "description": "Service Unavailable — 服务不可用", "example": "服务器过载或维护中" },
+      { "command": "504", "description": "Gateway Timeout — 网关超时", "example": "上游服务器响应超时" }
+    ]
+  }
+]

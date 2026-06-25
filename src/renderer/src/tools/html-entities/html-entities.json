@@ -1,0 +1,63 @@
+[
+  {
+    "id": "common",
+    "label": "常用实体",
+    "icon": "📌",
+    "commands": [
+      { "command": "&amp;", "description": "与符号 &", "example": "AT&amp;T → AT&T" },
+      { "command": "&lt;", "description": "小于号 <", "example": "&lt;div&gt; → <div>" },
+      { "command": "&gt;", "description": "大于号 >", "example": "&lt;/div&gt; → </div>" },
+      { "command": "&quot;", "description": "双引号 \"", "example": "&quot;hello&quot; → \"hello\"" },
+      { "command": "&apos;", "description": "单引号 '", "example": "can&apos;t → can't" },
+      { "command": "&nbsp;", "description": "不间断空格", "example": "word1&nbsp;word2 不换行" },
+      { "command": "&copy;", "description": "版权符号 ©", "example": "&copy; 2024 → © 2024" },
+      { "command": "&reg;", "description": "注册商标 ®", "example": "Brand&reg; → Brand®" },
+      { "command": "&trade;", "description": "商标 ™", "example": "Name&trade; → Name™" }
+    ]
+  },
+  {
+    "id": "symbols",
+    "label": "符号与货币",
+    "icon": "💲",
+    "commands": [
+      { "command": "&#8364;", "description": "欧元符号 €", "example": "&euro; € → &#8364;" },
+      { "command": "&pound;", "description": "英镑符号 £", "example": "&pound;100 → £100" },
+      { "command": "&yen;", "description": "日元符号 ¥", "example": "&yen;500 → ¥500" },
+      { "command": "&cent;", "description": "美分 ¢", "example": "99&cent; → 99¢" },
+      { "command": "&sect;", "description": "章节符号 §", "example": "&sect;2.1 → §2.1" },
+      { "command": "&laquo;", "description": "左双角引号 «", "example": "&laquo;text&raquo; → «text»" },
+      { "command": "&raquo;", "description": "右双角引号 »", "example": "&laquo;text&raquo; → «text»" },
+      { "command": "&deg;", "description": "度符号 °", "example": "90&deg; → 90°" },
+      { "command": "&plusmn;", "description": "正负号 ±", "example": "&plusmn;5% → ±5%" }
+    ]
+  },
+  {
+    "id": "math",
+    "label": "数学符号",
+    "icon": "📐",
+    "commands": [
+      { "command": "&times;", "description": "乘号 ×", "example": "2 &times; 3 → 2 × 3" },
+      { "command": "&divide;", "description": "除号 ÷", "example": "6 &divide; 2 → 6 ÷ 2" },
+      { "command": "&frac12;", "description": "二分之一 ½", "example": "1&frac12; → 1½" },
+      { "command": "&frac14;", "description": "四分之一 ¼", "example": "&frac14; cup → ¼ cup" },
+      { "command": "&sup2;", "description": "上标 2 ²", "example": "m&sup2; → m²" },
+      { "command": "&sup3;", "description": "上标 3 ³", "example": "cm&sup3; → cm³" },
+      { "command": "&infin;", "description": "无穷大 ∞", "example": "n → &infin; → n → ∞" },
+      { "command": "&ne;", "description": "不等于 ≠", "example": "a &ne; b → a ≠ b" },
+      { "command": "&le;", "description": "小于等于 ≤", "example": "x &le; 10 → x ≤ 10" },
+      { "command": "&ge;", "description": "大于等于 ≥", "example": "x &ge; 5 → x ≥ 5" }
+    ]
+  },
+  {
+    "id": "arrows",
+    "label": "箭头",
+    "icon": "➡️",
+    "commands": [
+      { "command": "&larr;", "description": "左箭头 ←", "example": "&larr; Back → ← Back" },
+      { "command": "&rarr;", "description": "右箭头 →", "example": "Next &rarr; → Next →" },
+      { "command": "&uarr;", "description": "上箭头 ↑", "example": "Scroll &uarr; → Scroll ↑" },
+      { "command": "&darr;", "description": "下箭头 ↓", "example": "Scroll &darr; → Scroll ↓" },
+      { "command": "&harr;", "description": "双向箭头 ↔", "example": "A &harr; B → A ↔ B" }
+    ]
+  }
+]

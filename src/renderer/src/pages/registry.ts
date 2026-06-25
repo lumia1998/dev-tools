@@ -49,7 +49,11 @@ const pageMap: Record<string, React.LazyExoticComponent<ComponentType>> = {
   'unit-converter': lazy(() => import('./UnitConverter')),
   'timer-stopwatch': lazy(() => import('./TimerStopwatch')),
   'usb-viewer': lazy(() => import('./USBViewer')),
-  'xpath-tester': lazy(() => import('./XPathTester'))
+  'xpath-tester': lazy(() => import('./XPathTester')),
+  'http-status-codes': lazy(() => import('./HttpStatusCodes')),
+  'regex-cheat-sheet': lazy(() => import('./RegexCheatSheet')),
+  'html-entities': lazy(() => import('./HtmlEntities')),
+  'sql-cheat-sheet': lazy(() => import('./SqlCheatSheet'))
 }
 
 export function getPageComponent(id: string): React.LazyExoticComponent<ComponentType> | null {

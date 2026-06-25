@@ -358,5 +358,41 @@
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
+  },
+  {
+    "id": "http-status-codes",
+    "name": "HTTP Status Codes",
+    "desc": "HTTP 状态码速查手册 (1xx–5xx)",
+    "icon": "Server",
+    "category": "备忘录",
+    "categoryIcon": "BookMarked",
+    "isNew": true
+  },
+  {
+    "id": "regex-cheat-sheet",
+    "name": "Regex Cheat Sheet",
+    "desc": "正则表达式语法速查手册",
+    "icon": "Regex",
+    "category": "备忘录",
+    "categoryIcon": "BookMarked",
+    "isNew": true
+  },
+  {
+    "id": "html-entities",
+    "name": "HTML Entities",
+    "desc": "HTML 实体字符速查手册 (&amp; &lt; &copy;)",
+    "icon": "FileCode",
+    "category": "备忘录",
+    "categoryIcon": "BookMarked",
+    "isNew": true
+  },
+  {
+    "id": "sql-cheat-sheet",
+    "name": "SQL Cheat Sheet",
+    "desc": "SQL 常用语法速查手册 (SELECT/JOIN/DDL)",
+    "icon": "Database",
+    "category": "备忘录",
+    "categoryIcon": "BookMarked",
+    "isNew": true
   }
 ]

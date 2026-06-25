@@ -1,0 +1,83 @@
+[
+  {
+    "id": "query",
+    "label": "查询 (SELECT)",
+    "icon": "🔍",
+    "commands": [
+      { "command": "SELECT * FROM table", "description": "查询所有列", "example": "SELECT * FROM users" },
+      { "command": "SELECT column1, column2", "description": "查询指定列", "example": "SELECT name, email FROM users" },
+      { "command": "SELECT DISTINCT column", "description": "去重查询", "example": "SELECT DISTINCT country FROM users" },
+      { "command": "SELECT ... LIMIT n", "description": "限制行数", "example": "SELECT * FROM logs LIMIT 100" },
+      { "command": "SELECT ... OFFSET n", "description": "跳过前 n 行", "example": "SELECT * FROM logs LIMIT 10 OFFSET 20" }
+    ]
+  },
+  {
+    "id": "filter",
+    "label": "筛选 (WHERE)",
+    "icon": "🔎",
+    "commands": [
+      { "command": "WHERE column = value", "description": "等于", "example": "WHERE status = 'active'" },
+      { "command": "WHERE column LIKE '...%'", "description": "模糊匹配", "example": "WHERE name LIKE 'John%'" },
+      { "command": "WHERE column IN (...)", "description": "在列表中", "example": "WHERE id IN (1, 2, 3)" },
+      { "command": "WHERE column BETWEEN a AND b", "description": "范围查询", "example": "WHERE age BETWEEN 18 AND 65" },
+      { "command": "WHERE column IS NULL", "description": "空值判断", "example": "WHERE deleted_at IS NULL" },
+      { "command": "AND / OR / NOT", "description": "逻辑组合", "example": "WHERE a = 1 AND (b = 2 OR c = 3)" }
+    ]
+  },
+  {
+    "id": "join",
+    "label": "连接 (JOIN)",
+    "icon": "🔗",
+    "commands": [
+      { "command": "INNER JOIN", "description": "交集 — 只返回匹配行", "example": "FROM orders INNER JOIN users ON orders.uid = users.id" },
+      { "command": "LEFT JOIN", "description": "左表全部 + 右表匹配", "example": "FROM users LEFT JOIN orders ON users.id = orders.uid" },
+      { "command": "RIGHT JOIN", "description": "右表全部 + 左表匹配", "example": "FROM orders RIGHT JOIN users ON orders.uid = users.id" },
+      { "command": "FULL OUTER JOIN", "description": "两表全部 (并集)", "example": "FROM a FULL OUTER JOIN b ON a.id = b.id" }
+    ]
+  },
+  {
+    "id": "aggregate",
+    "label": "聚合与分组",
+    "icon": "📊",
+    "commands": [
+      { "command": "COUNT(*)", "description": "计数", "example": "SELECT COUNT(*) FROM users" },
+      { "command": "SUM(column)", "description": "求和", "example": "SELECT SUM(amount) FROM orders" },
+      { "command": "AVG(column)", "description": "平均值", "example": "SELECT AVG(score) FROM exams" },
+      { "command": "MAX(column) / MIN(column)", "description": "最大 / 最小值", "example": "SELECT MAX(salary) FROM employees" },
+      { "command": "GROUP BY column", "description": "分组", "example": "SELECT country, COUNT(*) FROM users GROUP BY country" },
+      { "command": "HAVING condition", "description": "分组后筛选", "example": "HAVING COUNT(*) > 10" }
+    ]
+  },
+  {
+    "id": "sort",
+    "label": "排序 (ORDER BY)",
+    "icon": "📋",
+    "commands": [
+      { "command": "ORDER BY column ASC", "description": "升序排列", "example": "ORDER BY created_at ASC" },
+      { "command": "ORDER BY column DESC", "description": "降序排列", "example": "ORDER BY score DESC" },
+      { "command": "ORDER BY column1, column2", "description": "多列排序", "example": "ORDER BY country ASC, name DESC" }
+    ]
+  },
+  {
+    "id": "dml",
+    "label": "增删改 (DML)",
+    "icon": "✏️",
+    "commands": [
+      { "command": "INSERT INTO table (cols) VALUES (...)", "description": "插入行", "example": "INSERT INTO users (name, email) VALUES ('John', 'john@ex.com')" },
+      { "command": "UPDATE table SET col = val WHERE ...", "description": "更新行", "example": "UPDATE users SET status = 'inactive' WHERE id = 5" },
+      { "command": "DELETE FROM table WHERE ...", "description": "删除行", "example": "DELETE FROM logs WHERE created_at < '2024-01-01'" }
+    ]
+  },
+  {
+    "id": "ddl",
+    "label": "表结构 (DDL)",
+    "icon": "🏗️",
+    "commands": [
+      { "command": "CREATE TABLE name (col TYPE, ...)", "description": "创建表", "example": "CREATE TABLE users (id INT PRIMARY KEY, name VARCHAR(100))" },
+      { "command": "ALTER TABLE name ADD col TYPE", "description": "添加列", "example": "ALTER TABLE users ADD age INT" },
+      { "command": "CREATE INDEX name ON table (col)", "description": "创建索引", "example": "CREATE INDEX idx_email ON users (email)" },
+      { "command": "DROP TABLE name", "description": "删除表", "example": "DROP TABLE temp_logs" },
+      { "command": "TRUNCATE TABLE name", "description": "清空表数据", "example": "TRUNCATE TABLE logs" }
+    ]
+  }
+]

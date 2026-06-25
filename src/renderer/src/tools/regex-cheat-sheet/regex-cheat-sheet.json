@@ -1,0 +1,86 @@
+[
+  {
+    "id": "basic",
+    "label": "基础语法",
+    "icon": "📝",
+    "commands": [
+      { "command": ".", "description": "匹配任意字符（除换行）", "example": "a.c 匹配 abc, a1c" },
+      { "command": "\\d", "description": "匹配数字 [0-9]", "example": "\\d+ 匹配 123" },
+      { "command": "\\D", "description": "匹配非数字", "example": "\\D+ 匹配 abc" },
+      { "command": "\\w", "description": "匹配单词字符 [a-zA-Z0-9_]", "example": "\\w+ 匹配变量名" },
+      { "command": "\\W", "description": "匹配非单词字符", "example": "\\W 匹配标点符号" },
+      { "command": "\\s", "description": "匹配空白字符（空格/制表/换行）", "example": "a\\sb 匹配 a b" },
+      { "command": "\\S", "description": "匹配非空白字符", "example": "\\S+ 匹配非空白文本" }
+    ]
+  },
+  {
+    "id": "quantifiers",
+    "label": "量词",
+    "icon": "🔢",
+    "commands": [
+      { "command": "*", "description": "0 或多次", "example": "ab*c 匹配 ac, abc, abbc" },
+      { "command": "+", "description": "1 或多次", "example": "ab+c 匹配 abc, abbc" },
+      { "command": "?", "description": "0 或 1 次", "example": "colou?r 匹配 color, colour" },
+      { "command": "{n}", "description": "恰好 n 次", "example": "\\d{4} 匹配 2024" },
+      { "command": "{n,}", "description": "至少 n 次", "example": "\\d{2,} 匹配 12, 1234" },
+      { "command": "{n,m}", "description": "n 到 m 次", "example": "\\d{2,4} 匹配 12, 123, 1234" }
+    ]
+  },
+  {
+    "id": "anchors",
+    "label": "锚点与边界",
+    "icon": "⚓",
+    "commands": [
+      { "command": "^", "description": "行首", "example": "^Hello 匹配行首的 Hello" },
+      { "command": "$", "description": "行尾", "example": "end$ 匹配行尾的 end" },
+      { "command": "\\b", "description": "单词边界", "example": "\\bword\\b 匹配完整单词" },
+      { "command": "\\B", "description": "非单词边界", "example": "\\Bing 匹配 singing 中的 ing" }
+    ]
+  },
+  {
+    "id": "groups",
+    "label": "分组与捕获",
+    "icon": "📦",
+    "commands": [
+      { "command": "(...) ", "description": "捕获组", "example": "(\\d+)-(\\d+) → $1, $2" },
+      { "command": "(?:...)", "description": "非捕获组", "example": "(?:http|https):// 不捕获协议" },
+      { "command": "(?<name>...)", "description": "命名捕获组", "example": "(?<year>\\d{4}) 命名组名 year" },
+      { "command": "\\1, \\2", "description": "反向引用", "example": "(\\w+)\\s+\\1 匹配重复单词" },
+      { "command": "|", "description": "或 (OR)", "example": "jpg|png|gif 匹配任一扩展名" }
+    ]
+  },
+  {
+    "id": "classes",
+    "label": "字符类",
+    "icon": "🔤",
+    "commands": [
+      { "command": "[abc]", "description": "a、b 或 c", "example": "[aeiou] 匹配任一元音" },
+      { "command": "[^abc]", "description": "非 a、b、c 的任意字符", "example": "[^0-9] 匹配非数字" },
+      { "command": "[a-z]", "description": "a 到 z 的任意字符", "example": "[A-Za-z] 匹配任意字母" },
+      { "command": "[0-9]", "description": "0 到 9 的任意数字", "example": "[0-9a-fA-F] 匹配十六进制" }
+    ]
+  },
+  {
+    "id": "lookaround",
+    "label": "断言 (Lookaround)",
+    "icon": "👀",
+    "commands": [
+      { "command": "(?=...)", "description": "正向先行断言 (后面是...)", "example": "\\d+(?=px) 匹配 16px 中的 16" },
+      { "command": "(?!...)", "description": "负向先行断言 (后面不是...)", "example": "\\d+(?!px) 匹配不以 px 结尾的数字" },
+      { "command": "(?<=...)", "description": "正向后行断言 (前面是...)", "example": "(?<=\\$)\\d+ 匹配 $100 中的 100" },
+      { "command": "(?<!...)", "description": "负向后行断言 (前面不是...)", "example": "(?<!\\$)\\d+ 前面不是 $ 的数字" }
+    ]
+  },
+  {
+    "id": "flags",
+    "label": "标志位",
+    "icon": "🏁",
+    "commands": [
+      { "command": "g", "description": "全局匹配 (global)", "example": "/pattern/g 匹配所有出现" },
+      { "command": "i", "description": "忽略大小写 (case-insensitive)", "example": "/hello/i 匹配 Hello, HELLO" },
+      { "command": "m", "description": "多行模式 (multiline)", "example": "^ 和 $ 匹配每行首尾" },
+      { "command": "s", "description": "dotAll 模式", "example": ". 也匹配换行符 \\n" },
+      { "command": "u", "description": "Unicode 模式", "example": "支持 \\u{1F600} Unicode 属性" }
+    ]
+  }
+]
