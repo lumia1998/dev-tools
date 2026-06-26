@@ -383,6 +383,28 @@ function registerDockerHandlers(): void {
       return []
     }
   })
+
+  ipcMain.handle('docker:tags', async (_event, imageName: string) => {
+    try {
+      const path = imageName.includes('/')
+        ? imageName  // e.g. jupyter/datascience-notebook
+        : 'library/' + imageName  // official image
+      const res = await fetch(`https://hub.docker.com/v2/repositories/${path}/tags?page_size=50`)
+      if (!res.ok) return []
+      const data = await res.json()
+      return (data.results || []).map((t: { name: string; digest: string; images: { size: number; architecture: string; os: string }[]; last_updated: string }) => ({
+        name: t.name,
+        digest: t.digest || '',
+        digestShort: t.digest ? t.digest.replace('sha256:', '').slice(0, 12) : '',
+        size: t.images?.[0]?.size || 0,
+        arch: t.images?.[0]?.architecture || '',
+        os: t.images?.[0]?.os || '',
+        lastUpdated: t.last_updated || ''
+      }))
+    } catch {
+      return []
+    }
+  })
 }
 
 let mainWindow: BrowserWindow | null = null

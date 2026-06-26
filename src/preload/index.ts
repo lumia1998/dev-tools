@@ -136,7 +136,19 @@ interface DockerSearchResult {
 // Docker API (proxied through main process)
 const dockerAPI = {
   search: (query: string, size?: number): Promise<DockerSearchResult[]> =>
-    ipcRenderer.invoke('docker:search', query, size || 20)
+    ipcRenderer.invoke('docker:search', query, size || 20),
+  getTags: (imageName: string): Promise<DockerTagResult[]> =>
+    ipcRenderer.invoke('docker:tags', imageName)
+}
+
+interface DockerTagResult {
+  name: string
+  digest: string
+  digestShort: string
+  size: number
+  arch: string
+  os: string
+  lastUpdated: string
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

@@ -109,6 +109,17 @@ export interface DockerSearchResult {
 
 export interface DockerAPI {
   search: (query: string, size?: number) => Promise<DockerSearchResult[]>
+  getTags: (imageName: string) => Promise<DockerTagResult[]>
+}
+
+export interface DockerTagResult {
+  name: string
+  digest: string
+  digestShort: string
+  size: number
+  arch: string
+  os: string
+  lastUpdated: string
 }
 
 declare global {
