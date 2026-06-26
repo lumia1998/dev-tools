@@ -504,5 +504,14 @@
     "category": "资源搜索",
     "categoryIcon": "Search",
     "isNew": true
+  },
+  {
+    "id": "dockerhub-search",
+    "name": "Docker Hub Search",
+    "desc": "搜索 Docker Hub 镜像，一键复制 docker pull 命令",
+    "icon": "Container",
+    "category": "资源搜索",
+    "categoryIcon": "Search",
+    "isNew": true
   }
 ]

@@ -60,6 +60,7 @@
 @import '../styles/number-formatter.css';
 @import '../styles/translator.css';
 @import '../styles/npm-search.css';
+@import '../styles/dockerhub-search.css';
 
 @tailwind base;
 @tailwind components;

@@ -335,20 +335,49 @@ function registerNpmHandlers(): void {
 }
 
 function registerDockerHandlers(): void {
+  const DEFAULT_REGISTRIES = [
+    'https://index.docker.io/v1/search',
+    'https://hub-mirror.c.163.com/v1/search'
+  ]
+
+  function getMirrors(): string[] {
+    const custom = settingsStore.getSettings().npmRegistry
+    if (custom?.trim()) {
+      const base = custom.trim().replace(/\/+$/, '')
+      return [`${base}/v1/search`, ...DEFAULT_REGISTRIES]
+    }
+    return DEFAULT_REGISTRIES
+  }
+
+  async function fetchDockerSearch(query: string, size: number): Promise<Response | null> {
+    for (const base of getMirrors()) {
+      try {
+        const params = new URLSearchParams({ q: query, n: String(size || 20) })
+        const controller = new AbortController()
+        const timeout = setTimeout(() => controller.abort(), 10000)
+        const res = await fetch(`${base}?${params}`, { signal: controller.signal })
+        clearTimeout(timeout)
+        if (res.ok) return res
+      } catch {
+        continue
+      }
+    }
+    return null
+  }
+
   ipcMain.handle('docker:search', async (_event, query: string, size: number) => {
     try {
-      const params = new URLSearchParams({ q: query, page_size: String(size || 20) })
-      const res = await fetch(`https://hub.docker.com/v2/search/repositories?${params}`)
-      if (!res.ok) return []
+      const res = await fetchDockerSearch(query, size)
+      if (!res) return []
       const data = await res.json()
-      return (data.results || []).map((r: { repo_name: string; short_description: string; star_count: number; pull_count: number; is_automated: boolean; is_official: boolean }) => ({
-        name: r.repo_name,
-        description: r.short_description || '',
+      return (data.results || []).map((r: { name: string; description: string; star_count: number; pull_count: number; is_automated: boolean; is_official: boolean }) => ({
+        name: r.name,
+        description: r.description || '',
         stars: r.star_count || 0,
         pulls: r.pull_count || 0,
         isOfficial: r.is_official || false,
         isAutomated: r.is_automated || false,
-        imageName: r.repo_name.startsWith('library/') ? r.repo_name.slice(8) : r.repo_name
+        imageName: r.name
       }))
     } catch {
       return []
