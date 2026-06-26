@@ -251,13 +251,31 @@ function registerTranslatorHandlers(): void {
 }
 
 function registerNpmHandlers(): void {
-  const NPM_SEARCH = 'https://registry.npmjs.org/-/v1/search'
-  const NPM_PACKAGE = 'https://registry.npmjs.org'
+  const NPM_REGISTRIES = [
+    'https://registry.npmjs.org',
+    'https://registry.npmmirror.com'
+  ]
+
+  async function fetchNpm(path: string): Promise<Response | null> {
+    for (const base of NPM_REGISTRIES) {
+      try {
+        const controller = new AbortController()
+        const timeout = setTimeout(() => controller.abort(), 10000)
+        const res = await fetch(`${base}${path}`, { signal: controller.signal })
+        clearTimeout(timeout)
+        if (res.ok) return res
+      } catch {
+        continue // try next mirror
+      }
+    }
+    return null
+  }
 
   ipcMain.handle('npm:search', async (_event, query: string, size: number) => {
     try {
       const params = new URLSearchParams({ text: query, size: String(size || 20) })
-      const res = await fetch(`${NPM_SEARCH}?${params}`)
+      const res = await fetchNpm(`/-/v1/search?${params}`)
+      if (!res) return []
       const data = await res.json()
       return data?.objects?.map((o: { package: { name: string; version: string; description: string; keywords?: string[]; publisher?: { username: string }; links?: { npm: string }; date: string } }) => ({
         name: o.package.name,
@@ -275,7 +293,8 @@ function registerNpmHandlers(): void {
 
   ipcMain.handle('npm:package', async (_event, packageName: string) => {
     try {
-      const res = await fetch(`${NPM_PACKAGE}/${encodeURIComponent(packageName)}`)
+      const res = await fetchNpm(`/${encodeURIComponent(packageName)}`)
+      if (!res) return null
       const data = await res.json()
       return {
         name: data.name,
