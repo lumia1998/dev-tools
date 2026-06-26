@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.0.10 (2026-06-26)
+
+**新增 4 个编码/加密工具** (总共 55 个)
+
+- 🔐 **AES/DES Encryptor** — 对称加密/解密（AES-CBC/GCM/CTR/ECB、DES、3DES），支持密钥/IV 自动生成
+- 📜 **Certificate Parser** — 解析 PEM/X.509 证书（颁发者/有效期/SAN/指纹/扩展）
+- 🔏 **HMAC Generator** — HMAC-SHA-1/256/384/512 签名生成
+- 🔑 **SSH Key Generator** — 生成 Ed25519/RSA 密钥对，OpenSSH 格式公钥 + SHA-256 指纹
+- 🐛 **修复** 更新说明弹窗 HTML 未渲染问题
+
+---
+
 ## v1.0.7 (2025-06-26)
 
 **新增 8 个工具** (总共 46 个)
