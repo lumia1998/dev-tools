@@ -7,16 +7,23 @@ export default function NpmSearch(): React.JSX.Element {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<NpmSearchResult[]>([])
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [selectedPkg, setSelectedPkg] = useState<NpmPackageDetail | null>(null)
   const [selectedVersion, setSelectedVersion] = useState('')
   const [copied, setCopied] = useState<string | null>(null)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const doSearch = useCallback(async (q: string) => {
-    if (!q.trim()) { setResults([]); return }
+    if (!q.trim()) { setResults([]); setError(''); return }
     setLoading(true)
+    setError('')
     const res = await searchNpm(q, 20)
-    setResults(res)
+    if (res && res.length > 0) {
+      setResults(res)
+    } else {
+      setResults([])
+      setError('搜索失败 — 无法连接 npm 仓库，请检查网络或稍后重试')
+    }
     setLoading(false)
   }, [])
 
@@ -138,7 +145,9 @@ export default function NpmSearch(): React.JSX.Element {
           </div>
         )}
 
-        {!loading && query && results.length === 0 && (
+        {error && <div className="npm-error">{error}</div>}
+
+        {!loading && !error && query && results.length === 0 && (
           <div className="npm-empty">未找到匹配的包</div>
         )}
       </div>

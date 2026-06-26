@@ -275,7 +275,7 @@ function registerNpmHandlers(): void {
     try {
       const params = new URLSearchParams({ text: query, size: String(size || 20) })
       const res = await fetchNpm(`/-/v1/search?${params}`)
-      if (!res) return []
+      if (!res) { console.warn('[npm] all mirrors failed for:', query); return [] }
       const data = await res.json()
       return data?.objects?.map((o: { package: { name: string; version: string; description: string; keywords?: string[]; publisher?: { username: string }; links?: { npm: string }; date: string } }) => ({
         name: o.package.name,

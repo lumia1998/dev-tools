@@ -19,12 +19,12 @@ export interface NpmPackageDetail {
   versions: string[]
 }
 
-export async function searchNpm(query: string, size = 20): Promise<NpmSearchResult[]> {
-  if (!query.trim()) return []
+export async function searchNpm(query: string, size = 20): Promise<NpmSearchResult[] | null> {
+  if (!query.trim()) return null
   try {
     return await window.npm.search(query, size)
   } catch {
-    return []
+    return null
   }
 }
 
