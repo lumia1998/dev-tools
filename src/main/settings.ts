@@ -20,6 +20,9 @@ export interface AppSettings {
     baseUrl: string
     apiKey: string
     model: string
+    systemPrompt: string
+    temperature: number
+    maxTokens: number
   }
 }
 
@@ -40,7 +43,10 @@ const DEFAULT_SETTINGS: AppSettings = {
   translator: {
     baseUrl: '',
     apiKey: '',
-    model: 'gpt-3.5-turbo'
+    model: 'gpt-3.5-turbo',
+    systemPrompt: 'You are a professional translator. Translate the following text from {sourceLang} to {targetLang}. Only output the translated text, nothing else. Do not add explanations, notes, or quotation marks.',
+    temperature: 0.3,
+    maxTokens: 4096
   }
 }
 

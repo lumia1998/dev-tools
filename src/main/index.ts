@@ -161,10 +161,11 @@ function registerTranslatorHandlers(): void {
       }
 
       const baseUrl = config.baseUrl.replace(/\/$/, '')
-      const systemPrompt =
-        sourceLang && targetLang
-          ? `You are a professional translator. Translate the following text from ${sourceLang} to ${targetLang}. Only output the translated text, nothing else. Do not add explanations, notes, or quotation marks.`
-          : 'You are a professional translator. Translate the following text. Only output the translated text, nothing else. Do not add explanations, notes, or quotation marks.'
+      const systemPrompt = config.systemPrompt
+        .replace(/\{sourceLang\}/g, sourceLang)
+        .replace(/\{targetLang\}/g, targetLang)
+      const temperature = config.temperature ?? 0.3
+      const maxTokens = config.maxTokens ?? 4096
 
       try {
         const controller = new AbortController()
@@ -182,8 +183,8 @@ function registerTranslatorHandlers(): void {
               { role: 'system', content: systemPrompt },
               { role: 'user', content: text }
             ],
-            temperature: 0.3,
-            max_tokens: 4096
+            temperature,
+            max_tokens: maxTokens
           }),
           signal: controller.signal
         })

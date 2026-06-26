@@ -256,6 +256,59 @@ export default function SettingsPage(): React.JSX.Element {
               </select>
             </div>
 
+            <div className="settings-item settings-item-column">
+              <div className="settings-item-info">
+                <p className="settings-item-label">System Prompt</p>
+                <p className="settings-item-description">
+                  自定义翻译提示词。{' '}
+                  <code>{'{sourceLang}'}</code> = 源语言，{' '}
+                  <code>{'{targetLang}'}</code> = 目标语言
+                </p>
+              </div>
+              <textarea
+                className="settings-textarea"
+                value={settings.translator.systemPrompt}
+                onChange={(e) => updateTranslator({ systemPrompt: e.target.value })}
+                rows={4}
+              />
+            </div>
+
+            <div className="settings-item">
+              <div className="settings-item-info">
+                <p className="settings-item-label">Temperature</p>
+                <p className="settings-item-description">
+                  随机性 (0-2)，翻译建议 0.1-0.3
+                </p>
+              </div>
+              <input
+                className="settings-input settings-input-sm"
+                type="number"
+                min={0}
+                max={2}
+                step={0.1}
+                value={settings.translator.temperature}
+                onChange={(e) => updateTranslator({ temperature: parseFloat(e.target.value) || 0.3 })}
+              />
+            </div>
+
+            <div className="settings-item">
+              <div className="settings-item-info">
+                <p className="settings-item-label">Max Tokens</p>
+                <p className="settings-item-description">
+                  最大输出长度 (1-16384)，长文本翻译可调大
+                </p>
+              </div>
+              <input
+                className="settings-input settings-input-sm"
+                type="number"
+                min={1}
+                max={16384}
+                step={256}
+                value={settings.translator.maxTokens}
+                onChange={(e) => updateTranslator({ maxTokens: parseInt(e.target.value) || 4096 })}
+              />
+            </div>
+
             <div className="settings-item">
               <div className="settings-item-info">
                 <p className="settings-item-label">连接状态</p>

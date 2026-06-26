@@ -19,6 +19,9 @@ export interface AppSettings {
     baseUrl: string
     apiKey: string
     model: string
+    systemPrompt: string
+    temperature: number
+    maxTokens: number
   }
 }
 
