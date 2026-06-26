@@ -187,6 +187,10 @@
   transition: all 0.2s ease;
 }
 
+.about-link .about-section-icon {
+  color: inherit;
+}
+
 .about-link:hover {
   background: var(--color-accent-soft-hover);
 }
