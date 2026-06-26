@@ -52,6 +52,9 @@
 @import '../styles/certificate-parser.css';
 @import '../styles/hmac-generator.css';
 @import '../styles/ssh-key-generator.css';
+@import '../styles/clipboard-manager.css';
+@import '../styles/screen-info.css';
+@import '../styles/storage-viewer.css';
 
 @tailwind base;
 @tailwind components;

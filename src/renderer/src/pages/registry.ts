@@ -64,7 +64,10 @@ const pageMap: Record<string, React.LazyExoticComponent<ComponentType>> = {
   'aes-des-encryptor': lazy(() => import('./AesDesEncryptor')),
   'certificate-parser': lazy(() => import('./CertificateParser')),
   'hmac-generator': lazy(() => import('./HmacGenerator')),
-  'ssh-key-generator': lazy(() => import('./SshKeyGenerator'))
+  'ssh-key-generator': lazy(() => import('./SshKeyGenerator')),
+  'clipboard-manager': lazy(() => import('./ClipboardManager')),
+  'screen-info': lazy(() => import('./ScreenInfo')),
+  'storage-viewer': lazy(() => import('./StorageViewer'))
 }
 
 export function getPageComponent(id: string): React.LazyExoticComponent<ComponentType> | null {

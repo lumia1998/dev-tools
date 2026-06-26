@@ -493,5 +493,32 @@
     "category": "编码/加密",
     "categoryIcon": "Lock",
     "isNew": true
+  },
+  {
+    "id": "clipboard-manager",
+    "name": "Clipboard Manager",
+    "desc": "剪贴板历史记录",
+    "icon": "Clipboard",
+    "category": "系统工具",
+    "categoryIcon": "Monitor",
+    "isNew": true
+  },
+  {
+    "id": "screen-info",
+    "name": "Screen Info",
+    "desc": "屏幕分辨率、DPI、色彩深度信息",
+    "icon": "Monitor",
+    "category": "系统工具",
+    "categoryIcon": "Monitor",
+    "isNew": true
+  },
+  {
+    "id": "storage-viewer",
+    "name": "Browser Storage Viewer",
+    "desc": "localStorage / sessionStorage 查看编辑",
+    "icon": "Database",
+    "category": "系统工具",
+    "categoryIcon": "Monitor",
+    "isNew": true
   }
 ]
