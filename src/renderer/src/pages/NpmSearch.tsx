@@ -59,6 +59,7 @@ export default function NpmSearch(): React.JSX.Element {
             className="npm-search-input"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter') { doSearch(query) } }}
             placeholder="搜索 npm 包..."
           />
           {loading && <Loader size={16} className="npm-spin" />}
