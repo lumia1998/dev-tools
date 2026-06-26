@@ -75,7 +75,7 @@
     "id": "password-generator",
     "name": "Password Generator",
     "desc": "生成高强度安全随机密码",
-    "icon": "Lock",
+    "icon": "KeyRound",
     "category": "编码/加密",
     "categoryIcon": "Lock"
   },
@@ -91,7 +91,7 @@
     "id": "timestamp-converter",
     "name": "Timestamp Converter",
     "desc": "Unix 时间戳与日期时间双向转换",
-    "icon": "Clock",
+    "icon": "CalendarClock",
     "category": "换算工具",
     "categoryIcon": "Code"
   },
@@ -155,7 +155,7 @@
     "id": "text-analyzer",
     "name": "Text Analyzer",
     "desc": "实时分析文本统计信息",
-    "icon": "Type",
+    "icon": "AlignLeft",
     "category": "文本工具",
     "categoryIcon": "FileText"
   },
@@ -211,7 +211,7 @@
     "id": "ascii-table",
     "name": "ASCII Table",
     "desc": "ASCII 码表完整对照（0–127）",
-    "icon": "Binary",
+    "icon": "Table",
     "category": "备忘录",
     "categoryIcon": "BookMarked"
   },
@@ -259,7 +259,7 @@
     "id": "lorem-ipsum",
     "name": "Lorem Ipsum Generator",
     "desc": "生成虚拟占位文本，用于设计和排版",
-    "icon": "Type",
+    "icon": "TextQuote",
     "category": "文本工具",
     "categoryIcon": "FileText"
   },
@@ -283,7 +283,7 @@
     "id": "number-base",
     "name": "Number Base Converter",
     "desc": "进制转换 · 反码 · 补码（Bin/Oct/Dec/Hex）",
-    "icon": "Binary",
+    "icon": "Sigma",
     "category": "换算工具",
     "categoryIcon": "Calculator"
   },
@@ -363,7 +363,7 @@
     "id": "data-converter",
     "name": "Data Format Converter",
     "desc": "CSV ↔ JSON ↔ XML 数据格式互转",
-    "icon": "FileJson",
+    "icon": "Repeat",
     "category": "开发工具",
     "categoryIcon": "Wrench"
   },
@@ -379,7 +379,7 @@
     "id": "css-cheat-sheet",
     "name": "CSS Cheat Sheet",
     "desc": "Flexbox · Grid · 单位 · 选择器 · 动画速查",
-    "icon": "Palette",
+    "icon": "Paintbrush",
     "category": "备忘录",
     "categoryIcon": "BookMarked"
   },
@@ -387,7 +387,7 @@
     "id": "json-converter",
     "name": "JSON Converter",
     "desc": "JSON → TypeScript · TOML · XML · YAML",
-    "icon": "FileJson",
+    "icon": "Shuffle",
     "category": "开发工具",
     "categoryIcon": "Wrench"
   },
@@ -459,7 +459,7 @@
     "id": "storage-viewer",
     "name": "Browser Storage Viewer",
     "desc": "localStorage / sessionStorage 查看编辑",
-    "icon": "Database",
+    "icon": "Archive",
     "category": "系统工具",
     "categoryIcon": "Monitor"
   },
@@ -500,7 +500,7 @@
     "id": "npm-search",
     "name": "npm Search",
     "desc": "搜索 npm 包，一键复制依赖配置",
-    "icon": "Package",
+    "icon": "PackageSearch",
     "category": "资源搜索",
     "categoryIcon": "Search",
     "isNew": true
