@@ -18,7 +18,7 @@ win:
       arch:
         - x64
         - ia32
-  icon: build/icon.png
+  icon: build/icon.ico
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
@@ -28,9 +28,9 @@ nsis:
   allowToChangeInstallationDirectory: true
   perMachine: true
   allowElevation: true
-  installerIcon: build/icon.png
-  uninstallerIcon: build/icon.png
-  installerHeaderIcon: build/icon.png
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+  installerHeaderIcon: build/icon.ico
   createStartMenuShortcut: true
 mac:
   entitlementsInherit: build/entitlements.mac.plist
