@@ -1,15 +1,16 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
-import tools from '@renderer/tools/tools.json'
+import { tools } from '@renderer/tools/registry'
+import type { ToolItem as RegistryToolItem } from '@renderer/types/tool'
 
 interface ToolItem {
   id: string
   name: string
   desc: string
-  icon: string
+  icon: RegistryToolItem['icon']
   category: string
 }
 
-const ALL_TOOLS = tools as ToolItem[]
+const ALL_TOOLS = tools as unknown as ToolItem[]
 
 interface Props {
   currentPage: string

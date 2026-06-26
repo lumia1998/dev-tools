@@ -148,11 +148,15 @@ function createWindow(): void {
     width: 1100,
     height: 750,
     show: false,
+    backgroundColor: '#0f1117',
     autoHideMenuBar: true,
+    paintWhenInitiallyHidden: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      sandbox: false,
+      contextIsolation: true,
+      nodeIntegration: false
     }
   })
 
