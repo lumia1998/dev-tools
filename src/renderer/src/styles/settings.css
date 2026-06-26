@@ -141,6 +141,11 @@
 
 /* 列布局 */
 .settings-item-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .settings-select {
   position: relative;
   min-width: 140px;
