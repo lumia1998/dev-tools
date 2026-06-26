@@ -180,8 +180,8 @@
     "name": "Maven Dependency",
     "desc": "快速生成 Maven / Gradle 依赖配置",
     "icon": "Package",
-    "category": "开发工具",
-    "categoryIcon": "Wrench"
+    "category": "资源搜索",
+    "categoryIcon": "Search"
   },
   {
     "id": "file-generator",
@@ -501,8 +501,8 @@
     "name": "npm Search",
     "desc": "搜索 npm 包，一键复制依赖配置",
     "icon": "Package",
-    "category": "开发工具",
-    "categoryIcon": "Wrench",
+    "category": "资源搜索",
+    "categoryIcon": "Search",
     "isNew": true
   }
 ]
