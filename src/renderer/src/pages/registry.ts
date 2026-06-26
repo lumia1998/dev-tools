@@ -67,7 +67,10 @@ const pageMap: Record<string, React.LazyExoticComponent<ComponentType>> = {
   'ssh-key-generator': lazy(() => import('./SshKeyGenerator')),
   'clipboard-manager': lazy(() => import('./ClipboardManager')),
   'screen-info': lazy(() => import('./ScreenInfo')),
-  'storage-viewer': lazy(() => import('./StorageViewer'))
+  'storage-viewer': lazy(() => import('./StorageViewer')),
+  'timezone-converter': lazy(() => import('./TimezoneConverter')),
+  'date-format-converter': lazy(() => import('./DateFormatConverter')),
+  'number-formatter': lazy(() => import('./NumberFormatter'))
 }
 
 export function getPageComponent(id: string): React.LazyExoticComponent<ComponentType> | null {

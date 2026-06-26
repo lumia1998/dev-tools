@@ -55,6 +55,9 @@
 @import '../styles/clipboard-manager.css';
 @import '../styles/screen-info.css';
 @import '../styles/storage-viewer.css';
+@import '../styles/timezone-converter.css';
+@import '../styles/date-format-converter.css';
+@import '../styles/number-formatter.css';
 
 @tailwind base;
 @tailwind components;

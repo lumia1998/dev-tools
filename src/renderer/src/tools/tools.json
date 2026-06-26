@@ -520,5 +520,32 @@
     "category": "系统工具",
     "categoryIcon": "Monitor",
     "isNew": true
+  },
+  {
+    "id": "timezone-converter",
+    "name": "Timezone Converter",
+    "desc": "多时区时间对照",
+    "icon": "Globe",
+    "category": "换算工具",
+    "categoryIcon": "Calculator",
+    "isNew": true
+  },
+  {
+    "id": "date-format-converter",
+    "name": "Date Format Converter",
+    "desc": "日期格式互转（ISO/Unix/RFC/自定义）",
+    "icon": "Calendar",
+    "category": "换算工具",
+    "categoryIcon": "Calculator",
+    "isNew": true
+  },
+  {
+    "id": "number-formatter",
+    "name": "Number Formatter",
+    "desc": "数字格式化（千分位/货币/百分比/科学计数）",
+    "icon": "Hash",
+    "category": "换算工具",
+    "categoryIcon": "Calculator",
+    "isNew": true
   }
 ]

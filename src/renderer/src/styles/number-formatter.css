@@ -1,0 +1,45 @@
+/* ========================================
+   Number Formatter 页面
+   ======================================== */
+
+.nfm-page { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 40px 24px; overflow-y: auto; }
+.nfm-card { width: 100%; max-width: 520px; background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 20px; padding: 32px; box-shadow: var(--shadow-xl); }
+.nfm-header { text-align: center; margin-bottom: 28px; }
+.nfm-title { font-size: 24px; font-weight: 700; color: var(--color-text); font-family: 'JetBrains Mono', monospace; letter-spacing: -0.5px; margin-bottom: 6px; }
+.nfm-subtitle { font-size: 14px; color: var(--color-text-muted); }
+
+.nfm-input-area { margin-bottom: 20px; }
+.nfm-input { width: 100%; padding: 14px 16px; background: var(--color-editor-bg); border: 1px solid var(--color-border); border-radius: 12px; color: var(--color-text); font-size: 18px; font-family: 'JetBrains Mono', monospace; outline: none; transition: all .2s ease; text-align: center; }
+.nfm-input:focus { border-color: var(--color-accent-soft); }
+.nfm-input::placeholder { color: var(--color-text-muted); font-size: 14px; }
+
+.nfm-style-selector { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; padding: 6px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 12px; }
+.nfm-style-btn { padding: 8px 10px; background: transparent; border: 1px solid transparent; border-radius: 8px; color: var(--color-text-muted); font-size: 12px; font-weight: 500; cursor: pointer; transition: all .2s ease; }
+.nfm-style-btn:hover { color: var(--color-text-secondary); background: var(--color-surface-hover); }
+.nfm-style-btn.active { background: var(--color-accent-soft); color: var(--color-text-inverse); border-color: var(--color-accent-soft); }
+
+.nfm-options { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+.nfm-option { display: flex; align-items: center; gap: 6px; }
+.nfm-option-label { font-size: 12px; color: var(--color-text-muted); font-weight: 500; }
+.nfm-select { padding: 6px 10px; background: var(--color-editor-bg); border: 1px solid var(--color-border); border-radius: 6px; color: var(--color-text); font-size: 12px; outline: none; cursor: pointer; }
+.nfm-select:focus { border-color: var(--color-accent-soft); }
+.nfm-digits { width: 56px; padding: 6px 8px; background: var(--color-editor-bg); border: 1px solid var(--color-border); border-radius: 6px; color: var(--color-text); font-size: 12px; font-family: 'JetBrains Mono', monospace; text-align: center; outline: none; }
+.nfm-digits:focus { border-color: var(--color-accent-soft); }
+
+.nfm-result-area { padding: 16px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 14px; }
+.nfm-result-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.nfm-result-label { font-size: 11px; font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.nfm-copy-btn { display: flex; align-items: center; gap: 5px; padding: 5px 10px; background: var(--color-editor-bg); border: 1px solid var(--color-border); border-radius: 6px; color: var(--color-text-muted); font-size: 11px; font-weight: 500; cursor: pointer; transition: all .15s ease; }
+.nfm-copy-btn:hover { border-color: var(--color-accent-soft); color: var(--color-accent-soft); }
+.nfm-result { padding: 12px 14px; background: var(--color-editor-bg); border: 1px solid var(--color-border); border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 700; color: var(--color-accent-soft); text-align: center; word-break: break-all; }
+.nfm-raw { margin-top: 8px; font-size: 11px; color: var(--color-text-muted); text-align: center; }
+
+@media (max-width: 600px) {
+  .nfm-page { padding: 24px 16px; }
+  .nfm-card { padding: 24px 20px; border-radius: 16px; }
+  .nfm-title { font-size: 20px; }
+  .nfm-style-selector { gap: 4px; }
+  .nfm-style-btn { font-size: 11px; padding: 6px 8px; flex: 1 1 calc(25% - 4px); text-align: center; }
+  .nfm-input { font-size: 16px; }
+  .nfm-result { font-size: 16px; }
+}
