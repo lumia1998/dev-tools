@@ -27,7 +27,7 @@ export async function searchNpm(query: string, size = 20): Promise<NpmSearchResu
     const url = `https://api.npms.io/v2/search?q=${encodeURIComponent(query)}&size=${size}`
     const res = await fetch(url)
     const data = await res.json()
-    return (data.results || []).map((r: { package: NpmSearchResult }) => ({
+    return (data.results || []).map((r: { package: { name: string; version: string; description: string; keywords?: string[]; publisher?: { username?: string }; links?: { npm?: string }; date?: string } }) => ({
       name: r.package.name,
       version: r.package.version,
       description: r.package.description,

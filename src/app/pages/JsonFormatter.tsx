@@ -105,7 +105,7 @@ function getNodePath(el: HTMLElement): { key: string; path: string } {
   let current: HTMLElement | null = el
 
   while (current) {
-    const li = current.closest('li')
+    const li: HTMLElement | null = current.closest('li')
     if (!li) break
 
     const keyEl = li.querySelector('[class*="jf-tree-key"]')
