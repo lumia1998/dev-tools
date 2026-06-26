@@ -278,7 +278,7 @@ export default function SettingsPage(): React.JSX.Element {
                 </div>
               )}
               {releaseNotes ? (
-                <div className="settings-modal-notes">{releaseNotes}</div>
+                <div className="settings-modal-notes" dangerouslySetInnerHTML={{ __html: releaseNotes }} />
               ) : (
                 <div className="settings-modal-empty">暂无详细更新说明</div>
               )}
