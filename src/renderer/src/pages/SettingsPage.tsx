@@ -1,4 +1,5 @@
-import { Settings, Palette, RotateCcw, RefreshCw, Download } from 'lucide-react'
+import { useState, useCallback } from 'react'
+import { Settings, Palette, RotateCcw, RefreshCw, Download, FileText, X } from 'lucide-react'
 import { useSettings } from '@renderer/lib/contexts'
 import { useUpdater } from '@renderer/lib/updater-context'
 import '../styles/settings.css'
@@ -13,10 +14,23 @@ export default function SettingsPage(): React.JSX.Element {
     isAvailable,
     isDownloaded,
     hasError,
+    releaseNotes,
+    releaseDate,
     checkForUpdates,
     downloadUpdate,
     quitAndInstall
   } = useUpdater()
+
+  const [showNotes, setShowNotes] = useState(false)
+
+  const formatReleaseDate = useCallback((date?: string): string => {
+    if (!date) return ''
+    try {
+      return new Date(date).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })
+    } catch {
+      return date
+    }
+  }, [])
 
   return (
     <div className="settings-page">
@@ -189,6 +203,12 @@ export default function SettingsPage(): React.JSX.Element {
                   {hasError && status.type === 'error' && `✗ ${status.message}`}
                 </p>
               </div>
+              {isAvailable && (releaseNotes || releaseDate) && (
+                <button className="settings-link-btn" onClick={() => setShowNotes(true)}>
+                  <FileText size={13} />
+                  更新说明
+                </button>
+              )}
             </div>
 
             {isDownloading && status.type === 'downloading' && (
@@ -212,10 +232,18 @@ export default function SettingsPage(): React.JSX.Element {
               </button>
             )}
             {isAvailable && (
-              <button className="settings-btn settings-btn-primary" onClick={downloadUpdate}>
-                <Download size={15} />
-                下载更新
-              </button>
+              <>
+                <button className="settings-btn settings-btn-primary" onClick={downloadUpdate}>
+                  <Download size={15} />
+                  下载更新
+                </button>
+                {(releaseNotes || releaseDate) && (
+                  <button className="settings-btn settings-btn-secondary" onClick={() => setShowNotes(true)}>
+                    <FileText size={13} />
+                    更新说明
+                  </button>
+                )}
+              </>
             )}
             {isDownloaded && (
               <button className="settings-btn settings-btn-primary" onClick={quitAndInstall}>
@@ -229,6 +257,41 @@ export default function SettingsPage(): React.JSX.Element {
           </button>
         </div>
       </div>
+
+      {/* Release Notes Modal */}
+      {showNotes && (releaseNotes || releaseDate) && (
+        <div className="settings-overlay" onClick={() => setShowNotes(false)}>
+          <div className="settings-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="settings-modal-header">
+              <h3 className="settings-modal-title">
+                <FileText size={16} />
+                版本更新说明
+              </h3>
+              <button className="settings-modal-close" onClick={() => setShowNotes(false)}>
+                <X size={16} />
+              </button>
+            </div>
+            <div className="settings-modal-body">
+              {releaseDate && (
+                <div className="settings-modal-date">
+                  发布日期：{formatReleaseDate(releaseDate)}
+                </div>
+              )}
+              {releaseNotes ? (
+                <div className="settings-modal-notes">{releaseNotes}</div>
+              ) : (
+                <div className="settings-modal-empty">暂无详细更新说明</div>
+              )}
+            </div>
+            <div className="settings-modal-footer">
+              <button className="settings-btn settings-btn-primary" onClick={() => { downloadUpdate(); setShowNotes(false) }}>
+                <Download size={14} />
+                下载更新
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

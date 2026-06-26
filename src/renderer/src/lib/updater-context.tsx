@@ -17,6 +17,8 @@ interface UpdaterContextType {
   isAvailable: boolean
   isDownloaded: boolean
   hasError: boolean
+  releaseNotes?: string
+  releaseDate?: string
   checkForUpdates: () => Promise<void>
   downloadUpdate: () => Promise<void>
   quitAndInstall: () => Promise<void>
@@ -80,6 +82,8 @@ export function UpdaterProvider({ children }: { children: ReactNode }): React.JS
       value={{
         status,
         version,
+        releaseNotes: status.type === 'available' ? status.releaseNotes : undefined,
+        releaseDate: status.type === 'available' ? status.releaseDate : undefined,
         isChecking: status.type === 'checking',
         isDownloading: status.type === 'downloading',
         isAvailable: status.type === 'available',
