@@ -29,7 +29,7 @@ src/
 │   └── index.d.ts  # 全局类型声明 (Window 扩展)
 └── renderer/src/   # React 前端
     ├── App.tsx     # 根组件：路由、主题、字体大小
-    ├── pages/      # 28+ 工具页面 (每个工具一个文件)
+    ├── pages/      # 51 工具页面 (每个工具一个文件)
     ├── components/ # 共享组件 (Sidebar, CommandPalette, CheatSheet, ui/)
     ├── tools/      # 每个工具的 hook + 数据 (JSON)
     ├── lib/        # contexts, updater-context, maven-api
@@ -76,3 +76,7 @@ src/
 - Maven 搜索走主进程代理 (`maven:search` IPC) 绕过 CORS
 - 全局快捷键 Ctrl+K 打开 CommandPalette，在 main process 通过 `globalShortcut` 注册
 - .reasonix/ 已加入 .gitignore，无需提交
+- **crypto-js 已移除** — HashGenerator 改用 Web Crypto API + 纯 JS MD5
+- **CheatSheet 组件** — 速查表统一使用 `components/CheatSheet.tsx`，传入 JSON 数据
+- **发版流程**: bump version → `git tag -a vX.Y.Z` → `gh release create vX.Y.Z` → `gh release edit` 更新 notes
+- **Chromium 优化**: `src/main/index.ts` 中禁用拼写检查/PDF/语音/翻译等 Chromium 子系统
