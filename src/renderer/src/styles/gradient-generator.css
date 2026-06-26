@@ -3,7 +3,7 @@
    ======================================== */
 
 .gg-page { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 40px 24px; overflow-y: auto; }
-.gg-card { width: 100%; max-width: 520px; background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 20px; padding: 32px; box-shadow: var(--shadow-xl); }
+.gg-card { width: 100%; max-width: 520px; background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 20px; padding: 32px; box-shadow: var(--shadow-xl); overflow: hidden; }
 .gg-header { text-align: center; margin-bottom: 20px; }
 .gg-title { font-size: 22px; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--color-text); margin: 0 0 4px; }
 .gg-subtitle { font-size: 12px; color: var(--color-text-muted); }
@@ -12,8 +12,8 @@
 
 .gg-controls { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; }
 
-.gg-color-row { display: flex; gap: 12px; }
-.gg-color-picker { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.gg-color-row { display: flex; gap: 12px; min-width: 0; }
+.gg-color-picker { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .gg-color-label { font-size: 11px; font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
 .gg-color-row-item { display: flex; align-items: center; gap: 10px; background: var(--color-editor-bg); border: 1px solid var(--color-border); border-radius: 10px; padding: 6px 12px; min-width: 0; }
 .gg-color-swatch { width: 36px; height: 36px; border-radius: 8px; border: 2px solid var(--color-border); flex-shrink: 0; }
