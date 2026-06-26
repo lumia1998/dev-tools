@@ -439,5 +439,23 @@
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
+  },
+  {
+    "id": "gradient-generator",
+    "name": "CSS Gradient Generator",
+    "desc": "可视化渐变生成器（方向/颜色/CSS 代码）",
+    "icon": "Palette",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
+  },
+  {
+    "id": "html-to-jsx",
+    "name": "HTML to JSX",
+    "desc": "HTML 一键转 React JSX 语法",
+    "icon": "Code",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
   }
 ]

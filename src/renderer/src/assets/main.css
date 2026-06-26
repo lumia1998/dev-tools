@@ -46,6 +46,8 @@
 @import '../styles/data-converter.css';
 @import '../styles/uuid-decoder.css';
 @import '../styles/json-converter.css';
+@import '../styles/gradient-generator.css';
+@import '../styles/html-to-jsx.css';
 
 @tailwind base;
 @tailwind components;
