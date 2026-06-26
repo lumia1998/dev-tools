@@ -95,6 +95,10 @@ export default function NpmSearch(): React.JSX.Element {
                   </button>
                 </div>
                 <div className="npm-result-desc">{pkg.description || '暂无描述'}</div>
+                <div className="npm-result-meta">
+                  {pkg.publisher && <span title="发布者">👤 {pkg.publisher}</span>}
+                  {pkg.date && <span title="更新日期">📅 {new Date(pkg.date).toLocaleDateString('zh-CN')}</span>}
+                </div>
                 {pkg.keywords.length > 0 && (
                   <div className="npm-keywords">
                     {pkg.keywords.slice(0, 5).map((kw) => (

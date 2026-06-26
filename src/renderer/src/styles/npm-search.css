@@ -28,6 +28,8 @@
 .npm-copy-btn { display: flex; align-items: center; gap: 4px; padding: 4px 8px; background: var(--color-editor-bg); border: 1px solid var(--color-border); border-radius: 6px; color: var(--color-text-muted); font-size: 11px; cursor: pointer; transition: all .15s ease; flex-shrink: 0; }
 .npm-copy-btn:hover { border-color: var(--color-accent-soft); color: var(--color-accent-soft); }
 .npm-result-desc { font-size: 12px; color: var(--color-text-muted); margin: 6px 0 0; line-height: 1.4; }
+.npm-result-meta { display: flex; gap: 12px; margin-top: 6px; font-size: 11px; color: var(--color-text-muted); }
+.npm-result-meta span { display: flex; align-items: center; }
 
 .npm-keywords { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
 .npm-keyword { padding: 2px 6px; background: var(--color-accent-soft-subtle); border-radius: 4px; font-size: 10px; color: var(--color-accent-soft); }
