@@ -15,6 +15,11 @@ export interface AppSettings {
   updater: {
     autoCheck: boolean
   }
+  translator: {
+    baseUrl: string
+    apiKey: string
+    model: string
+  }
 }
 
 export type UpdateStatus =
@@ -38,6 +43,10 @@ const settingsAPI = {
     ipcRenderer.invoke('settings:update-editor', updates),
   updateUpdater: (updates: Partial<AppSettings['updater']>): Promise<AppSettings> =>
     ipcRenderer.invoke('settings:update-updater', updates),
+  getTranslator: (): Promise<AppSettings['translator']> =>
+    ipcRenderer.invoke('settings:get-translator'),
+  updateTranslator: (updates: Partial<AppSettings['translator']>): Promise<AppSettings> =>
+    ipcRenderer.invoke('settings:update-translator', updates),
   resetToDefaults: (): Promise<AppSettings> => ipcRenderer.invoke('settings:reset')
 }
 
@@ -69,6 +78,14 @@ const envAPI = {
   getEnvVars: (): Promise<Record<string, string>> => ipcRenderer.invoke('env:get-vars')
 }
 
+// Translator API (proxied through main process)
+const translatorAPI = {
+  translate: (text: string, sourceLang: string, targetLang: string): Promise<{ translation?: string; error?: string }> =>
+    ipcRenderer.invoke('translator:translate', text, sourceLang, targetLang),
+  testConnection: (): Promise<{ success?: boolean; models?: string[]; error?: string }> =>
+    ipcRenderer.invoke('translator:test-connection')
+}
+
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
 // just add to the DOM global.
@@ -79,6 +96,7 @@ if (process.contextIsolated) {
     contextBridge.exposeInMainWorld('updater', updaterAPI)
     contextBridge.exposeInMainWorld('maven', mavenAPI)
     contextBridge.exposeInMainWorld('env', envAPI)
+    contextBridge.exposeInMainWorld('translator', translatorAPI)
   } catch (error) {
     console.error(error)
   }
@@ -93,4 +111,6 @@ if (process.contextIsolated) {
   window.maven = mavenAPI
   // @ts-ignore (define in dts)
   window.env = envAPI
+  // @ts-ignore (define in dts)
+  window.translator = translatorAPI
 }

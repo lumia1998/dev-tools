@@ -70,7 +70,8 @@ const pageMap: Record<string, React.LazyExoticComponent<ComponentType>> = {
   'storage-viewer': lazy(() => import('./StorageViewer')),
   'timezone-converter': lazy(() => import('./TimezoneConverter')),
   'date-format-converter': lazy(() => import('./DateFormatConverter')),
-  'number-formatter': lazy(() => import('./NumberFormatter'))
+  'number-formatter': lazy(() => import('./NumberFormatter')),
+  'translator': lazy(() => import('./Translator'))
 }
 
 export function getPageComponent(id: string): React.LazyExoticComponent<ComponentType> | null {

@@ -58,6 +58,7 @@
 @import '../styles/timezone-converter.css';
 @import '../styles/date-format-converter.css';
 @import '../styles/number-formatter.css';
+@import '../styles/translator.css';
 
 @tailwind base;
 @tailwind components;

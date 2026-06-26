@@ -14,6 +14,11 @@ export interface AppSettings {
   updater: {
     autoCheck: boolean
   }
+  translator: {
+    baseUrl: string
+    apiKey: string
+    model: string
+  }
 }
 
 export interface SettingsAPI {
@@ -23,6 +28,8 @@ export interface SettingsAPI {
   updateAppearance: (updates: Partial<AppSettings['appearance']>) => Promise<AppSettings>
   updateEditor: (updates: Partial<AppSettings['editor']>) => Promise<AppSettings>
   updateUpdater: (updates: Partial<AppSettings['updater']>) => Promise<AppSettings>
+  getTranslator: () => Promise<AppSettings['translator']>
+  updateTranslator: (updates: Partial<AppSettings['translator']>) => Promise<AppSettings>
   resetToDefaults: () => Promise<AppSettings>
 }
 
@@ -53,6 +60,11 @@ export interface EnvAPI {
   getEnvVars: () => Promise<Record<string, string>>
 }
 
+export interface TranslatorAPI {
+  translate: (text: string, sourceLang: string, targetLang: string) => Promise<{ translation?: string; error?: string }>
+  testConnection: () => Promise<{ success?: boolean; models?: string[]; error?: string }>
+}
+
 declare global {
   interface Window {
     electron: ElectronAPI
@@ -60,5 +72,6 @@ declare global {
     updater: UpdaterAPI
     maven: MavenAPI
     env: EnvAPI
+    translator: TranslatorAPI
   }
 }

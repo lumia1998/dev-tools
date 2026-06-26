@@ -547,5 +547,14 @@
     "category": "换算工具",
     "categoryIcon": "Calculator",
     "isNew": true
+  },
+  {
+    "id": "translator",
+    "name": "AI Translator",
+    "desc": "基于 OpenAI 兼容 API 的多语言翻译（需配置 API Key）",
+    "icon": "Languages",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
   }
 ]

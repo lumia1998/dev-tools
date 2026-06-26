@@ -16,6 +16,11 @@ export interface AppSettings {
   updater: {
     autoCheck: boolean
   }
+  translator: {
+    baseUrl: string
+    apiKey: string
+    model: string
+  }
 }
 
 const DEFAULT_SETTINGS: AppSettings = {
@@ -31,6 +36,11 @@ const DEFAULT_SETTINGS: AppSettings = {
   },
   updater: {
     autoCheck: true
+  },
+  translator: {
+    baseUrl: '',
+    apiKey: '',
+    model: 'gpt-3.5-turbo'
   }
 }
 
@@ -61,7 +71,8 @@ class SettingsStore {
     return {
       appearance: { ...DEFAULT_SETTINGS.appearance, ...data.appearance },
       editor: { ...DEFAULT_SETTINGS.editor, ...data.editor },
-      updater: { ...DEFAULT_SETTINGS.updater, ...data.updater }
+      updater: { ...DEFAULT_SETTINGS.updater, ...data.updater },
+      translator: { ...DEFAULT_SETTINGS.translator, ...data.translator }
     }
   }
 
@@ -93,6 +104,10 @@ class SettingsStore {
     return { ...this.settings.updater }
   }
 
+  getTranslator(): AppSettings['translator'] {
+    return { ...this.settings.translator }
+  }
+
   updateAppearance(updates: Partial<AppSettings['appearance']>): AppSettings {
     this.settings.appearance = { ...this.settings.appearance, ...updates }
     this.save()
@@ -107,6 +122,12 @@ class SettingsStore {
 
   updateUpdater(updates: Partial<AppSettings['updater']>): AppSettings {
     this.settings.updater = { ...this.settings.updater, ...updates }
+    this.save()
+    return this.getSettings()
+  }
+
+  updateTranslator(updates: Partial<AppSettings['translator']>): AppSettings {
+    this.settings.translator = { ...this.settings.translator, ...updates }
     this.save()
     return this.getSettings()
   }

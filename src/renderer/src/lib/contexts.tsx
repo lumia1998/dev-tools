@@ -14,6 +14,11 @@ export interface AppSettings {
   updater: {
     autoCheck: boolean
   }
+  translator: {
+    baseUrl: string
+    apiKey: string
+    model: string
+  }
 }
 
 const DEFAULT_SETTINGS: AppSettings = {
@@ -29,6 +34,11 @@ const DEFAULT_SETTINGS: AppSettings = {
   },
   updater: {
     autoCheck: true
+  },
+  translator: {
+    baseUrl: '',
+    apiKey: '',
+    model: 'gpt-3.5-turbo'
   }
 }
 
@@ -38,6 +48,7 @@ interface SettingsContextType {
   updateAppearance: (updates: Partial<AppSettings['appearance']>) => Promise<void>
   updateEditor: (updates: Partial<AppSettings['editor']>) => Promise<void>
   updateUpdater: (updates: Partial<AppSettings['updater']>) => Promise<void>
+  updateTranslator: (updates: Partial<AppSettings['translator']>) => Promise<void>
   resetToDefaults: () => Promise<void>
 }
 
@@ -88,6 +99,15 @@ export function SettingsProvider({ children }: { children: ReactNode }): React.J
     }
   }, [])
 
+  const updateTranslator = useCallback(async (updates: Partial<AppSettings['translator']>) => {
+    try {
+      const updated = await window.api.updateTranslator(updates)
+      setSettings(updated)
+    } catch {
+      // 忽略错误
+    }
+  }, [])
+
   const resetToDefaults = useCallback(async () => {
     try {
       const reset = await window.api.resetToDefaults()
@@ -99,7 +119,7 @@ export function SettingsProvider({ children }: { children: ReactNode }): React.J
 
   return (
     <SettingsContext.Provider
-      value={{ settings, loading, updateAppearance, updateEditor, updateUpdater, resetToDefaults }}
+      value={{ settings, loading, updateAppearance, updateEditor, updateUpdater, updateTranslator, resetToDefaults }}
     >
       {children}
     </SettingsContext.Provider>

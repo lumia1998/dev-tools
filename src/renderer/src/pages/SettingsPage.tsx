@@ -5,7 +5,7 @@ import { useUpdater } from '@renderer/lib/updater-context'
 import '../styles/settings.css'
 
 export default function SettingsPage(): React.JSX.Element {
-  const { settings, updateAppearance, updateEditor, updateUpdater, resetToDefaults } = useSettings()
+  const { settings, updateAppearance, updateEditor, updateUpdater, updateTranslator, resetToDefaults } = useSettings()
   const {
     status,
     version,
@@ -22,6 +22,25 @@ export default function SettingsPage(): React.JSX.Element {
   } = useUpdater()
 
   const [showNotes, setShowNotes] = useState(false)
+  const [testResult, setTestResult] = useState('未测试')
+  const [testing, setTesting] = useState(false)
+
+  const testConnection = useCallback(async () => {
+    setTesting(true)
+    setTestResult('测试中...')
+    try {
+      const result = await window.translator.testConnection()
+      if (result.success) {
+        setTestResult(`✅ 连接成功 (${result.models?.length || 0} 个可用模型)`)
+      } else {
+        setTestResult(`❌ ${result.error}`)
+      }
+    } catch {
+      setTestResult('❌ 测试失败')
+    } finally {
+      setTesting(false)
+    }
+  }, [])
 
   const formatReleaseDate = useCallback((date?: string): string => {
     if (!date) return ''
@@ -159,6 +178,80 @@ export default function SettingsPage(): React.JSX.Element {
                 />
                 <span className="settings-toggle-slider" />
               </label>
+            </div>
+          </div>
+
+          {/* AI 翻译设置 */}
+          <div className="settings-section">
+            <h3 className="settings-section-title">
+              <span className="settings-section-icon" style={{ fontSize: 18 }}>🤖</span>
+              AI 翻译
+            </h3>
+
+            <div className="settings-item settings-item-column">
+              <div className="settings-item-info">
+                <p className="settings-item-label">Base URL</p>
+                <p className="settings-item-description">
+                  支持 OpenAI 兼容 API（NewAPI / OpenAI / Azure 等）
+                </p>
+              </div>
+              <input
+                className="settings-input"
+                type="text"
+                value={settings.translator.baseUrl}
+                onChange={(e) => updateTranslator({ baseUrl: e.target.value })}
+                placeholder="https://api.openai.com/v1"
+              />
+            </div>
+
+            <div className="settings-item settings-item-column">
+              <div className="settings-item-info">
+                <p className="settings-item-label">API Key</p>
+                <p className="settings-item-description">密钥仅存储在本地，不会上传</p>
+              </div>
+              <input
+                className="settings-input"
+                type="password"
+                value={settings.translator.apiKey}
+                onChange={(e) => updateTranslator({ apiKey: e.target.value })}
+                placeholder="sk-..."
+              />
+            </div>
+
+            <div className="settings-item">
+              <div className="settings-item-info">
+                <p className="settings-item-label">Model</p>
+                <p className="settings-item-description">
+                  常用: gpt-3.5-turbo / gpt-4o / gpt-4-turbo
+                </p>
+              </div>
+              <select
+                className="settings-select"
+                value={settings.translator.model}
+                onChange={(e) => updateTranslator({ model: e.target.value })}
+              >
+                {['gpt-3.5-turbo', 'gpt-4o', 'gpt-4-turbo', 'gpt-4', 'gpt-4o-mini'].map(
+                  (m) => (
+                    <option key={m} value={m}>
+                      {m}
+                    </option>
+                  )
+                )}
+              </select>
+            </div>
+
+            <div className="settings-item">
+              <div className="settings-item-info">
+                <p className="settings-item-label">连接状态</p>
+                <p className="settings-item-description">{testResult}</p>
+              </div>
+              <button
+                className="settings-btn settings-btn-secondary"
+                onClick={testConnection}
+                disabled={!settings.translator.baseUrl || !settings.translator.apiKey || testing}
+              >
+                {testing ? '测试中...' : '🔗 测试连接'}
+              </button>
             </div>
           </div>
 

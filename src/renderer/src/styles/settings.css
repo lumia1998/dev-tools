@@ -116,7 +116,31 @@
   max-width: 420px;
 }
 
-/* 选择器 */
+/* 文本输入框 */
+.settings-input {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text);
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.settings-input:focus {
+  border-color: var(--color-accent-soft);
+}
+
+.settings-input::placeholder {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+/* 列布局 */
+.settings-item-column {
 .settings-select {
   position: relative;
   min-width: 140px;
