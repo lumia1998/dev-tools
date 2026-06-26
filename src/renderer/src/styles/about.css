@@ -173,6 +173,41 @@
   margin-bottom: 16px;
 }
 
+.about-shortcuts {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.about-shortcut-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: var(--color-editor-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+.about-shortcut-item kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  padding: 4px 10px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-accent-soft);
+  text-align: center;
+  white-space: nowrap;
+}
+
 .about-link {
   display: inline-flex;
   align-items: center;

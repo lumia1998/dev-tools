@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Info, GitBranch, Heart, ExternalLink, Star } from 'lucide-react'
+import { Info, GitBranch, Heart, ExternalLink, Star, Keyboard } from 'lucide-react'
 import appIcon from '../assets/about.png'
 import '../styles/about.css'
 
@@ -81,6 +81,31 @@ export default function About(): React.JSX.Element {
               <span className="about-tech-badge">CodeMirror 6</span>
               <span className="about-tech-badge">Lucide</span>
               <span className="about-tech-badge">Radix UI</span>
+            </div>
+          </div>
+
+          <div className="about-section">
+            <h3 className="about-section-title">
+              <Keyboard size={16} className="about-section-icon" />
+              快捷键
+            </h3>
+            <div className="about-shortcuts">
+              <div className="about-shortcut-item">
+                <kbd>Ctrl+K</kbd>
+                <span>全局命令面板</span>
+              </div>
+              <div className="about-shortcut-item">
+                <kbd>Ctrl+Shift+V</kbd>
+                <span>读取剪贴板</span>
+              </div>
+              <div className="about-shortcut-item">
+                <kbd>Space</kbd>
+                <span>计时器开始 / 暂停</span>
+              </div>
+              <div className="about-shortcut-item">
+                <kbd>R</kbd>
+                <span>计时器重置</span>
+              </div>
             </div>
           </div>
 
