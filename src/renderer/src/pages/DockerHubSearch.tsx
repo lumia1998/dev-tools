@@ -28,6 +28,7 @@ export default function DockerHubSearch(): React.JSX.Element {
   const [expandedImg, setExpandedImg] = useState('')
   const [tags, setTags] = useState<{ name: string; digest: string; digestShort: string; size: number; arch: string; os: string; lastUpdated: string }[]>([])
   const [tagsLoading, setTagsLoading] = useState(false)
+  const [visibleCount, setVisibleCount] = useState(10)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const doSearch = useCallback(async (q: string) => {
@@ -56,6 +57,7 @@ export default function DockerHubSearch(): React.JSX.Element {
   const toggleTags = useCallback(async (imageName: string) => {
     if (expandedImg === imageName) { setExpandedImg(''); return }
     setExpandedImg(imageName)
+    setVisibleCount(10)
     setTagsLoading(true)
     try {
       const res = await window.docker.getTags(imageName)
@@ -133,20 +135,27 @@ export default function DockerHubSearch(): React.JSX.Element {
                   ) : tags.length === 0 ? (
                     <div className="dh-tags-loading">暂无标签</div>
                   ) : (
-                    tags.map((t) => (
-                      <div key={t.name} className="dh-tag-item">
-                        <div className="dh-tag-name">{t.name}</div>
-                        <div className="dh-tag-meta">
-                          <span className="dh-tag-digest" title={t.digest}>sha256:{t.digestShort}...</span>
-                          <span>{t.arch}/{t.os}</span>
-                          <span>{formatSize(t.size)}</span>
-                          {t.lastUpdated && <span>{new Date(t.lastUpdated).toLocaleDateString('zh-CN')}</span>}
+                    <>
+                      {tags.slice(0, visibleCount).map((t) => (
+                        <div key={t.name} className="dh-tag-item">
+                          <div className="dh-tag-name">{t.name}</div>
+                          <div className="dh-tag-meta">
+                            <span className="dh-tag-digest" title={t.digest}>sha256:{t.digestShort}...</span>
+                            <span>{t.arch}/{t.os}</span>
+                            <span>{formatSize(t.size)}</span>
+                            {t.lastUpdated && <span>{new Date(t.lastUpdated).toLocaleDateString('zh-CN')}</span>}
+                          </div>
+                          <button className="dh-copy-btn" onClick={() => copyCmd('docker pull ' + img.imageName + ':' + t.name)}>
+                            {copied === 'docker pull ' + img.imageName + ':' + t.name ? <Check size={12} /> : <Copy size={12} />}
+                          </button>
                         </div>
-                        <button className="dh-copy-btn" onClick={() => copyCmd('docker pull ' + img.imageName + ':' + t.name)}>
-                          {copied === 'docker pull ' + img.imageName + ':' + t.name ? <Check size={12} /> : <Copy size={12} />}
+                      ))}
+                      {visibleCount < tags.length && (
+                        <button className="dh-show-more" onClick={() => setVisibleCount((c) => c + 10)}>
+                          显示更多 ({tags.length - visibleCount} 剩余)
                         </button>
-                      </div>
-                    ))
+                      )}
+                    </>
                   )}
                 </div>
               )}

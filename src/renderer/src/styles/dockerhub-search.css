@@ -40,6 +40,8 @@
 .dh-tag-name { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: var(--color-text); min-width: 80px; }
 .dh-tag-meta { flex: 1; display: flex; gap: 10px; font-size: 11px; color: var(--color-text-muted); flex-wrap: wrap; }
 .dh-tag-digest { font-family: 'JetBrains Mono', monospace; color: var(--color-accent-soft); }
+.dh-show-more { display: flex; align-items: center; justify-content: center; padding: 8px; background: transparent; border: 1px dashed var(--color-border); border-radius: 6px; color: var(--color-text-muted); font-size: 12px; cursor: pointer; transition: all .15s ease; }
+.dh-show-more:hover { border-color: var(--color-accent-soft); color: var(--color-accent-soft); }
 
 @media (max-width: 600px) {
   .dh-page { padding: 24px 16px; }
