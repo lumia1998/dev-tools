@@ -5,7 +5,7 @@ import { useUpdater } from '@renderer/lib/updater-context'
 import '../styles/settings.css'
 
 export default function SettingsPage(): React.JSX.Element {
-  const { settings, updateAppearance, updateEditor, updateUpdater, updateTranslator, resetToDefaults } = useSettings()
+  const { settings, updateAppearance, updateEditor, updateUpdater, updateTranslator, updateNpmRegistry, resetToDefaults } = useSettings()
   const {
     status,
     version,
@@ -321,6 +321,30 @@ export default function SettingsPage(): React.JSX.Element {
               >
                 {testing ? '测试中...' : '🔗 测试连接'}
               </button>
+            </div>
+          </div>
+
+          {/* npm 源设置 */}
+          <div className="settings-section">
+            <h3 className="settings-section-title">
+              <span className="settings-section-icon" style={{ fontSize: 18 }}>📦</span>
+              npm Registry
+            </h3>
+
+            <div className="settings-item settings-item-column">
+              <div className="settings-item-info">
+                <p className="settings-item-label">自定义 npm 源</p>
+                <p className="settings-item-description">
+                  留空则依次尝试 registry.npmjs.org → npmmirror.com
+                </p>
+              </div>
+              <input
+                className="settings-input"
+                type="text"
+                value={settings.npmRegistry}
+                onChange={(e) => updateNpmRegistry(e.target.value)}
+                placeholder="https://registry.npmjs.org"
+              />
             </div>
           </div>
 

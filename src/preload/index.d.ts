@@ -22,6 +22,7 @@ export interface AppSettings {
     temperature: number
     maxTokens: number
   }
+  npmRegistry: string
 }
 
 export interface SettingsAPI {
@@ -33,6 +34,8 @@ export interface SettingsAPI {
   updateUpdater: (updates: Partial<AppSettings['updater']>) => Promise<AppSettings>
   getTranslator: () => Promise<AppSettings['translator']>
   updateTranslator: (updates: Partial<AppSettings['translator']>) => Promise<AppSettings>
+  getNpmRegistry: () => Promise<string>
+  updateNpmRegistry: (npmRegistry: string) => Promise<AppSettings>
   resetToDefaults: () => Promise<AppSettings>
 }
 

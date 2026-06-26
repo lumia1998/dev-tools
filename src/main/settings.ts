@@ -24,6 +24,7 @@ export interface AppSettings {
     temperature: number
     maxTokens: number
   }
+  npmRegistry: string
 }
 
 const DEFAULT_SETTINGS: AppSettings = {
@@ -47,7 +48,8 @@ const DEFAULT_SETTINGS: AppSettings = {
     systemPrompt: 'You are a professional translator. Translate the following text from {sourceLang} to {targetLang}. Only output the translated text, nothing else. Do not add explanations, notes, or quotation marks.',
     temperature: 0.3,
     maxTokens: 4096
-  }
+  },
+  npmRegistry: ''
 }
 
 class SettingsStore {
@@ -78,7 +80,8 @@ class SettingsStore {
       appearance: { ...DEFAULT_SETTINGS.appearance, ...data.appearance },
       editor: { ...DEFAULT_SETTINGS.editor, ...data.editor },
       updater: { ...DEFAULT_SETTINGS.updater, ...data.updater },
-      translator: { ...DEFAULT_SETTINGS.translator, ...data.translator }
+      translator: { ...DEFAULT_SETTINGS.translator, ...data.translator },
+      npmRegistry: data.npmRegistry ?? ''
     }
   }
 
@@ -134,6 +137,12 @@ class SettingsStore {
 
   updateTranslator(updates: Partial<AppSettings['translator']>): AppSettings {
     this.settings.translator = { ...this.settings.translator, ...updates }
+    this.save()
+    return this.getSettings()
+  }
+
+  updateNpmRegistry(npmRegistry: string): AppSettings {
+    this.settings.npmRegistry = npmRegistry
     this.save()
     return this.getSettings()
   }

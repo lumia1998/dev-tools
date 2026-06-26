@@ -23,6 +23,7 @@ export interface AppSettings {
     temperature: number
     maxTokens: number
   }
+  npmRegistry: string
 }
 
 export type UpdateStatus =
@@ -50,6 +51,10 @@ const settingsAPI = {
     ipcRenderer.invoke('settings:get-translator'),
   updateTranslator: (updates: Partial<AppSettings['translator']>): Promise<AppSettings> =>
     ipcRenderer.invoke('settings:update-translator', updates),
+  getNpmRegistry: (): Promise<string> =>
+    ipcRenderer.invoke('settings:get-npm-registry'),
+  updateNpmRegistry: (npmRegistry: string): Promise<AppSettings> =>
+    ipcRenderer.invoke('settings:update-npm-registry', npmRegistry),
   resetToDefaults: (): Promise<AppSettings> => ipcRenderer.invoke('settings:reset')
 }
 

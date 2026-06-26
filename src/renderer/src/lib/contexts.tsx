@@ -22,6 +22,7 @@ export interface AppSettings {
     temperature: number
     maxTokens: number
   }
+  npmRegistry: string
 }
 
 const DEFAULT_SETTINGS: AppSettings = {
@@ -45,7 +46,8 @@ const DEFAULT_SETTINGS: AppSettings = {
     systemPrompt: 'You are a professional translator. Translate the following text from {sourceLang} to {targetLang}. Only output the translated text, nothing else. Do not add explanations, notes, or quotation marks.',
     temperature: 0.3,
     maxTokens: 4096
-  }
+  },
+  npmRegistry: ''
 }
 
 interface SettingsContextType {
@@ -55,6 +57,7 @@ interface SettingsContextType {
   updateEditor: (updates: Partial<AppSettings['editor']>) => Promise<void>
   updateUpdater: (updates: Partial<AppSettings['updater']>) => Promise<void>
   updateTranslator: (updates: Partial<AppSettings['translator']>) => Promise<void>
+  updateNpmRegistry: (npmRegistry: string) => Promise<void>
   resetToDefaults: () => Promise<void>
 }
 
@@ -114,6 +117,15 @@ export function SettingsProvider({ children }: { children: ReactNode }): React.J
     }
   }, [])
 
+  const updateNpmRegistry = useCallback(async (npmRegistry: string) => {
+    try {
+      const updated = await window.api.updateNpmRegistry(npmRegistry)
+      setSettings(updated)
+    } catch {
+      // 忽略错误
+    }
+  }, [])
+
   const resetToDefaults = useCallback(async () => {
     try {
       const reset = await window.api.resetToDefaults()
@@ -125,7 +137,7 @@ export function SettingsProvider({ children }: { children: ReactNode }): React.J
 
   return (
     <SettingsContext.Provider
-      value={{ settings, loading, updateAppearance, updateEditor, updateUpdater, updateTranslator, resetToDefaults }}
+      value={{ settings, loading, updateAppearance, updateEditor, updateUpdater, updateTranslator, updateNpmRegistry, resetToDefaults }}
     >
       {children}
     </SettingsContext.Provider>

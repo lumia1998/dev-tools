@@ -44,6 +44,14 @@ function registerSettingsHandlers(): void {
     return settingsStore.updateUpdater(updates)
   })
 
+  ipcMain.handle('settings:get-npm-registry', () => {
+    return settingsStore.getSettings().npmRegistry
+  })
+
+  ipcMain.handle('settings:update-npm-registry', (_event, npmRegistry: string) => {
+    return settingsStore.updateNpmRegistry(npmRegistry)
+  })
+
   ipcMain.handle('settings:get-translator', () => {
     return settingsStore.getTranslator()
   })
@@ -251,13 +259,19 @@ function registerTranslatorHandlers(): void {
 }
 
 function registerNpmHandlers(): void {
-  const NPM_REGISTRIES = [
+  const DEFAULT_REGISTRIES = [
     'https://registry.npmjs.org',
     'https://registry.npmmirror.com'
   ]
 
+  function getRegistries(): string[] {
+    const custom = settingsStore.getSettings().npmRegistry
+    if (custom?.trim()) return [custom.trim(), ...DEFAULT_REGISTRIES]
+    return DEFAULT_REGISTRIES
+  }
+
   async function fetchNpm(path: string): Promise<Response | null> {
-    for (const base of NPM_REGISTRIES) {
+    for (const base of getRegistries()) {
       try {
         const controller = new AbortController()
         const timeout = setTimeout(() => controller.abort(), 10000)
