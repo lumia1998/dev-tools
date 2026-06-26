@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Settings, Palette, RotateCcw, RefreshCw, Download, FileText, X } from 'lucide-react'
 import { useSettings } from '@renderer/lib/contexts'
 import { useUpdater } from '@renderer/lib/updater-context'
@@ -24,6 +24,24 @@ export default function SettingsPage(): React.JSX.Element {
   const [showNotes, setShowNotes] = useState(false)
   const [testResult, setTestResult] = useState('未测试')
   const [testing, setTesting] = useState(false)
+  const [fetchedModels, setFetchedModels] = useState<string[]>([])
+
+  // Auto-fetch models on mount if config exists
+  useEffect(() => {
+    const { baseUrl, apiKey } = settings.translator
+    if (baseUrl && apiKey) {
+      window.translator.testConnection().then((res) => {
+        if (res.success && res.models) setFetchedModels(res.models)
+      }).catch(() => { /* ignore */ })
+    }
+  }, [settings.translator.baseUrl, settings.translator.apiKey])
+
+  const modelOptions = (() => {
+    const current = settings.translator.model
+    const all = [...new Set([...fetchedModels, current])].filter(Boolean).sort()
+    if (all.length === 0) return ['gpt-3.5-turbo', 'gpt-4o', 'gpt-4-turbo']
+    return all
+  })()
 
   const testConnection = useCallback(async () => {
     setTesting(true)
@@ -32,6 +50,7 @@ export default function SettingsPage(): React.JSX.Element {
       const result = await window.translator.testConnection()
       if (result.success) {
         setTestResult(`✅ 连接成功 (${result.models?.length || 0} 个可用模型)`)
+        if (result.models) setFetchedModels(result.models)
       } else {
         setTestResult(`❌ ${result.error}`)
       }
@@ -222,7 +241,9 @@ export default function SettingsPage(): React.JSX.Element {
               <div className="settings-item-info">
                 <p className="settings-item-label">Model</p>
                 <p className="settings-item-description">
-                  常用: gpt-3.5-turbo / gpt-4o / gpt-4-turbo
+                  {fetchedModels.length > 0
+                    ? `${fetchedModels.length} 个可用模型`
+                    : '配置 URL 和 Key 后自动获取模型列表'}
                 </p>
               </div>
               <select
@@ -230,13 +251,9 @@ export default function SettingsPage(): React.JSX.Element {
                 value={settings.translator.model}
                 onChange={(e) => updateTranslator({ model: e.target.value })}
               >
-                {['gpt-3.5-turbo', 'gpt-4o', 'gpt-4-turbo', 'gpt-4', 'gpt-4o-mini'].map(
-                  (m) => (
-                    <option key={m} value={m}>
-                      {m}
-                    </option>
-                  )
-                )}
+                {modelOptions.map((m) => (
+                  <option key={m} value={m}>{m}</option>
+                ))}
               </select>
             </div>
 
