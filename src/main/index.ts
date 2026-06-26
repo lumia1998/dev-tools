@@ -261,7 +261,7 @@ function createWindow(): void {
     backgroundColor: '#0f1117',
     autoHideMenuBar: true,
     paintWhenInitiallyHidden: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
+    icon,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
