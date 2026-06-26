@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback } from 'react'
 import { Copy, Check, RotateCcw } from 'lucide-react'
 import '../styles/gradient-generator.css'
 
@@ -17,7 +17,6 @@ const PRESETS: [string, string, string][] = [
 ]
 
 export default function GradientGenerator(): React.JSX.Element {
-  const pickerRefs = useRef(new Map<string, HTMLInputElement>())
   const [color1, setColor1] = useState('#6366F1')
   const [color2, setColor2] = useState('#8B5CF6')
   const [direction, setDirection] = useState<GradientDirection>('to bottom right')
@@ -38,6 +37,14 @@ export default function GradientGenerator(): React.JSX.Element {
     setColor1('#6366F1'); setColor2('#8B5CF6'); setDirection('to bottom right')
   }, [])
 
+  // Validate hex color
+  const normalizeColor = useCallback((val: string): string => {
+    let hex = val.replace(/^#/, '')
+    if (/^[0-9a-fA-F]{6}$/.test(hex)) return '#' + hex.toUpperCase()
+    if (/^[0-9a-fA-F]{3}$/.test(hex)) return '#' + hex.split('').map(c => c + c).join('').toUpperCase()
+    return ''
+  }, [])
+
   return (
     <div className="gg-page">
       <div className="gg-card">
@@ -46,38 +53,28 @@ export default function GradientGenerator(): React.JSX.Element {
           <p className="gg-subtitle">可视化渐变生成器</p>
         </div>
 
-        {/* Preview */}
         <div className="gg-preview" style={gradientStyle} />
 
-        {/* Controls */}
         <div className="gg-controls">
           <div className="gg-color-row">
-            {[
+            {([
               { label: 'Color 1', val: color1, set: setColor1 },
               { label: 'Color 2', val: color2, set: setColor2 },
-            ].map((c) => (
+            ]).map((c) => (
               <div key={c.label} className="gg-color-picker">
                 <span className="gg-color-label">{c.label}</span>
                 <div className="gg-color-row-item">
-                  <button
-                    className="gg-color-swatch"
-                    style={{ background: c.val }}
-                    onClick={() => pickerRefs.current.get(c.label)?.click()}
-                    title="点击选择颜色"
-                    type="button"
-                  />
+                  <span className="gg-color-swatch" style={{ background: c.val }} />
                   <input
                     className="gg-color-input-text"
                     value={c.val}
                     onChange={(e) => c.set(e.target.value)}
+                    onBlur={(e) => {
+                      const normalized = normalizeColor(e.target.value)
+                      if (normalized) c.set(normalized)
+                    }}
                     placeholder="#000000"
-                  />
-                  <input
-                    type="color"
-                    className="gg-color-input-hidden"
-                    value={c.val}
-                    onChange={(e) => c.set(e.target.value)}
-                    ref={(el) => { if (el) pickerRefs.current.set(c.label, el) }}
+                    spellCheck={false}
                   />
                 </div>
               </div>
@@ -96,7 +93,6 @@ export default function GradientGenerator(): React.JSX.Element {
           </div>
         </div>
 
-        {/* Presets */}
         <div className="gg-presets">
           <span className="gg-presets-label">预设</span>
           <div className="gg-preset-grid">
@@ -109,7 +105,6 @@ export default function GradientGenerator(): React.JSX.Element {
           </div>
         </div>
 
-        {/* CSS output */}
         <div className="gg-output">
           <div className="gg-output-header">
             <span className="gg-output-label">CSS</span>
