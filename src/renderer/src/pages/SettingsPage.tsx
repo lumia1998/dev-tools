@@ -39,7 +39,6 @@ export default function SettingsPage(): React.JSX.Element {
   const modelOptions = (() => {
     const current = settings.translator.model
     const all = [...new Set([...fetchedModels, current])].filter(Boolean).sort()
-    if (all.length === 0) return ['gpt-3.5-turbo', 'gpt-4o', 'gpt-4-turbo']
     return all
   })()
 

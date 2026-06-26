@@ -36,7 +36,12 @@ export default function Translator(): React.JSX.Element {
   const [copied, setCopied] = useState(false)
   const [elapsed, setElapsed] = useState(0)
 
-  const hasConfig = !!(settings.translator.baseUrl && settings.translator.apiKey)
+  const hasConfig = !!(settings.translator.baseUrl && settings.translator.apiKey && settings.translator.model)
+
+  let configHint = ''
+  if (!settings.translator.baseUrl) configHint = '请先在 设置 → AI 翻译 中配置 Base URL、API Key 和 Model'
+  else if (!settings.translator.apiKey) configHint = '请先在 设置 → AI 翻译 中配置 API Key'
+  else if (!settings.translator.model) configHint = '请先在 设置 → AI 翻译 中配置 Model（可先测试连接获取模型列表）'
 
   const swap = useCallback(() => {
     setSourceLang(targetLang)
@@ -95,7 +100,7 @@ export default function Translator(): React.JSX.Element {
 
         {!hasConfig && (
           <div className="tr-config-warning">
-            请先在 设置 → AI 翻译 中配置 Base URL 和 API Key
+            {configHint}
           </div>
         )}
 
