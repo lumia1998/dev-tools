@@ -334,6 +334,28 @@ function registerNpmHandlers(): void {
   })
 }
 
+function registerDockerHandlers(): void {
+  ipcMain.handle('docker:search', async (_event, query: string, size: number) => {
+    try {
+      const params = new URLSearchParams({ q: query, page_size: String(size || 20) })
+      const res = await fetch(`https://hub.docker.com/v2/search/repositories?${params}`)
+      if (!res.ok) return []
+      const data = await res.json()
+      return (data.results || []).map((r: { repo_name: string; short_description: string; star_count: number; pull_count: number; is_automated: boolean; is_official: boolean }) => ({
+        name: r.repo_name,
+        description: r.short_description || '',
+        stars: r.star_count || 0,
+        pulls: r.pull_count || 0,
+        isOfficial: r.is_official || false,
+        isAutomated: r.is_automated || false,
+        imageName: r.repo_name.startsWith('library/') ? r.repo_name.slice(8) : r.repo_name
+      }))
+    } catch {
+      return []
+    }
+  })
+}
+
 let mainWindow: BrowserWindow | null = null
 
 function createWindow(): void {
@@ -430,6 +452,9 @@ app.whenReady().then(() => {
 
   // Register npm handlers
   registerNpmHandlers()
+
+  // Register docker handlers
+  registerDockerHandlers()
 
   createWindow()
 

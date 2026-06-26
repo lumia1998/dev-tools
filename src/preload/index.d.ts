@@ -97,6 +97,20 @@ export interface NpmAPI {
   getPackage: (name: string) => Promise<NpmPackageDetail | null>
 }
 
+export interface DockerSearchResult {
+  name: string
+  description: string
+  stars: number
+  pulls: number
+  isOfficial: boolean
+  isAutomated: boolean
+  imageName: string
+}
+
+export interface DockerAPI {
+  search: (query: string, size?: number) => Promise<DockerSearchResult[]>
+}
+
 declare global {
   interface Window {
     electron: ElectronAPI
@@ -106,5 +120,6 @@ declare global {
     env: EnvAPI
     translator: TranslatorAPI
     npm: NpmAPI
+    docker: DockerAPI
   }
 }

@@ -123,6 +123,22 @@ const npmAPI = {
     ipcRenderer.invoke('npm:package', name)
 }
 
+interface DockerSearchResult {
+  name: string
+  description: string
+  stars: number
+  pulls: number
+  isOfficial: boolean
+  isAutomated: boolean
+  imageName: string
+}
+
+// Docker API (proxied through main process)
+const dockerAPI = {
+  search: (query: string, size?: number): Promise<DockerSearchResult[]> =>
+    ipcRenderer.invoke('docker:search', query, size || 20)
+}
+
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
 // just add to the DOM global.
@@ -135,6 +151,7 @@ if (process.contextIsolated) {
     contextBridge.exposeInMainWorld('env', envAPI)
     contextBridge.exposeInMainWorld('translator', translatorAPI)
     contextBridge.exposeInMainWorld('npm', npmAPI)
+    contextBridge.exposeInMainWorld('docker', dockerAPI)
   } catch (error) {
     console.error(error)
   }
@@ -153,4 +170,6 @@ if (process.contextIsolated) {
   window.translator = translatorAPI
   // @ts-ignore (define in dts)
   window.npm = npmAPI
+  // @ts-ignore (define in dts)
+  window.docker = dockerAPI
 }
