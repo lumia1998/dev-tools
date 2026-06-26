@@ -250,6 +250,57 @@ function registerTranslatorHandlers(): void {
   })
 }
 
+function registerNpmHandlers(): void {
+  const NPM_SEARCH = 'https://registry.npmjs.org/-/v1/search'
+  const NPM_PACKAGE = 'https://registry.npmjs.org'
+
+  ipcMain.handle('npm:search', async (_event, query: string, size: number) => {
+    try {
+      const params = new URLSearchParams({ text: query, size: String(size || 20) })
+      const res = await fetch(`${NPM_SEARCH}?${params}`)
+      const data = await res.json()
+      return data?.objects?.map((o: { package: { name: string; version: string; description: string; keywords?: string[]; publisher?: { username: string }; links?: { npm: string }; date: string } }) => ({
+        name: o.package.name,
+        version: o.package.version,
+        description: o.package.description,
+        keywords: o.package.keywords || [],
+        publisher: o.package.publisher?.username || '',
+        link: o.package.links?.npm || '',
+        date: o.package.date
+      })) || []
+    } catch {
+      return []
+    }
+  })
+
+  ipcMain.handle('npm:package', async (_event, packageName: string) => {
+    try {
+      const res = await fetch(`${NPM_PACKAGE}/${encodeURIComponent(packageName)}`)
+      const data = await res.json()
+      return {
+        name: data.name,
+        description: data.description,
+        license: data.license,
+        homepage: data.homepage,
+        repository: data.repository?.url || '',
+        keywords: data.keywords || [],
+        maintainers: (data.maintainers || []).map((m: { name: string }) => m.name),
+        versions: Object.keys(data.versions || {}).sort((a, b) => {
+          const ap = a.split('.').map(Number)
+          const bp = b.split('.').map(Number)
+          for (let i = 0; i < Math.max(ap.length, bp.length); i++) {
+            const av = ap[i] ?? 0; const bv = bp[i] ?? 0
+            if (av !== bv) return bv - av
+          }
+          return a.localeCompare(b)
+        })
+      }
+    } catch {
+      return null
+    }
+  })
+}
+
 let mainWindow: BrowserWindow | null = null
 
 function createWindow(): void {
@@ -343,6 +394,9 @@ app.whenReady().then(() => {
 
   // Register translator handlers
   registerTranslatorHandlers()
+
+  // Register npm handlers
+  registerNpmHandlers()
 
   createWindow()
 

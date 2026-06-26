@@ -81,12 +81,41 @@ const envAPI = {
   getEnvVars: (): Promise<Record<string, string>> => ipcRenderer.invoke('env:get-vars')
 }
 
+interface NpmSearchResult {
+  name: string
+  version: string
+  description: string
+  keywords: string[]
+  publisher: string
+  link: string
+  date: string
+}
+
+interface NpmPackageDetail {
+  name: string
+  description: string
+  license: string
+  homepage: string
+  repository: string
+  keywords: string[]
+  maintainers: string[]
+  versions: string[]
+}
+
 // Translator API (proxied through main process)
 const translatorAPI = {
   translate: (text: string, sourceLang: string, targetLang: string): Promise<{ translation?: string; error?: string }> =>
     ipcRenderer.invoke('translator:translate', text, sourceLang, targetLang),
   testConnection: (): Promise<{ success?: boolean; models?: string[]; error?: string }> =>
     ipcRenderer.invoke('translator:test-connection')
+}
+
+// npm API (proxied through main process)
+const npmAPI = {
+  search: (query: string, size?: number): Promise<NpmSearchResult[]> =>
+    ipcRenderer.invoke('npm:search', query, size || 20),
+  getPackage: (name: string): Promise<NpmPackageDetail | null> =>
+    ipcRenderer.invoke('npm:package', name)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
@@ -100,6 +129,7 @@ if (process.contextIsolated) {
     contextBridge.exposeInMainWorld('maven', mavenAPI)
     contextBridge.exposeInMainWorld('env', envAPI)
     contextBridge.exposeInMainWorld('translator', translatorAPI)
+    contextBridge.exposeInMainWorld('npm', npmAPI)
   } catch (error) {
     console.error(error)
   }
@@ -116,4 +146,6 @@ if (process.contextIsolated) {
   window.env = envAPI
   // @ts-ignore (define in dts)
   window.translator = translatorAPI
+  // @ts-ignore (define in dts)
+  window.npm = npmAPI
 }

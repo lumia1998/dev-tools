@@ -68,6 +68,32 @@ export interface TranslatorAPI {
   testConnection: () => Promise<{ success?: boolean; models?: string[]; error?: string }>
 }
 
+export interface NpmSearchResult {
+  name: string
+  version: string
+  description: string
+  keywords: string[]
+  publisher: string
+  link: string
+  date: string
+}
+
+export interface NpmPackageDetail {
+  name: string
+  description: string
+  license: string
+  homepage: string
+  repository: string
+  keywords: string[]
+  maintainers: string[]
+  versions: string[]
+}
+
+export interface NpmAPI {
+  search: (query: string, size?: number) => Promise<NpmSearchResult[]>
+  getPackage: (name: string) => Promise<NpmPackageDetail | null>
+}
+
 declare global {
   interface Window {
     electron: ElectronAPI
@@ -76,5 +102,6 @@ declare global {
     maven: MavenAPI
     env: EnvAPI
     translator: TranslatorAPI
+    npm: NpmAPI
   }
 }

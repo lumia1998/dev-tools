@@ -495,5 +495,14 @@
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
+  },
+  {
+    "id": "npm-search",
+    "name": "npm Search",
+    "desc": "搜索 npm 包，一键复制依赖配置",
+    "icon": "Package",
+    "category": "开发工具",
+    "categoryIcon": "Wrench",
+    "isNew": true
   }
 ]

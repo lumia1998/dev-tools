@@ -59,6 +59,7 @@
 @import '../styles/date-format-converter.css';
 @import '../styles/number-formatter.css';
 @import '../styles/translator.css';
+@import '../styles/npm-search.css';
 
 @tailwind base;
 @tailwind components;

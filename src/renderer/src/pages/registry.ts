@@ -71,7 +71,8 @@ const pageMap: Record<string, React.LazyExoticComponent<ComponentType>> = {
   'timezone-converter': lazy(() => import('./TimezoneConverter')),
   'date-format-converter': lazy(() => import('./DateFormatConverter')),
   'number-formatter': lazy(() => import('./NumberFormatter')),
-  'translator': lazy(() => import('./Translator'))
+  'translator': lazy(() => import('./Translator')),
+  'npm-search': lazy(() => import('./NpmSearch'))
 }
 
 export function getPageComponent(id: string): React.LazyExoticComponent<ComponentType> | null {
