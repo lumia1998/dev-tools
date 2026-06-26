@@ -1,5 +1,5 @@
 import { Info, GitBranch, Heart, ExternalLink, Star } from 'lucide-react'
-import appIcon from '../assets/icon.svg'
+import appIcon from '../assets/about.png'
 
 export default function About(): React.JSX.Element {
   return (
