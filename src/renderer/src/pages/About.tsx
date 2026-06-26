@@ -1,4 +1,5 @@
-import { Info, GitBranch, Heart, ExternalLink, Code, Star } from 'lucide-react'
+import { Info, GitBranch, Heart, ExternalLink, Star } from 'lucide-react'
+import appIcon from '../assets/icon.svg'
 
 export default function About(): React.JSX.Element {
   return (
@@ -8,7 +9,7 @@ export default function About(): React.JSX.Element {
       <div className="about-card">
         <div className="about-header">
           <div className="about-logo">
-            <Code size={40} className="about-logo-icon" />
+            <img src={appIcon} alt="dev-tools" className="about-logo-img" />
           </div>
           <h2 className="about-title">dev-tools</h2>
           <p className="about-subtitle">常用开发工具集合，提升你的开发效率</p>
@@ -58,7 +59,7 @@ export default function About(): React.JSX.Element {
 
           <div className="about-section">
             <h3 className="about-section-title">
-              <Code size={16} className="about-section-icon" />
+              <Star size={16} className="about-section-icon" />
               技术栈
             </h3>
             <div className="about-tech-stack">
