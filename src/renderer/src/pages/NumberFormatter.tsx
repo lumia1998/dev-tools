@@ -4,16 +4,11 @@ import '../styles/number-formatter.css'
 
 type Style = 'decimal' | 'currency' | 'percent' | 'scientific' | 'engineering' | 'hex' | 'octal' | 'binary'
 
-const STYLES: { id: Style; label: string }[] = [
-  { id: 'decimal', label: '十进制' },
-  { id: 'currency', label: '货币' },
-  { id: 'percent', label: '百分比' },
-  { id: 'scientific', label: '科学计数' },
-  { id: 'engineering', label: '工程计数' },
-  { id: 'hex', label: '十六进制' },
-  { id: 'octal', label: '八进制' },
-  { id: 'binary', label: '二进制' }
-]
+interface ResultItem {
+  id: Style
+  label: string
+  value: string
+}
 
 function formatNumber(value: string, style: Style, locale: string, currency: string, fractionDigits: number): string {
   const n = parseFloat(value)
@@ -38,22 +33,33 @@ function formatNumber(value: string, style: Style, locale: string, currency: str
       const engExp = Math.floor(exp / 3) * 3
       const mantissa = abs / Math.pow(10, engExp)
       const sign = negative ? '-' : ''
-      const suffixes = { '-24': 'y', '-21': 'z', '-18': 'a', '-15': 'f', '-12': 'p', '-9': 'n', '-6': 'µ', '-3': 'm', '0': '', '3': 'k', '6': 'M', '9': 'G', '12': 'T', '15': 'P', '18': 'E', '21': 'Z', '24': 'Y' }
-      const suffix = (suffixes as Record<string,string>)[engExp.toString()] || `e${engExp}`
+      const suffixes: Record<string, string> = { '-24': 'y', '-21': 'z', '-18': 'a', '-15': 'f', '-12': 'p', '-9': 'n', '-6': 'µ', '-3': 'm', '0': '', '3': 'k', '6': 'M', '9': 'G', '12': 'T', '15': 'P', '18': 'E', '21': 'Z', '24': 'Y' }
+      const suffix = suffixes[engExp.toString()] || `e${engExp}`
       return `${sign}${mantissa.toFixed(fractionDigits)} ${suffix}`
     }
     case 'hex': {
       const i = Math.round(n)
-      return (i >>> 0).toString(16).toUpperCase() + ' (0x' + (i >>> 0).toString(16).toUpperCase() + ')'
+      return (i >>> 0).toString(16).toUpperCase()
     }
     case 'octal':
-      return (Math.round(n) >>> 0).toString(8) + ' (0o)'
+      return (Math.round(n) >>> 0).toString(8)
     case 'binary':
       return (Math.round(n) >>> 0).toString(2)
     default:
       return n.toString()
   }
 }
+
+const ALL_STYLES: { id: Style; label: string }[] = [
+  { id: 'decimal', label: '十进制 (千分位)' },
+  { id: 'currency', label: '货币' },
+  { id: 'percent', label: '百分比' },
+  { id: 'scientific', label: '科学计数' },
+  { id: 'engineering', label: '工程计数' },
+  { id: 'hex', label: '十六进制' },
+  { id: 'octal', label: '八进制' },
+  { id: 'binary', label: '二进制' }
+]
 
 const LOCALES = [
   { id: 'zh-CN', label: '中文 (zh-CN)' },
@@ -67,18 +73,26 @@ const CURRENCIES = ['CNY', 'USD', 'EUR', 'JPY', 'GBP', 'KRW']
 
 export default function NumberFormatter(): React.JSX.Element {
   const [input, setInput] = useState('')
-  const [style, setStyle] = useState<Style>('decimal')
   const [locale, setLocale] = useState('zh-CN')
   const [currency, setCurrency] = useState('CNY')
   const [fractionDigits, setFractionDigits] = useState(2)
-  const [copied, setCopied] = useState(false)
+  const [copiedId, setCopiedId] = useState<string | null>(null)
 
-  const result = formatNumber(input, style, locale, currency, fractionDigits)
+  const n = parseFloat(input)
+  const hasInput = input.trim() && !isNaN(n)
 
-  const copy = useCallback(async () => {
-    if (result === '—') return
-    try { await navigator.clipboard.writeText(result); setCopied(true); setTimeout(() => setCopied(false), 1500) } catch { /* ignore */ }
-  }, [result])
+  const results: ResultItem[] = hasInput
+    ? ALL_STYLES.map((s) => ({
+        id: s.id,
+        label: s.label,
+        value: formatNumber(input, s.id, locale, currency, fractionDigits)
+      }))
+    : []
+
+  const copyResult = useCallback(async (id: string, value: string) => {
+    if (value === '—') return
+    try { await navigator.clipboard.writeText(value); setCopiedId(id); setTimeout(() => setCopiedId(null), 1500) } catch { /* ignore */ }
+  }, [])
 
   return (
     <div className="nfm-page">
@@ -97,18 +111,6 @@ export default function NumberFormatter(): React.JSX.Element {
           />
         </div>
 
-        <div className="nfm-style-selector">
-          {STYLES.map((s) => (
-            <button
-              key={s.id}
-              className={`nfm-style-btn ${style === s.id ? 'active' : ''}`}
-              onClick={() => setStyle(s.id)}
-            >
-              {s.label}
-            </button>
-          ))}
-        </div>
-
         <div className="nfm-options">
           <div className="nfm-option">
             <span className="nfm-option-label">地区</span>
@@ -116,33 +118,38 @@ export default function NumberFormatter(): React.JSX.Element {
               {LOCALES.map((l) => (<option key={l.id} value={l.id}>{l.label}</option>))}
             </select>
           </div>
-          {style === 'currency' && (
-            <div className="nfm-option">
-              <span className="nfm-option-label">货币</span>
-              <select className="nfm-select" value={currency} onChange={(e) => setCurrency(e.target.value)}>
-                {CURRENCIES.map((c) => (<option key={c} value={c}>{c}</option>))}
-              </select>
-            </div>
-          )}
+          <div className="nfm-option">
+            <span className="nfm-option-label">货币</span>
+            <select className="nfm-select" value={currency} onChange={(e) => setCurrency(e.target.value)}>
+              {CURRENCIES.map((c) => (<option key={c} value={c}>{c}</option>))}
+            </select>
+          </div>
           <div className="nfm-option">
             <span className="nfm-option-label">小数位</span>
             <input className="nfm-digits" type="number" min={0} max={20} value={fractionDigits} onChange={(e) => setFractionDigits(parseInt(e.target.value) || 0)} />
           </div>
         </div>
 
-        <div className="nfm-result-area">
-          <div className="nfm-result-header">
-            <span className="nfm-result-label">格式化结果</span>
-            <button className="nfm-copy-btn" onClick={copy}>
-              {copied ? <Check size={13} /> : <Copy size={13} />}
-              {copied ? '已复制' : '复制'}
-            </button>
+        {hasInput && (
+          <div className="nfm-results">
+            {results.map((r) => (
+              <div key={r.id} className="nfm-result-item">
+                <div className="nfm-result-header">
+                  <span className="nfm-result-label">{r.label}</span>
+                  <button className="nfm-copy-btn" onClick={() => copyResult(r.id, r.value)}>
+                    {copiedId === r.id ? <Check size={13} /> : <Copy size={13} />}
+                    {copiedId === r.id ? '已复制' : '复制'}
+                  </button>
+                </div>
+                <div className="nfm-result-value">{r.value}</div>
+              </div>
+            ))}
           </div>
-          <div className="nfm-result">{result}</div>
-          {input && result !== '—' && (
-            <div className="nfm-raw">原始值: {input}</div>
-          )}
-        </div>
+        )}
+
+        {input && !hasInput && (
+          <div className="nfm-error">请输入有效数字</div>
+        )}
       </div>
     </div>
   )
