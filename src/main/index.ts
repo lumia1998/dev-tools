@@ -180,6 +180,25 @@ function createWindow(): void {
   mainWindow = win
 }
 
+// ── Disable unused Chromium features (memory savings) ──────────
+
+// These must be set before app.whenReady()
+app.commandLine.appendSwitch('disable-features', [
+  'SpellcheckService',        // No spellcheck needed
+  'AutofillServerCommunication', // No form autofill
+  'PasswordImport',           // No password manager
+  'MediaRouter',              // No casting/streaming
+  'TranslateUI',              // No translation
+  'PreloadMediaEngagementData', // No media
+  'InterestFeedContentSuggestions', // No content feed
+  'AutofillEnableAccountWalletStorage', // No payment
+].join(','))
+
+app.commandLine.appendSwitch('disable-speech-api')     // No speech
+app.commandLine.appendSwitch('disable-pdf-viewer')     // No PDF
+app.commandLine.appendSwitch('disable-breakpad')       // No crash reporter
+app.commandLine.appendSwitch('disable-hang-monitor')   // No hang monitor
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
