@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.0.11 (2026-06-26)
+
+**新增**
+- 🤖 **AI Translator** — 基于 OpenAI 兼容 API 的多语言翻译（设置页配置 Base URL / API Key / Model / System Prompt）
+- 📋 **Clipboard Manager** — 剪贴板历史记录（Ctrl+Shift+V 读取）
+- 🖥️ **Screen Info** — 屏幕分辨率/DPI/DPR/色彩深度
+- 🗄️ **Browser Storage Viewer** — localStorage/sessionStorage 查看编辑
+
+**改进**
+- 🔢 Number Formatter 改为输入即时显示全部格式结果
+- 🕐 Timezone Converter / Date Format Converter / Number Formatter 新增 3 个换算工具（v1.0.10 补记）
+
+**修复**
+- 🐛 替换应用图标为用户自定义图标（窗口 + About 页面）
+- 🐛 更新说明弹窗 HTML 正确渲染
+- 🐛 设置页 CSS 闭合错误修复
+
+---
+
 ## v1.0.10 (2026-06-26)
 
 **新增 4 个编码/加密工具** (总共 55 个)
