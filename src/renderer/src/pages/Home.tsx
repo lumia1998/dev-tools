@@ -70,7 +70,7 @@ export default function Home({ onSelectTool }: HomeProps): React.JSX.Element {
           <div className="home-stats">
             <div className="home-stat">
               <span className="home-stat-value">{totalTools}</span>
-              <span className="home-stat-label">工具</span>
+              <span className="home-stat-label">工具总数</span>
             </div>
             <div className="home-stat-divider" />
             <div className="home-stat">
@@ -79,8 +79,8 @@ export default function Home({ onSelectTool }: HomeProps): React.JSX.Element {
             </div>
             <div className="home-stat-divider" />
             <div className="home-stat">
-              <span className="home-stat-value">100%</span>
-              <span className="home-stat-label">离线可用</span>
+              <span className="home-stat-value">{totalTools - tools.filter(t => t.category === '备忘录').length}</span>
+              <span className="home-stat-label">功能工具</span>
             </div>
           </div>
 
