@@ -60,7 +60,11 @@ const pageMap: Record<string, React.LazyExoticComponent<ComponentType>> = {
   'css-cheat-sheet': lazy(() => import('./CssCheatSheet')),
   'json-converter': lazy(() => import('./JsonConverter')),
   'gradient-generator': lazy(() => import('./GradientGenerator')),
-  'html-to-jsx': lazy(() => import('./HtmlToJsx'))
+  'html-to-jsx': lazy(() => import('./HtmlToJsx')),
+  'aes-des-encryptor': lazy(() => import('./AesDesEncryptor')),
+  'certificate-parser': lazy(() => import('./CertificateParser')),
+  'hmac-generator': lazy(() => import('./HmacGenerator')),
+  'ssh-key-generator': lazy(() => import('./SshKeyGenerator'))
 }
 
 export function getPageComponent(id: string): React.LazyExoticComponent<ComponentType> | null {

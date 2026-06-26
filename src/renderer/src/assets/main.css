@@ -48,6 +48,10 @@
 @import '../styles/json-converter.css';
 @import '../styles/gradient-generator.css';
 @import '../styles/html-to-jsx.css';
+@import '../styles/aes-des-encryptor.css';
+@import '../styles/certificate-parser.css';
+@import '../styles/hmac-generator.css';
+@import '../styles/ssh-key-generator.css';
 
 @tailwind base;
 @tailwind components;

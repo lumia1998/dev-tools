@@ -457,5 +457,41 @@
     "category": "开发工具",
     "categoryIcon": "Wrench",
     "isNew": true
+  },
+  {
+    "id": "aes-des-encryptor",
+    "name": "AES/DES Encryptor",
+    "desc": "对称加密/解密（AES-CBC/GCM/CTR/ECB、DES、3DES）",
+    "icon": "ShieldCheck",
+    "category": "编码/加密",
+    "categoryIcon": "Lock",
+    "isNew": true
+  },
+  {
+    "id": "certificate-parser",
+    "name": "Certificate Parser",
+    "desc": "解析 PEM/X.509 证书：颁发者、有效期、SAN、指纹",
+    "icon": "FileKey",
+    "category": "编码/加密",
+    "categoryIcon": "Lock",
+    "isNew": true
+  },
+  {
+    "id": "hmac-generator",
+    "name": "HMAC Generator",
+    "desc": "HMAC-SHA256/512 签名生成",
+    "icon": "Fingerprint",
+    "category": "编码/加密",
+    "categoryIcon": "Lock",
+    "isNew": true
+  },
+  {
+    "id": "ssh-key-generator",
+    "name": "SSH Key Generator",
+    "desc": "生成 Ed25519/RSA 密钥对，显示公钥指纹",
+    "icon": "KeyRound",
+    "category": "编码/加密",
+    "categoryIcon": "Lock",
+    "isNew": true
   }
 ]
