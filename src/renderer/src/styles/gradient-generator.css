@@ -15,8 +15,8 @@
 .gg-color-row { display: flex; gap: 12px; }
 .gg-color-picker { flex: 1; display: flex; flex-direction: column; gap: 6px; }
 .gg-color-label { font-size: 11px; font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
-.gg-color-input-wrap { display: flex; align-items: center; gap: 8px; background: var(--color-editor-bg); border: 1px solid var(--color-border); border-radius: 10px; padding: 6px 10px; }
-.gg-color-input-native { width: 36px; height: 36px; border: none; padding: 0; cursor: pointer; background: none; flex-shrink: 0; border-radius: 8px; overflow: hidden; }
+.gg-color-input-wrap { display: flex; align-items: center; gap: 8px; background: var(--color-editor-bg); border: 1px solid var(--color-border); border-radius: 10px; padding: 4px 10px; min-width: 0; overflow: hidden; }
+.gg-color-input-native { width: 40px; height: 40px; border: none; padding: 0; cursor: pointer; background: none; flex-shrink: 0; border-radius: 6px; overflow: hidden; min-width: 40px; }
 .gg-color-input-text { flex: 1; border: none; background: transparent; font-size: 13px; font-family: 'JetBrains Mono', monospace; color: var(--color-text); outline: none; }
 
 .gg-direction-label { font-size: 11px; font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; display: block; }
