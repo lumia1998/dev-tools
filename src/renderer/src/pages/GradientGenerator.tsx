@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import { Copy, Check, RotateCcw } from 'lucide-react'
 import '../styles/gradient-generator.css'
 
@@ -17,6 +17,7 @@ const PRESETS: [string, string, string][] = [
 ]
 
 export default function GradientGenerator(): React.JSX.Element {
+  const pickerRefs = useRef(new Map<string, HTMLInputElement>())
   const [color1, setColor1] = useState('#6366F1')
   const [color2, setColor2] = useState('#8B5CF6')
   const [direction, setDirection] = useState<GradientDirection>('to bottom right')
@@ -57,9 +58,27 @@ export default function GradientGenerator(): React.JSX.Element {
             ].map((c) => (
               <div key={c.label} className="gg-color-picker">
                 <span className="gg-color-label">{c.label}</span>
-                <div className="gg-color-input-wrap">
-                  <input className="gg-color-input-native" type="color" value={c.val} onChange={(e) => c.set(e.target.value)} />
-                  <input className="gg-color-input-text" value={c.val} onChange={(e) => c.set(e.target.value)} />
+                <div className="gg-color-row-item">
+                  <button
+                    className="gg-color-swatch"
+                    style={{ background: c.val }}
+                    onClick={() => pickerRefs.current.get(c.label)?.click()}
+                    title="点击选择颜色"
+                    type="button"
+                  />
+                  <input
+                    className="gg-color-input-text"
+                    value={c.val}
+                    onChange={(e) => c.set(e.target.value)}
+                    placeholder="#000000"
+                  />
+                  <input
+                    type="color"
+                    className="gg-color-input-hidden"
+                    value={c.val}
+                    onChange={(e) => c.set(e.target.value)}
+                    ref={(el) => { if (el) pickerRefs.current.set(c.label, el) }}
+                  />
                 </div>
               </div>
             ))}
