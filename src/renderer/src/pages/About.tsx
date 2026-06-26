@@ -1,7 +1,18 @@
+import { useState, useEffect } from 'react'
 import { Info, GitBranch, Heart, ExternalLink, Star } from 'lucide-react'
 import appIcon from '../assets/about.png'
+import '../styles/about.css'
 
 export default function About(): React.JSX.Element {
+  const [version, setVersion] = useState('')
+
+  useEffect(() => {
+    window.updater
+      .getVersion()
+      .then(setVersion)
+      .catch(() => setVersion('1.0.0'))
+  }, [])
+
   return (
     <div className="about-page">
       <div className="about-bg-decoration" />
@@ -40,7 +51,7 @@ export default function About(): React.JSX.Element {
             <div className="about-features">
               <div className="about-feature-item">
                 <span className="about-feature-dot" />
-                <span>28+ 实用开发工具，涵盖编码、转换、生成、调试</span>
+                <span>62+ 实用开发工具，涵盖编码、转换、生成、调试</span>
               </div>
               <div className="about-feature-item">
                 <span className="about-feature-dot" />
@@ -66,32 +77,37 @@ export default function About(): React.JSX.Element {
               <span className="about-tech-badge">Electron</span>
               <span className="about-tech-badge">React 19</span>
               <span className="about-tech-badge">TypeScript</span>
-              <span className="about-tech-badge">Vite 7</span>
-              <span className="about-tech-badge">Tailwind CSS</span>
-              <span className="about-tech-badge">Lucide React</span>
-              <span className="about-tech-badge">Radix UI</span>
+              <span className="about-tech-badge">Vite</span>
               <span className="about-tech-badge">CodeMirror 6</span>
+              <span className="about-tech-badge">Lucide</span>
+              <span className="about-tech-badge">Radix UI</span>
+            </div>
+          </div>
+
+          <div className="about-section">
+            <h3 className="about-section-title">
+              <ExternalLink size={16} className="about-section-icon" />
+              相关链接
+            </h3>
+            <div className="about-links">
+              <a
+                className="about-link"
+                href="https://github.com/MY-Final/dev-tools"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <GitBranch size={15} className="about-section-icon" />
+                GitHub 仓库
+              </a>
             </div>
           </div>
         </div>
 
         <div className="about-footer">
-          <div className="about-links">
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="about-link"
-            >
-              <GitBranch size={16} />
-              <span>GitHub</span>
-              <ExternalLink size={12} className="about-link-external" />
-            </a>
-          </div>
           <p className="about-copyright">
             Made with <Heart size={12} className="about-heart" /> by dev-tools
           </p>
-          <p className="about-version">Version 1.0.0</p>
+          <p className="about-version">Version {version || '1.0.0'}</p>
         </div>
       </div>
     </div>
